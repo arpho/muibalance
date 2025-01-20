@@ -1,1 +1,27 @@
-<p>signin works!</p>
+<section>
+  <mat-card class="login-wrapper">
+    <mat-card-header>
+      <h2 class="login-header"> Login </h2>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter email</mat-label>
+        <input type="email" matInput placeholder="Your email" [(ngModel)]="email">
+        <mat-icon matPrefix>email</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Enter password</mat-label>
+        <input type="password" matInput placeholder="Your password" [(ngModel)]="password">
+        <mat-icon matPrefix>password</mat-icon>
+      </mat-form-field>
+      <div class="error" *ngIf="error">{{errorMessage}}</div>
+    </mat-card-content>
+
+    <div class="action-container">
+
+      <button mat-raised-button (click)="submit()">Register</button>
+    </div>
+  </mat-card>
+
+</section>
