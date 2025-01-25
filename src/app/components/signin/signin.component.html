@@ -4,9 +4,35 @@
       <h2 class="login-header"> Login </h2>
     </mat-card-header>
     <mat-card-content>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input type="text" matInput placeholder="nome" [(ngModel)]="firstName" required>
+        <mat-icon matPrefix>person</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Cognome</mat-label>
+        <input type="text" matInput placeholder="cognome" [(ngModel)]="lastName">
+        <mat-icon matPrefix>person_pin</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>User Name</mat-label>
+        <input type="text" matInput placeholder="nome utente" [(ngModel)]="userName">
+        <mat-icon matPrefix>person_pin</mat-icon>
+      </mat-form-field>
+      <div class="error" *ngIf="error">{{errorMessage}}</div>
+    </mat-card-content>
+
+    <mat-form-field>
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="birthDate">
+      <mat-hint>YYYY-MM-DD</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Enter email</mat-label>
-        <input type="email" matInput placeholder="Your email" [(ngModel)]="email">
+        <input type="email" matInput placeholder="Your email" [(ngModel)]="email" required>
         <mat-icon matPrefix>email</mat-icon>
       </mat-form-field>
 
@@ -15,8 +41,12 @@
         <input type="password" matInput placeholder="Your password" [(ngModel)]="password">
         <mat-icon matPrefix>password</mat-icon>
       </mat-form-field>
-      <div class="error" *ngIf="error">{{errorMessage}}</div>
-    </mat-card-content>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Retype password</mat-label>
+        <input type="password" matInput placeholder="Your password" [(ngModel)]="confirmPassword">
+        <mat-icon matPrefix>password</mat-icon>
+      </mat-form-field>
 
     <div class="action-container">
 

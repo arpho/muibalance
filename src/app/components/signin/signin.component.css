@@ -1,0 +1,10 @@
+mat-card-content.mat-mdc-card-content {
+  display: flex
+;
+  flex-direction: column;
+}
+.action-container {
+  display: flex
+;
+  justify-content: flex-end;
+}
