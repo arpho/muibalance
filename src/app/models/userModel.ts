@@ -28,7 +28,6 @@ export class UserModel {
       email: this.email,
       firstName: this.firstName,
       lastName: this.lastName,
-      password: this.password,
       phoneNumber: this.phoneNumber,
       role: this.role,
       userName: this.userName,

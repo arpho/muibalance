@@ -12,7 +12,14 @@ import { MatSelectModule } from '@angular/material/select';
 import {provideNativeDateAdapter} from '@angular/material/core';
 
 import { UserModel } from '../../models/userModel';
-
+import { UsersService } from '../../services/users/users.service';
+import {
+  MatSnackBar,
+  MatSnackBarAction,
+  MatSnackBarActions,
+  MatSnackBarLabel,
+  MatSnackBarRef,
+} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-signup',
   //prettier-ignore
@@ -34,17 +41,6 @@ import { UserModel } from '../../models/userModel';
   standalone: true
 })
 export class SignupComponent {
-submit() {
-const user= new UserModel({
-  email: this.email,
-  password: this.password,
-  firstName: this.firstName,
-  lastName: this.lastName,
-  userName: this.userName,
-  birthDate: new Date(this.birthDate).toISOString().slice(0, 10),
-})
-console.log("user",user)
-}
 birthDate:string|number = new Date().toISOString().slice(0, 10);
 
   email: string = '';
@@ -55,4 +51,31 @@ birthDate:string|number = new Date().toISOString().slice(0, 10);
   lastName: string = '';
   confirmPassword: string = '';
 userName: string = '';
+
+constructor(
+  private Userservice:UsersService,
+  private $snackBar: MatSnackBar
+) {}
+submit() {
+const user= new UserModel({
+  email: this.email,
+  password: this.password,
+  firstName: this.firstName,
+  lastName: this.lastName,
+  userName: this.userName,
+  birthDate: new Date(this.birthDate).toISOString().slice(0, 10),
+})
+console.log("user",user)
+UsersService
+this.Userservice.signupUser(user).then(() => {
+  this.$snackBar.open('User created successfully', 'Close', {
+    duration: 3000,
+  })
+}).catch((error) => {
+  this.$snackBar.open('Error creating user', 'Close', {
+    duration: 3000,
+  })
+  console.error(error)
+})
+}
 }
