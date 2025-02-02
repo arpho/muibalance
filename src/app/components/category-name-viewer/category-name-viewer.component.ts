@@ -17,8 +17,6 @@ export class CategoryNameViewerComponent implements OnInit {
     private service: CategoriesService
   ) { }
   async ngOnInit(){
-    console.log("categoryKey",this.categoryKey)
-    console.log("userKey",this.userKey)
     if(this.categoryKey!="")
     {
     const  category = await this.service.fetchDbCategory(this.categoryKey,this.userKey);

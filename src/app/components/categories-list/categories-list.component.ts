@@ -13,6 +13,25 @@ import { UserModel } from '../../models/userModel';
   standalone: true
 })
 export class CategoriesListComponent  implements OnInit {
+async importCategories2firestore() {
+  let count=0
+console.log("categoria 0",this.Categories()[0])
+const category = this.Categories()[0];
+const userKey = this.user.key;
+this.Categories().forEach(async (category) => {
+  category.setUserKey(userKey);
+   this.service.pushIntoCollection(category).then(() => {
+     count++;
+   }).catch((error) => {
+     console.error('Error pushing category into Firestore:', error);
+   }).finally(() => {
+     if (count === this.Categories().length) {
+       console.log('All categories pushed into Firestore successfully');
+     }
+   });
+
+})
+}
 Categories = signal<CategoryModel[]>([]);
 displayedColumns: string[] = ['name','fatherName'];
 user= new UserModel();

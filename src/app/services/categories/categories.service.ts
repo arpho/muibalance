@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Database, ref,get } from '@angular/fire/database';
-import { Firestore } from '@angular/fire/firestore';
+import { doc, setDoc, Firestore } from '@angular/fire/firestore';
 import {CategoryModel} from  '../../models/categoryModel'
 
 @Injectable({
@@ -33,5 +33,16 @@ async fetchDbCategory(categoryKey:string,userKey:string){
   const categorySnapshot = await get(categoryRef);
   const category = categorySnapshot.val();
   return new CategoryModel(category).setKey(categoryKey)  ;
+}
+
+
+listCategories4User(userKey:string){
+  const categoriesRef = ref(this.db, `categorie/`); // Replace with your actual Firebase database ref
+  const snaps
+  return get(categoriesRef);
+}
+
+pushIntoCollection( collection:CategoryModel) {
+  return setDoc(doc(this.firestore, `categorie/${collection.key}`), collection.serialize());
 }
 }
