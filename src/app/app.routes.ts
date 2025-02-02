@@ -5,6 +5,7 @@ import { authGuard } from './guards/auth.guard';
 import { LoginComponent } from './components/login/login.component';
 import { TestComponent } from './components/test/test.component';
 import { SignupComponent } from './components/signin/signin.component';
+import { CategoriesListComponent } from './components/categories-list/categories-list.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: 'test', component: TestComponent },
   {path: 'signup', component: SignupComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {path:"categories-list", component: CategoriesListComponent}
 ];
 
 @NgModule({

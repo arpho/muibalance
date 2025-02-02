@@ -1,0 +1,11 @@
+<table mat-table [dataSource]="Categories()" class="mat-elevation-z8">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Categoria </th>
+    <td mat-cell *matCellDef="let category"> {{category.name}} </td>
+  </ng-container> <ng-container matColumnDef="fatherName">
+    <th mat-header-cell *matHeaderCellDef> Categoria madre </th>
+    <td mat-cell *matCellDef="let category"> <app-category-name-viewer [categoryKey]="category.fatherKey" [userKey]="user.key"></app-category-name-viewer> </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
