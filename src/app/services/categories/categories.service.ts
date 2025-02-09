@@ -38,7 +38,6 @@ async fetchDbCategory(categoryKey:string,userKey:string){
 
 listCategories4User(userKey:string){
   const categoriesRef = ref(this.db, `categorie/`); // Replace with your actual Firebase database ref
-  const snaps
   return get(categoriesRef);
 }
 
