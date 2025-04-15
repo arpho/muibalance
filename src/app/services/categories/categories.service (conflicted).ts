@@ -5,7 +5,7 @@ import {CategoryModel} from  '../../models/categoryModel'
 import { MyDbService } from '../myDb/my-db.service';
 import { RxDatabase } from 'rxdb';
 import { UsersService } from '../users/users.service';
-import { replicateFirestore } from 'rxdb/plugins/replication-firestore';
+import {replicateFirestore}  from 'rxdb/plugins/replication-firestore'
 
 @Injectable({
   providedIn: 'root'
@@ -41,16 +41,12 @@ this.init()
 }
 
 async init(){
+  console.log("init rxDb",this.rxDb)
   this.db = this.rxDb.db
   this.userKey = (await this.users.getLoggedUser()).key
-
-  try {
-  this.db?.addCollections(this.rxCategories)
-  } catch (error) {
-    console.error(error)
-  }
+  const rxCollection =await  this.db?.addCollections(this.rxCategories)
   const firebaseCollection = collection(this.firestore, 'categorie');
-  const replicationState =this.runReplicateFirestore({
+   const replicationState =this.replicationFirestore({
     collection:this.rxCategories,
     firestore:{projectId:"fir-6062c",
       database:this.fireDb,
@@ -63,9 +59,10 @@ async init(){
 
     }
   )
+  console.log("rxCategories",rxCollection)
 }
-  runReplicateFirestore(p0: any) {
-   replicateFirestore(p0);
+  replicationFirestore(p0: {}) {
+   //this.replicateFirestore(p0);
   }
 
 async getDbCategories(userKey:string){
@@ -85,6 +82,8 @@ async getDbCategories(userKey:string){
 }
 
 async fetchDbCategory(categoryKey:string,userKey:string){
+  console.log("userKey",userKey,"categoryKey",categoryKey)
+  console.log("this.db",this.db)
   const rxCategories = await this.db?.['categorie'].find().exec();
   console.log("rxCategories",rxCategories)
   const categoryRef = ref(this.fireDb, `categorie/${userKey}/${categoryKey}`); // Replace with your actual Firebase database ref
