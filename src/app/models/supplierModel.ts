@@ -19,6 +19,9 @@ export class SupplierModel{
   constructor(data?: {}) {
     this.build(data);
   }
+  set title(value: string) {
+    this.nome=value
+  }
   build(data: {} | undefined) {
     Object.assign(this, data);
     return this
