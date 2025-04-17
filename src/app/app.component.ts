@@ -17,8 +17,6 @@ export class AppComponent implements OnInit {
   }
   title = 'muibalance';
   async ngOnInit() {
-  console.log("ciao")
   const user = await this.user.getLoggedUser();
-  console.log("user",user)
 }
 }

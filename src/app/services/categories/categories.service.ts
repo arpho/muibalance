@@ -16,15 +16,20 @@ rxCategories ={
   categorie:{
     schema:{
       version:0,
+      title:"categorie",
+      description:" dfinisce  una categoria",
       primaryKey:"key",
-      type:'string',
+      type:"object",
+
       properties:
      { title:{type:"string"},
+     key:{type:"string",
+      maxLength:100
+     },
       fatherKey:{type:"string"},
       userKey:{type:"string"},
-      serverTimestamp:{type:"string"}
     },
-  required:['key','userKey','timestamp'],
+
   }
   }
   }
@@ -41,11 +46,21 @@ this.init()
 }
 
 async init(){
-  this.db = this.rxDb.db
+  this.db = this.rxDb.getDb()
+  console.log(" initialized this.db",this.db)
   this.userKey = (await this.users.getLoggedUser()).key
 
   try {
-  this.db?.addCollections(this.rxCategories)
+    console.log("this.db in init",this.rxDb.getDb())
+  const donno = await this.db?.addCollections(this.rxCategories).then (async () => {
+      const collections =  this.db?.collections
+    console.log("collections",collections)
+
+  }).catch((error) => {
+    console.error(error);
+  });
+
+
   } catch (error) {
     console.error(error)
   }
@@ -69,7 +84,6 @@ async init(){
   }
 
 async getDbCategories(userKey:string){
-  console.log("userKey",userKey)
    const categoriesRef = ref(this.fireDb, `categorie/${userKey}`); // Replace with your actual Firebase database ref
    const categoriesSnapshot = await get(categoriesRef);
    const categories = categoriesSnapshot.val();

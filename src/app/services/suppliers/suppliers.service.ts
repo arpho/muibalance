@@ -60,7 +60,7 @@ constructor(
  }
 
 async init(){
-  this.db = this.rxDb.db
+  this.db = this.rxDb.getDb()
   this.userKey = (await this.users.getLoggedUser()).key
   const rxCollection =await  this.db?.addCollections(this.rxSellers)
   try{
