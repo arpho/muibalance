@@ -7,6 +7,7 @@ export class SupplierModel{
   }
   altirude=""
   email=""
+  rootSellerKey=""
   cliente=false
   ecommerce= false
   fidelity_card=""
@@ -34,6 +35,7 @@ export class SupplierModel{
     return {
       address: this.address,
       altirude: this.altirude,
+      rootSellerKey: this.rootSellerKey,
       userKey: this.userKey,
       serverTimestamp: this.serverTimestamp,
       email: this.email,

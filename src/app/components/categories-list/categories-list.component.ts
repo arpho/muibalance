@@ -52,6 +52,7 @@ user= new UserModel();
 
   const categories = await this.service.getDbCategories(this.user.key);
   console.log("categories",categories)
-  this.Categories.set(categories);
+  const rxCategories = await this.service.getCategoriesFromRxDb();
+console.log("rxCategories",rxCategories)
   }
 }

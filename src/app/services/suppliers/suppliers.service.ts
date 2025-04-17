@@ -4,11 +4,45 @@ import { collection, doc, Firestore, setDoc, where,query, getDocs } from '@angul
 import { MyDbService } from '../myDb/my-db.service';
 import { UsersService } from '../users/users.service';
 import { SupplierModel } from '../../models/supplierModel';
+import { RxDatabase } from 'rxdb';
+import { replicateFirestore } from 'rxdb/plugins/replication-firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SuppliersService {
+  db: RxDatabase | undefined;
+rxSellers ={
+  sellers:{
+    schema:{
+      version:0,
+      primaryKey:"key",
+      type:'string',
+      properties:
+     { nome:{type:"string"},
+      rootSellerKey:{type:"string"},
+      userKey:{type:"string"},
+      serverTimestamp:{type:"string"},
+      onLine:{type:"boolean"},
+      email:{type:"string"},
+      cliente:{type:"boolean"},
+      ecommerce:{type:"boolean"},
+      fidelity_card:{type:"string"},
+      address:{
+        type:"object",
+        properties:{
+          address:{type:"string"},
+          latitude:{type:"number"},
+          longitude:{type:"number"}
+        }
+      },
+      note:{type:"string"}
+    },
+  required:['key','userKey','timestamp'],
+  }
+  }
+  }
+  userKey: string = "";
 
 
 constructor(
@@ -17,7 +51,39 @@ constructor(
   private rxDb:MyDbService,
   private users:UsersService,
 
-) { }
+) {
+  this.init()
+ }
+
+ runReplicateFirestore(p0: any) {
+  replicateFirestore(p0);
+ }
+
+async init(){
+  this.db = this.rxDb.db
+  this.userKey = (await this.users.getLoggedUser()).key
+  const rxCollection =await  this.db?.addCollections(this.rxSellers)
+  try{
+  this.db?.addCollections(this.rxSellers)
+  } catch (error) {
+    console.error(error)
+  }
+  const firebaseCollection = collection(this.firestore, 'sellers');
+  const replicationState =this.runReplicateFirestore({
+    collection:rxCollection,
+    firestore:{projectId:"fir-6062c",
+      database:this.fireDb,
+      collection:firebaseCollection},
+      pull:{
+        filter:[
+           where("userKey","==",this.userKey)
+        ]
+      }
+
+    }
+  )
+
+}
   async getSuppliers4User(userKey:string) {
 return  this.fetchSellers4userFromFirestore(userKey) //this.fetchSuppliers4userFromDb(userKey)
 

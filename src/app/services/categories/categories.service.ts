@@ -102,4 +102,20 @@ listCategories4User(userKey:string){
 pushIntoCollection( collection:CategoryModel) {
   return setDoc(doc(this.firestore, `categorie/${collection.key}`), collection.serialize());
 }
+getCategoriesFromRxDb(){
+  return new Promise<CategoryModel[]>((resolve, reject) => {
+    this.db?.['categorie'].find().exec().then((categories) => {
+      const categoriesArray: CategoryModel[] = [];
+      categories.forEach((category) => {
+        const categoryModel = new CategoryModel(category);
+        categoryModel.setKey(category.key);
+        categoriesArray.push(categoryModel);
+      });
+      resolve(categoriesArray);
+    }).catch((error) => {
+      reject(error);
+    });
+
+  })
+}
 }
