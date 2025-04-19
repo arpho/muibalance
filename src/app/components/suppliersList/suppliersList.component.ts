@@ -38,7 +38,7 @@ sellers.forEach(seller=>{
 sellers= signal<SupplierModel[]>([])
 displayedColumns: string[] = [ "nome", "indirizzo", "note"];
   constructor(private service:SuppliersService,
-              private usersService:UsersService
+              private usersService:UsersService,
   ) { }
 
   async ngOnInit(): Promise<void> {

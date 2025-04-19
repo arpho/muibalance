@@ -7,6 +7,7 @@ import { TestComponent } from './components/test/test.component';
 import { SignupComponent } from './components/signin/signin.component';
 import { CategoriesListComponent } from './components/categories-list/categories-list.component';
 import { SuppliersListComponent } from './components/suppliersList/suppliersList.component';
+import { PaymentsListComponent } from './components/paymentsList/paymentsList.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {path:"categories-list", component: CategoriesListComponent},
   {path:"suppliers-list", component: SuppliersListComponent},
+  { path: 'payments-list', component:PaymentsListComponent },
 ];
 
 @NgModule({
