@@ -34,4 +34,8 @@ export class PaymentsService {
     })
     return Payments
   }
+
+  pushPayment2firestore(payment:PaymentModel){
+    return setDoc(doc(this.firestore, `payments/${payment.key}`), payment.serialize());
+  }
 }

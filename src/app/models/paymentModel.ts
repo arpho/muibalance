@@ -1,3 +1,5 @@
+
+import { serverTimestamp } from "firebase/firestore";
 export class PaymentModel {
   key = ''
   nome = ''
@@ -6,6 +8,10 @@ export class PaymentModel {
   }
   note = ''
   fatherPaymentKey = ''
+  userKey = ''
+  _deleted = false
+  serverTimestamp=""
+
   constructor(arg:any) {
 
 
@@ -20,6 +26,9 @@ export class PaymentModel {
     return {
       key: this.key,
       nome: this.nome,
+      userKey: this.userKey,
+      serverTimestamp: serverTimestamp(),
+      _deleted: this._deleted,
       note: this.note,
       fatherPaymentKey: this.fatherPaymentKey,
     };
