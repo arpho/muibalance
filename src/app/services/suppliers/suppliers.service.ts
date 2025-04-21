@@ -10,7 +10,13 @@ import { replicateFirestore } from 'rxdb/plugins/replication-firestore';
 @Injectable({
   providedIn: 'root'
 })
-export class SuppliersService {
+export class SellersService {
+   async fetchSeller(sellerKey: string) {
+    const sellersRef = ref(this.fireDb, `sellers/${sellerKey}`); // Replace with your actual Firebase database refsellesR
+const sellersSnapshot = await  get(sellersRef);
+    const seller = new SupplierModel(sellersSnapshot.val()).setKey(sellerKey);
+    return seller
+  }
   db: RxDatabase | undefined;
 rxSellers ={
   sellers:{

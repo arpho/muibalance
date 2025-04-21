@@ -8,6 +8,7 @@ import { SignupComponent } from './components/signin/signin.component';
 import { CategoriesListComponent } from './components/categories-list/categories-list.component';
 import { SuppliersListComponent } from './components/suppliersList/suppliersList.component';
 import { PaymentsListComponent } from './components/paymentsList/paymentsList.component';
+import { ShoppingCartListComponent } from './components/shoppingCartList/shoppingCartList.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
@@ -18,6 +19,7 @@ export const routes: Routes = [
   {path:"categories-list", component: CategoriesListComponent},
   {path:"suppliers-list", component: SuppliersListComponent},
   { path: 'payments-list', component:PaymentsListComponent },
+  {path:"shoppingCart-list", component: ShoppingCartListComponent},
 ];
 
 @NgModule({

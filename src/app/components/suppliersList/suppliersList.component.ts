@@ -1,6 +1,6 @@
 import { UsersService } from './../../services/users/users.service';
 import { Component, OnInit, signal } from '@angular/core';
-import { SuppliersService } from '../../services/suppliers/suppliers.service';
+import { SellersService } from '../../services/suppliers/suppliers.service';
 import { SupplierModel } from '../../models/supplierModel';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -37,7 +37,7 @@ sellers.forEach(seller=>{
 }
 sellers= signal<SupplierModel[]>([])
 displayedColumns: string[] = [ "nome", "indirizzo", "note"];
-  constructor(private service:SuppliersService,
+  constructor(private service:SellersService,
               private usersService:UsersService,
   ) { }
 
