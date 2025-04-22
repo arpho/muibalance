@@ -16,7 +16,6 @@ export class SellerViewerComponent implements OnInit {
 
   async ngOnInit() {
     const seller = await this.service.fetchSeller(this.sellerKey)
-    console.log("got seller",seller.nome)
     this.seller.set(seller)
   }
 

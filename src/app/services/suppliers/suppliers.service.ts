@@ -13,17 +13,14 @@ import { replicateFirestore } from 'rxdb/plugins/replication-firestore';
 })
 export class SellersService {
    async fetchSeller(sellerKey: string) {
-    console.log(`fetching supplier ${sellerKey}`)
 
 
 let seller = new SellerModel({});
 
     const q = doc(this.firestore, `sellers/${sellerKey}`);
     const querySnapshot = await getDoc(q);
-    console.log("querySnapshot",querySnapshot)
    seller.build(querySnapshot.data()).setKey(sellerKey)
-console.log("seller",seller)
-    return seller
+       return seller
   }
   db: RxDatabase | undefined;
 rxSellers ={

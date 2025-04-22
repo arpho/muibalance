@@ -10,6 +10,9 @@ import { ShoppingCartModel } from '../../models/shoppingCartModel';
   providedIn: 'root'
 })
 export class ShoppingCartService {
+  pushCart2firestore(cart: ShoppingCartModel) {
+    return setDoc(doc(this.firestore, `carts/${cart.key}`), cart.serialize());
+  }
 
   constructor(
     private firestore:Firestore,

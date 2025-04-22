@@ -1,12 +1,15 @@
 import { serverTimestamp } from "@angular/fire/database";
 import { PaymentFraction } from "./paymentsFraction";
+import { _isTestEnvironment } from "@angular/cdk/platform";
+import { ItemsModel } from "./itemsModel";
 
 export class ShoppingCartModel{
   key="";
   buyngDate="";
   title="";
+  items:ItemsModel[]=[];
   _deleted=false;
-  currency="";
+  currency="€";
   set moneta(currency: string) {
     this.currency = currency;
   }
@@ -34,6 +37,9 @@ this.build(arg);
   }
   build(arg?: any) {
     Object.assign(this, arg);
+
+    this.items = this.items.map((item)=>new ItemsModel(item))
+    this.totale = this.items.reduce((acc, item) => acc + item.prezzo, 0);
     if(this.payments.length!=0)
       this.payments = this.payments.map((payment)=>new PaymentFraction(payment))
     else
@@ -60,7 +66,8 @@ this.build(arg);
       serverTimestamp: serverTimestamp(),
       totale: this.totale,
       note: this.note,
-      payments: this.payments
+      items: this.items.map((item)=>item.serialize()),
+      payments: this.payments.map((payment)=>payment.serialize())
     }
   }
 }

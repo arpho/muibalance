@@ -6,6 +6,8 @@ import { ShoppingCartModel } from '../../models/shoppingCartModel';
 import { SellersService } from '../../services/suppliers/suppliers.service';
 import { SellerViewerComponent } from "../sellerViewer/sellerViewer.component";
 import { MySorterPipePipe } from "../../pipes/mySorterPipe.pipe";
+import { MatButtonModule } from '@angular/material/button';
+import { count } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-cart-list',
@@ -13,12 +15,35 @@ import { MySorterPipePipe } from "../../pipes/mySorterPipe.pipe";
   styleUrl: './shoppingCartList.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatTableModule, SellerViewerComponent, MySorterPipePipe]
+  imports: [MatTableModule, SellerViewerComponent, MySorterPipePipe,
+        MatButtonModule,
+  ]
 })
 export class ShoppingCartListComponent implements OnInit {
+  async uploadCarts2firestore() {
+console.log("uploadCarts2firestore")
+const carts = await this.service.getShoppingCartsFRomRealtimeDb((await this.users.getLoggedUser()).key)
+console.log("carts",carts)
+const userKey = (await this.users.getLoggedUser()).key
+let count=0
+carts.forEach(cart=>{
+  cart.userKey = userKey
+  this.service.pushCart2firestore(cart).then(res=>{
+    console.log("pushed",cart)
+    count++;
+  }).catch(err=>{
+    console.log("err on",cart)
+    console.log(err)
+  })
+})
+alert("carts pushed "+count)
+
+}
+seeCart(_t66: any) {
+console.log("seeCart",_t66);
+}
   carts=signal<ShoppingCartModel[]>([])
   displayedColumns: string[] = ["title", "dataAcquisto","note", "totale","fornitore"];
-sorterFunction: any;
   constructor (
     private users:UsersService,
     private service:ShoppingCartService,
