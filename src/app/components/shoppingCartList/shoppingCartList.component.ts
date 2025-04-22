@@ -26,17 +26,12 @@ const carts = await this.service.getShoppingCartsFRomRealtimeDb((await this.user
 console.log("carts",carts)
 const userKey = (await this.users.getLoggedUser()).key
 let count=0
+const data=Object.create(null)
 carts.forEach(cart=>{
   cart.userKey = userKey
-  this.service.pushCart2firestore(cart).then(res=>{
-    console.log("pushed",cart)
-    count++;
-  }).catch(err=>{
-    console.log("err on",cart)
-    console.log(err)
-  })
+data[cart.key]=cart
 })
-alert("carts pushed "+count)
+console.log("data",data)
 
 }
 seeCart(_t66: any) {
