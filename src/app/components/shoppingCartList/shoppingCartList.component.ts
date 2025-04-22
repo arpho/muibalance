@@ -5,6 +5,7 @@ import { UsersService } from '../../services/users/users.service';
 import { ShoppingCartModel } from '../../models/shoppingCartModel';
 import { SellersService } from '../../services/suppliers/suppliers.service';
 import { SellerViewerComponent } from "../sellerViewer/sellerViewer.component";
+import { MySorterPipePipe } from "../../pipes/mySorterPipe.pipe";
 
 @Component({
   selector: 'app-shopping-cart-list',
@@ -12,11 +13,12 @@ import { SellerViewerComponent } from "../sellerViewer/sellerViewer.component";
   styleUrl: './shoppingCartList.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatTableModule, SellerViewerComponent]
+  imports: [MatTableModule, SellerViewerComponent, MySorterPipePipe]
 })
 export class ShoppingCartListComponent implements OnInit {
   carts=signal<ShoppingCartModel[]>([])
   displayedColumns: string[] = ["title", "dataAcquisto","note", "totale","fornitore"];
+sorterFunction: any;
   constructor (
     private users:UsersService,
     private service:ShoppingCartService,
