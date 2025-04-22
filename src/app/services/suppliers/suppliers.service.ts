@@ -1,9 +1,10 @@
+import { set } from 'firebase/database';
 import { Injectable } from '@angular/core';
 import { Database, ref,get } from '@angular/fire/database';
-import { collection, doc, Firestore, setDoc, where,query, getDocs } from '@angular/fire/firestore';
+import { collection, doc, Firestore, setDoc, where,query, getDocs, getDoc } from '@angular/fire/firestore';
 import { MyDbService } from '../myDb/my-db.service';
 import { UsersService } from '../users/users.service';
-import { SupplierModel } from '../../models/supplierModel';
+import { SellerModel } from '../../models/supplierModel';
 import { RxDatabase } from 'rxdb';
 import { replicateFirestore } from 'rxdb/plugins/replication-firestore';
 
@@ -12,9 +13,16 @@ import { replicateFirestore } from 'rxdb/plugins/replication-firestore';
 })
 export class SellersService {
    async fetchSeller(sellerKey: string) {
-    const sellersRef = ref(this.fireDb, `sellers/${sellerKey}`); // Replace with your actual Firebase database refsellesR
-const sellersSnapshot = await  get(sellersRef);
-    const seller = new SupplierModel(sellersSnapshot.val()).setKey(sellerKey);
+    console.log(`fetching supplier ${sellerKey}`)
+
+
+let seller = new SellerModel({});
+
+    const q = doc(this.firestore, `sellers/${sellerKey}`);
+    const querySnapshot = await getDoc(q);
+    console.log("querySnapshot",querySnapshot)
+   seller.build(querySnapshot.data()).setKey(sellerKey)
+console.log("seller",seller)
     return seller
   }
   db: RxDatabase | undefined;
@@ -98,9 +106,9 @@ return  this.fetchSellers4userFromFirestore(userKey) //this.fetchSuppliers4userF
     const q = query(collection(this.firestore, "sellers"), where("userKey", "==", userKey));
     const querySnapshot = await getDocs(q);
     console.log("querySnapshot",querySnapshot)
-    const sellers:SupplierModel[] = [];
+    const sellers:SellerModel[] = [];
     querySnapshot.forEach((doc) => {
-      const supplier = new SupplierModel(doc.data());
+      const supplier = new SellerModel(doc.data());
       supplier.setKey(doc.id);
       sellers.push(supplier);
     });
@@ -113,10 +121,10 @@ return  this.fetchSellers4userFromFirestore(userKey) //this.fetchSuppliers4userF
  const sellersRef =  ref(this.fireDb, `fornitori/${userKey}`); // Replace with your
    const sellersSnapshot = await get(sellersRef);
     const sellers = sellersSnapshot.val();
-   const Sellers:SupplierModel[] = [];
+   const Sellers:SellerModel[] = [];
    console.log("sellers",sellers);
    Object.keys(sellers).forEach((key) => {
-     const supplier = new SupplierModel(sellers[key]);
+     const supplier = new SellerModel(sellers[key]);
      supplier.setKey(key);
      Sellers.push(supplier);
    })
@@ -124,7 +132,7 @@ return  this.fetchSellers4userFromFirestore(userKey) //this.fetchSuppliers4userF
  // actual Firebase database ref
   }
 
-  pushIntoCollection( seller:SupplierModel) {
+  pushIntoCollection( seller:SellerModel) {
     return setDoc(doc(this.firestore, `sellers/${seller.key}`), seller.serialize());
   }
 

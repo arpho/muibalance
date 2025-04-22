@@ -4,6 +4,7 @@ import { ShoppingCartService } from '../../services/shoppingCarts/shopping-cart.
 import { UsersService } from '../../services/users/users.service';
 import { ShoppingCartModel } from '../../models/shoppingCartModel';
 import { SellersService } from '../../services/suppliers/suppliers.service';
+import { SellerViewerComponent } from "../sellerViewer/sellerViewer.component";
 
 @Component({
   selector: 'app-shopping-cart-list',
@@ -11,9 +12,7 @@ import { SellersService } from '../../services/suppliers/suppliers.service';
   styleUrl: './shoppingCartList.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatTableModule,
-
-  ]
+  imports: [MatTableModule, SellerViewerComponent]
 })
 export class ShoppingCartListComponent implements OnInit {
   carts=signal<ShoppingCartModel[]>([])

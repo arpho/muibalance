@@ -1,4 +1,4 @@
-export class SupplierModel{
+export class SellerModel{
   key= ""
   address= {
     address:"",

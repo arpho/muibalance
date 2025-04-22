@@ -1,7 +1,7 @@
 import { UsersService } from './../../services/users/users.service';
 import { Component, OnInit, signal } from '@angular/core';
 import { SellersService } from '../../services/suppliers/suppliers.service';
-import { SupplierModel } from '../../models/supplierModel';
+import { SellerModel } from '../../models/supplierModel';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
@@ -35,7 +35,7 @@ sellers.forEach(seller=>{
     console.log(err)})
 })
 }
-sellers= signal<SupplierModel[]>([])
+sellers= signal<SellerModel[]>([])
 displayedColumns: string[] = [ "nome", "indirizzo", "note"];
   constructor(private service:SellersService,
               private usersService:UsersService,
