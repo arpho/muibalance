@@ -30,6 +30,16 @@ const data=Object.create(null)
 carts.forEach(cart=>{
   cart.userKey = userKey
 data[cart.key]=cart
+this.service.pushCart2firestore(cart).then(res=>{
+  console.log("pushed",cart)
+  count++
+
+}).catch(err=>{
+  console.log("err on",cart)
+  console.log(err)
+}).finally(()=>{
+  console.log("uploaded",count, 'documents')
+})
 })
 console.log("data",data)
 
