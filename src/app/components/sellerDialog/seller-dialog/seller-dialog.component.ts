@@ -17,6 +17,7 @@ import { SellerModel } from '../../../models/supplierModel';
 import { MatInputModule } from '@angular/material/input';
 import { SellersService } from '../../../services/suppliers/suppliers.service';
 import { UsersService } from '../../../services/users/users.service';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-seller-dialog',
@@ -31,12 +32,16 @@ import { UsersService } from '../../../services/users/users.service';
       MatFormFieldModule,
       MatSelectModule,
    MatDialogModule,
+   MatDividerModule,
    MatButtonModule],
   templateUrl: './seller-dialog.component.html',
   styleUrl: './seller-dialog.component.css',
   standalone: true
 })
 export class SellerDialogComponent implements OnInit  {
+geolocalize() {
+console.log("geolocalize")
+}
 onkey($event: KeyboardEvent) {
 console.log("filter for",($event.target as HTMLInputElement).value)
 this.sellers.set(this.sellers().filter(seller=>seller.nome.toLowerCase().includes(($event.target as HTMLInputElement).value.toLowerCase())))
