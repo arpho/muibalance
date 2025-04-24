@@ -38,8 +38,9 @@ export class ShoppingCartService {
     const q = query(collection(this.firestore, "carts"), where("userKey", "==", userKey));
     const querySnapshot = await getDocs(q);
     const Carts = querySnapshot.docs.map((doc) => {
-      const carts = new ShoppingCartModel(doc.data());
-      return carts
+      const cart = new ShoppingCartModel(doc.data());
+      cart.setKey(doc.id);
+      return cart
     })
     return Carts
   }
