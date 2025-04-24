@@ -1,3 +1,4 @@
+import { UsersService } from './../../services/users/users.service';
 import { ChangeDetectionStrategy, Component, inject, model, OnInit, signal } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
@@ -55,7 +56,8 @@ this.dialogRef.close(this.payment())
   })
   async ngOnInit() {
     console.log("payment",this.payment())
-    const payments = await this.paymentsService.getPayments()
+    const loggedUser = await this.Users.getLoggedUser();
+    const payments = await this.paymentsService.getPayments(loggedUser.key)
     this.payments.set(payments)
     this.paymentForm = this.fb.group({
       nome: new  FormControl(this.payment().nome),
@@ -69,7 +71,8 @@ this.dialogRef.close(this.payment())
 
   constructor(
     private fb:FormBuilder,
-    private paymentsService:PaymentsService
+    private paymentsService:PaymentsService,
+    private Users:UsersService
   ) { }
   onNoClick(): void {
     this.dialogRef.close();

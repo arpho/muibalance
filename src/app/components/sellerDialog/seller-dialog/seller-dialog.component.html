@@ -1,0 +1,24 @@
+
+<h2 mat-dialog-title>{{makeWindowTitle()}}</h2>
+<mat-dialog-content>
+  <form [formGroup]="sellerForm">
+    <mat-form-field>
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="nome" [(ngModel)]="seller().nome">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Note</mat-label>
+      <input matInput formControlName="note" [(ngModel)]="seller().note">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Fornitore di riferimento</mat-label>
+      <mat-select matNativeControl matInput formControlName="rootSellerKey" [(ngModel)]="seller().rootSellerKey">
+        <input  matInput (keyup)="onkey($event)">
+        @for(seller of sellers();track seller.key){
+          <mat-option value="{{seller.key}}">{{seller.nome}}</mat-option>}
+
+
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>

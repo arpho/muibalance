@@ -97,7 +97,8 @@ displayedColumns: string[] = ['nome', 'note',];
   }
 
   async ngOnInit() {
-    const payments = await this.service.getPayments()
+    const loggedUser = await this.usersService.getLoggedUser();
+    const payments = await this.service.getPayments(loggedUser.key)
     console.log("payments",payments)
     this.payments.set(payments)
 

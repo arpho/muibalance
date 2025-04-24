@@ -23,10 +23,10 @@ return setDoc(refPayment, res.serialize());
     private users:UsersService
   ) { }
 
-   async getPayments(){
- const getLoggedUser = await this.users.getLoggedUser()
+   async getPayments(userKey:string){
+
  //return this.fetchDocumentsFromRealtimeDb(getLoggedUser.key)
- return this.fetchPaymentsFromFirestore(getLoggedUser.key)
+ return this.fetchPaymentsFromFirestore(userKey)
   }
   async fetchDocumentsFromRealtimeDb(key: string) {
     const sellersRef =  ref(this.fireDb, `pagamenti/${key}`); // Replace with your

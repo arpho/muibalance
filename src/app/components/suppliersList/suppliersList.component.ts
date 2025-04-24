@@ -5,6 +5,9 @@ import { SellerModel } from '../../models/supplierModel';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialog } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SellerDialogComponent } from '../sellerDialog/seller-dialog/seller-dialog.component';
 @Component({
   selector: 'app-suppliersList',
   templateUrl: './suppliersList.component.html',
@@ -13,10 +16,21 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
   imports: [
     MatTableModule,
     MatButtonModule,
-    MatProgressBarModule
+     MatTableModule,
+        MatButtonModule,
+        MatDialogTitle,
+        MatDialogContent,
+        MatDialogActions,
+        MatDialogClose,
+        MatSnackBarModule,
   ],
 })
 export class SuppliersListComponent implements OnInit {
+updateSeller(seller: SellerModel) {
+console.log("updateSeller",seller)
+this.dialog.open(SellerDialogComponent,{
+  data:{data:seller,buttonText:"Update"}})
+}
   progress=signal(0)
 async importSuppliers2firestore() {
 
@@ -39,6 +53,7 @@ sellers= signal<SellerModel[]>([])
 displayedColumns: string[] = [ "nome", "indirizzo", "note"];
   constructor(private service:SellersService,
               private usersService:UsersService,
+              private dialog:MatDialog
   ) { }
 
   async ngOnInit(): Promise<void> {
