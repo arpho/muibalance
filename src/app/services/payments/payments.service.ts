@@ -10,6 +10,11 @@ import { PaymentModel } from '../../models/paymentModel';
   providedIn: 'root'
 })
 export class PaymentsService {
+  updatePayment(res: PaymentModel) {
+const refPayment = doc(this.firestore, `payments/${res.key}`);
+
+return setDoc(refPayment, res.serialize());
+  }
 
   constructor(
       private firestore:Firestore,

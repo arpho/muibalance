@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>editing {{payment().nome}}</h2>
+<mat-dialog-content>
+<form [formGroup]="paymentForm">
+  <mat-form-field>
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="nome" [(ngModel)]="payment().nome">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Note</mat-label>
+    <input matInput formControlName="note" [(ngModel)]="payment().note">
+  </mat-form-field>
+    <mat-form-field>
+    <mat-label> fornitore origine</mat-label>
+<mat-select matNativeControl matInput formControlName="fatherPaymentKey" [(ngModel)]="payment().fatherPaymentKey">
+  <input  matInput formControlName="nome" [(ngModel)]="payment().nome" [disabled]="true">
+  @for(payment of payments();track payment.key){
+    <mat-option value="{{payment.key}}">{{payment.nome}}</mat-option>}
+  </mat-select>
+
+</mat-form-field>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" (click)="updatePayment()" cdkFocusInitial>{{buttonText()}}</button>
+</mat-dialog-actions>

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { PaymentsService } from '../../services/payments/payments.service';
 import { PaymentModel } from '../../models/paymentModel';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +15,9 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { PaymentsDialogComponent } from '../paymentsDialog/paymentsDialog.component';
+import { Subscription } from 'rxjs';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-paymentsList',
@@ -28,12 +31,14 @@ import {
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
+    MatSnackBarModule,
   ],
 })
-export class PaymentsListComponent implements OnInit {
-seePayment(_t36: any) {
-console.log("seePayment",_t36);
-}
+export class PaymentsListComponent implements OnInit, OnDestroy {
+  readonly dialog = inject(MatDialog);
+  subscriptions = new Subscription()
+
+
 async uploadPayments2firestore() {
   const loggedUser = await this.usersService.getLoggedUser();
 
@@ -55,10 +60,41 @@ payments.forEach(payment=>{
 progress=40
 payments = signal<PaymentModel[]>([])
 displayedColumns: string[] = ['nome', 'note',];
+
+
   constructor(
     private service: PaymentsService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private _snackBar: MatSnackBar
   ) { }
+
+  seePayment(_t36: any) {
+    console.log("seePayment",_t36);
+    const dialogRef = this.dialog.open(PaymentsDialogComponent, {
+      data: { data: _t36, buttonText: 'Update' },
+
+    })
+    this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
+      if(res){
+       console.log("edited payment",res)
+       if(res.key){
+        this.service.updatePayment(res).then(res=>{
+          this._snackBar.open('Payment updated successfully', 'Close', {
+
+          })
+        }).catch(err=>{
+          console.error(err)
+          this._snackBar.open('Error updating payment', 'Close', {
+
+          })
+        })
+       }
+      }
+    }))
+    }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe()
+  }
 
   async ngOnInit() {
     const payments = await this.service.getPayments()
