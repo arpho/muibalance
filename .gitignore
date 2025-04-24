@@ -42,3 +42,5 @@ testem.log
 Thumbs.db
 
 src/assets/localhost-1745342756370.json
+
+src/assets/carts.json

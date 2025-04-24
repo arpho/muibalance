@@ -3,6 +3,10 @@ export class ItemsModel {
   prezzo = 0
   moneta= "€"
   descrizione = ""
+cateoriesKey:string[]=[]
+set categorieId(value: string[]) {
+  this.cateoriesKey = value;
+}
   note=""
   picture=""
   constructor(arg:any) {
@@ -18,6 +22,7 @@ export class ItemsModel {
       prezzo: this.prezzo,
       moneta: this.moneta,
       descrizione: this.descrizione,
+      categoriesKey:this.cateoriesKey,
       note: this.note,
       picture: this.picture
     }

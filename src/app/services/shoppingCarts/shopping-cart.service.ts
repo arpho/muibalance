@@ -33,7 +33,18 @@ export class ShoppingCartService {
         })
         return Carts
   }
+
+  async getShoppingCartsFRomFirestore(userKey:string) {
+    const q = query(collection(this.firestore, "carts"), where("userKey", "==", userKey));
+    const querySnapshot = await getDocs(q);
+    const Carts = querySnapshot.docs.map((doc) => {
+      const carts = new ShoppingCartModel(doc.data());
+      return carts
+    })
+    return Carts
+  }
   getCarts4User(userKey:string) {
-    return this.getShoppingCartsFRomRealtimeDb(userKey)
+    //return this.getShoppingCartsFRomRealtimeDb(userKey)
+    return this.getShoppingCartsFRomFirestore(userKey)
   }
 }
