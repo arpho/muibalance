@@ -6,6 +6,15 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 import { UsersService } from '../../services/users/users.service';
 import { serverTimestamp } from '@angular/fire/database';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-paymentsList',
@@ -15,10 +24,16 @@ import { serverTimestamp } from '@angular/fire/database';
   imports: [
     MatTableModule,
     MatButtonModule,
-    MatProgressBarModule
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
   ],
 })
 export class PaymentsListComponent implements OnInit {
+seePayment(_t36: any) {
+console.log("seePayment",_t36);
+}
 async uploadPayments2firestore() {
   const loggedUser = await this.usersService.getLoggedUser();
 
