@@ -20,7 +20,8 @@ export class PaymentsService {
 
    async getPayments(){
  const getLoggedUser = await this.users.getLoggedUser()
- return this.fetchDocumentsFromRealtimeDb(getLoggedUser.key)
+ //return this.fetchDocumentsFromRealtimeDb(getLoggedUser.key)
+ return this.fetchPaymentsFromFirestore(getLoggedUser.key)
   }
   async fetchDocumentsFromRealtimeDb(key: string) {
     const sellersRef =  ref(this.fireDb, `pagamenti/${key}`); // Replace with your
@@ -33,6 +34,20 @@ export class PaymentsService {
       Payments.push(payment);
     })
     return Payments
+  }
+
+  async fetchPaymentsFromFirestore( userKey: string) {
+    const paymentsRef = collection(this.firestore, 'payments');
+
+    const q = query(collection(this.firestore, "payments"), where("userKey", "==", userKey));
+    const querySnapshot = await getDocs(q);
+    const Payments = querySnapshot.docs.map((doc) => {
+      const payment = new PaymentModel(doc.data());
+      payment.setKey(doc.id);
+      return payment
+    })
+    console.log("Payments",Payments)
+    return Payments;
   }
 
   pushPayment2firestore(payment:PaymentModel){
