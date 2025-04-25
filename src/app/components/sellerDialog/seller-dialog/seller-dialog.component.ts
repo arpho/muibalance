@@ -1,4 +1,4 @@
-import { Component, inject, model,  OnInit, signal } from '@angular/core';
+import { Component, inject, model,  OnInit, signal, ViewChild } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -19,27 +19,35 @@ import { SellersService } from '../../../services/suppliers/suppliers.service';
 import { UsersService } from '../../../services/users/users.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { GelocationService } from '../../../services/geolocation/gelocation.service';
+import { DataFormComponent } from '../../forms/sellers/generalData/data-form/data-form.component';
+import { AddressFormComponent } from '../../forms/sellers/address/address-form/address-form.component';
 
 @Component({
   selector: 'app-seller-dialog',
-  imports: [MatDialogTitle,
+  imports: [
+    MatDialogTitle,
     MatDialogContent,
-     MatDialogActions,
-      MatDialogClose,
-      MatInputModule,
-      MatLabel,
-      ReactiveFormsModule,
-      FormsModule,
-      MatFormFieldModule,
-      MatSelectModule,
-   MatDialogModule,
-   MatDividerModule,
-   MatButtonModule],
+    MatDialogActions,
+    MatDialogClose,
+    MatInputModule,
+    MatLabel,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatButtonModule,
+    DataFormComponent,
+    AddressFormComponent
+  ],
   templateUrl: './seller-dialog.component.html',
   styleUrl: './seller-dialog.component.css',
   standalone: true
 })
 export class SellerDialogComponent implements OnInit  {
+  @ViewChild(DataFormComponent, { static: true })dataSection!: DataFormComponent;
+  @ViewChild(AddressFormComponent, { static: true })addressSection!: AddressFormComponent;
 updateSeller() {
 this.dialogRef.close(this.seller() )
 }
@@ -77,7 +85,8 @@ this.sellers.set(this.sellers().filter(seller=>seller.nome.toLowerCase().include
   constructor(
     private sellers_Service:SellersService,
     private users:UsersService,
-    private geolocation:GelocationService
+    private geolocation:GelocationService,
+    private fb:FormBuilder
   ) { }
 makeWindowTitle() {
 return `editing ${this.seller().nome}`
@@ -91,16 +100,11 @@ return `editing ${this.seller().nome}`
  this.sellers.set(sellers)
 console.log("address",this.seller().address.address)
 this.address = this.seller().address
- this.addressForm = new FormGroup({
-  address: new  FormControl(this.address.address),
-  latitude: new  FormControl(this.address.latitude),
-  longitude: new  FormControl(this.address.longitude)
- })
- this.sellerForm = new FormGroup({
-  nome: new  FormControl(this.seller().nome),
-  note:new FormControl(this.seller().note),
-  rootSellerKey: new FormControl(this.seller().rootSellerKey),
-  address: this.addressForm
+const dataForm = this.dataSection.initializeForm()
+const addressForm = this.addressSection.initializeForm()
+this.sellerForm = this.fb.group({
+  data:dataForm,
+  address:addressForm
 })
   }
 

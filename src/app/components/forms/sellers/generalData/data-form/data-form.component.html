@@ -1,0 +1,11 @@
+<form [formGroup]="dataForm">
+  <mat-form-field>
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="name" [(ngModel)]="seller.nome">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Note</mat-label>
+    <input matInput formControlName="note" [(ngModel)]="seller.note">
+  </mat-form-field>
+</form>

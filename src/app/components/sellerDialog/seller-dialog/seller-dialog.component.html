@@ -1,43 +1,9 @@
 
 <h2 mat-dialog-title>{{makeWindowTitle()}}</h2>
 <mat-dialog-content>
-  <form [formGroup]="sellerForm">
-    <mat-form-field>
-      <mat-label>Nome</mat-label>
-      <input matInput formControlName="nome" [(ngModel)]="seller().nome">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Note</mat-label>
-      <input matInput formControlName="note" [(ngModel)]="seller().note">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Fornitore di riferimento</mat-label>
-      <mat-select matNativeControl matInput formControlName="rootSellerKey" [(ngModel)]="seller().rootSellerKey">
-        <input  matInput (keyup)="onkey($event)">
-        @for(seller of sellers();track seller.key){
-          <mat-option value="{{seller.key}}">{{seller.nome}}</mat-option>}
+  <app-data-form [seller]="seller()" ></app-data-form>
+  <app-address-form [seller]="seller()" ></app-address-form>
 
-
-      </mat-select>
-    </mat-form-field>
-    <mat-divider></mat-divider>
-    <mat-form-field>
-      <mat-label>Indirizzo</mat-label>
-      <input matInput formControlName="address" [(ngModel)]="address.address">
-      <p>Latitudine: {{address.latitude}} Longitudine: {{address.longitude}}  indirizzo: {{address.address}}</p>
-    </mat-form-field>
-    <div id="coords">
-      <mat-form-field>
-        <mat-label>Latitudine</mat-label>
-        <input matInput formControlName="latitude" [(ngModel)]="address.latitude">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Longitudine</mat-label>
-        <input matInput formControlName="longitude" [(ngModel)]="address.longitude">
-      </mat-form-field>
-    </div>
-    <button mat-button (click)="geolocalize()" >geolocalize</button>
-  </form>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
     <button mat-button [mat-dialog-close]="true" (click)="updateSeller()" cdkFocusInitial>{{buttonText()}}</button>
