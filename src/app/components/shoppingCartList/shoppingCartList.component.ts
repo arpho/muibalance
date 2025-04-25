@@ -8,6 +8,7 @@ import { SellerViewerComponent } from "../sellerViewer/sellerViewer.component";
 import { MySorterPipePipe } from "../../pipes/mySorterPipe.pipe";
 import { MatButtonModule } from '@angular/material/button';
 import { count } from 'rxjs';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-shopping-cart-list',
@@ -15,11 +16,16 @@ import { count } from 'rxjs';
   styleUrl: './shoppingCartList.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatTableModule, SellerViewerComponent, MySorterPipePipe,
-        MatButtonModule,
+  imports: [
+    MatTableModule,
+    SellerViewerComponent,
+    MySorterPipePipe,
+    MatButtonModule,
+    MatProgressBarModule
   ]
 })
 export class ShoppingCartListComponent implements OnInit {
+  progress = signal(0)
   async uploadCarts2firestore() {
 console.log("uploadCarts2firestore")
 const carts = await this.service.getShoppingCartsFRomRealtimeDb((await this.users.getLoggedUser()).key)
@@ -33,7 +39,7 @@ data[cart.key]=cart
 this.service.pushCart2firestore(cart).then(res=>{
   console.log("pushed",cart)
   count++
-
+this.progress.set((count/carts.length)*100)
 }).catch(err=>{
   console.log("err on",cart)
   console.log(err)
