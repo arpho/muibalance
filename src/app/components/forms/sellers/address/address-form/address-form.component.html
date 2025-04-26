@@ -1,5 +1,5 @@
 <form [formGroup]="addressForm">
-  <button mat-button (click)="geolocalize()" cdkFocusInitial>Geolocalizza</button>
+  <button mat-button (click)="geolocalize()" cdkFocusInitial> <mat-icon fontIcon="my_location"></mat-icon>  Geolocalizza</button>
   <mat-form-field>
     <mat-label>Address</mat-label>
     <input matInput formControlName="address" [(ngModel)]="seller.address.address">

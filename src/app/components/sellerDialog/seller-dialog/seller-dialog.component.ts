@@ -61,7 +61,7 @@ longitude: 10
 })
 this.geolocation.getCurrentPosition().subscribe({
 next:(position)=>{
-console.log("got position",position)
+console.log("got position",position);
 },
 error:(error)=>{ console.error("error getting positionerror getting position",error)
 

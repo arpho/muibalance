@@ -7,6 +7,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { GelocationService } from '../../../../../services/geolocation/gelocation.service';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-address-form',
@@ -18,7 +21,8 @@ import { GelocationService } from '../../../../../services/geolocation/gelocatio
         MatInputModule,
         MatSelectModule,
         MatSelectModule,
-        MatButtonModule
+        MatButtonModule,
+        MatIconModule
   ],
   templateUrl: './address-form.component.html',
   styleUrl: './address-form.component.css',
@@ -27,11 +31,18 @@ import { GelocationService } from '../../../../../services/geolocation/gelocatio
 export class AddressFormComponent {
 async geolocalize() {
 console.log("geolocalize")
+const address =   await this.geolocation.reverseGeocode(this.seller.address.latitude,this.seller.address.longitude)
+console.log("address prima ",address)
 this.geolocation.getCurrentPosition().subscribe({
-next:(position)=>{
+next:async (position)=>{
 console.log("got position",position)
+this.seller.address.latitude = position.coords.latitude
+this.seller.address.longitude = position.coords.longitude
+const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=${environment.GOOGLEapikEY}`
+const res = await this.geolocation.reverseGeocode(this.seller.address.latitude,this.seller.address.longitude)
+console.log("address",res)
 },
-error:(error)=>{ console.error("error getting positionerror getting position",error)
+error:(error)=>{ console.error("error getting position",error)
 
 }
 })
@@ -42,7 +53,8 @@ error:(error)=>{ console.error("error getting positionerror getting position",er
 
   constructor(
     private fb:FormBuilder,
-    private geolocation:GelocationService
+    private geolocation:GelocationService,
+    private http:HttpClient
   ) {
     this.addressForm = this.fb.group({
       address: this.seller.address.address,
@@ -51,7 +63,7 @@ error:(error)=>{ console.error("error getting positionerror getting position",er
     })
   }
   initializeForm(){
-    console.log("initialize address Form ",this.seller)
+
     this.addressForm = this.fb.group({
       address: this.seller.address.address,
       latitude: this.seller.address.latitude,
