@@ -6,7 +6,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialog } from '@angular/material/dialog';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { SellerDialogComponent } from '../sellerDialog/seller-dialog/seller-dialog.component';
 @Component({
   selector: 'app-suppliersList',
@@ -23,6 +23,7 @@ import { SellerDialogComponent } from '../sellerDialog/seller-dialog/seller-dial
         MatDialogActions,
         MatDialogClose,
         MatSnackBarModule,
+        MatProgressBarModule
   ],
 })
 export class SuppliersListComponent implements OnInit {
@@ -37,9 +38,10 @@ async importSuppliers2firestore() {
 const user = await this.usersService.getLoggedUser();
 const sellers = await this.service.fetchSuppliers4userFromDb(user.key)
 console.log("ready 2 upload")
+let count=0
 sellers.forEach(seller=>{
   seller.userKey = user.key
-  let count =0
+
   this.service.pushIntoCollection(seller).then(res=>{
     console.log("pushed",seller)
     count++
@@ -48,12 +50,16 @@ sellers.forEach(seller=>{
     console.log("err on",seller)
     console.log(err)})
 })
+this.snackBar.open(`${count} suppliers imported successfully`, 'Close', {
+  duration: 3000,
+})
 }
 sellers= signal<SellerModel[]>([])
 displayedColumns: string[] = [ "nome", "indirizzo", "note"];
   constructor(private service:SellersService,
               private usersService:UsersService,
-              private dialog:MatDialog
+              private dialog:MatDialog,
+              private snackBar:MatSnackBar
   ) { }
 
   async ngOnInit(): Promise<void> {
