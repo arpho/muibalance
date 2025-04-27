@@ -1,5 +1,5 @@
 import { UsersService } from './../../services/users/users.service';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { SellersService } from '../../services/suppliers/suppliers.service';
 import { SellerModel } from '../../models/supplierModel';
 import { MatTableModule } from '@angular/material/table';
@@ -8,6 +8,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { SellerDialogComponent } from '../sellerDialog/seller-dialog/seller-dialog.component';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-suppliersList',
   templateUrl: './suppliersList.component.html',
@@ -26,11 +27,30 @@ import { SellerDialogComponent } from '../sellerDialog/seller-dialog/seller-dial
         MatProgressBarModule
   ],
 })
-export class SuppliersListComponent implements OnInit {
+export class SuppliersListComponent implements OnInit,OnDestroy {
+  subscriptions = new Subscription()
 updateSeller(seller: SellerModel) {
 console.log("updateSeller",seller)
-this.dialog.open(SellerDialogComponent,{
+
+const dialogRef = this.dialog.open(SellerDialogComponent,{
   data:{data:seller,buttonText:"Update"}})
+  this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
+    if(res){
+      seller.build(res)
+      console.log("res for updated seller ",seller)
+      this.service.updateSupplier(seller).then(res=>{
+        console.log("updated",res)
+        this.snackBar.open('Supplier updated successfully', 'Close', {
+          duration: 3000,
+        })
+      }).catch(err=>{
+        console.error(err)
+        this.snackBar.open('Error updating supplier', 'Close', {
+          duration: 3000,
+        })
+      })
+  }
+  }))
 }
   progress=signal(0)
 async importSuppliers2firestore() {
@@ -61,6 +81,9 @@ displayedColumns: string[] = [ "nome", "indirizzo", "note"];
               private dialog:MatDialog,
               private snackBar:MatSnackBar
   ) { }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe()
+  }
 
   async ngOnInit(): Promise<void> {
     const user = await this.usersService.getLoggedUser();

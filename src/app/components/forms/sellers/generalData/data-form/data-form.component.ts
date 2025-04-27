@@ -6,6 +6,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-data-form',
@@ -17,7 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatSelectModule,
     MatSelectModule,
-
+    MatSlideToggleModule
   ],
   templateUrl: './data-form.component.html',
   styleUrl: './data-form.component.css',
@@ -29,14 +30,16 @@ export class DataFormComponent {
   constructor(private fb:FormBuilder) {
     this.dataForm = this.fb.group({
       name: this.seller.nome,
-      email: this.seller.email,
+      ecommerce: this.seller.ecommerce,
+      cliente: this.seller.cliente,
       note: this.seller.note
     })
    }
    initializeForm(){
     this.dataForm = this.fb.group({
       name: this.seller.nome,
-      email: this.seller.email,
+      ecommerce: this.seller.ecommerce,
+      cliente: this.seller.cliente,
       note: this.seller.note
     })
     return this.dataForm

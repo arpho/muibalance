@@ -11,7 +11,7 @@ export class GelocationService {
     private http:HttpClient
   ) { }
 
-  reverseGeocode (latitude: number, longitude: number){
+  reverseGeocode (latitude: number, longitude: number): Promise<any> {
     console.log(`getting address for ${latitude},${longitude}`)
 
     return new Promise((resolve, reject) => {

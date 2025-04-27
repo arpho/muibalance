@@ -12,6 +12,9 @@ import { replicateFirestore } from 'rxdb/plugins/replication-firestore';
   providedIn: 'root'
 })
 export class SellersService {
+  updateSupplier(seller: SellerModel) {
+    return setDoc(doc(this.firestore, `sellers/${seller.key}`), seller.serialize());
+  }
    async fetchSeller(sellerKey: string) {
 
 

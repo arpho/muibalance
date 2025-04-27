@@ -1,0 +1,5 @@
+<mat-list role="list">
+  @for(item of itemsList();track item){
+    <mat-list-item role="listitem" (click)="selectItem(item)"> {{item}} </mat-list-item>
+  }
+  </mat-list>

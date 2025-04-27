@@ -8,4 +8,14 @@
     <mat-label>Note</mat-label>
     <input matInput formControlName="note" [(ngModel)]="seller.note">
   </mat-form-field>
+  <mat-form-field>
+    <input matInput hidden="true"  formControlName="ecommerce" [(ngModel)]="seller.ecommerce">
+    <mat-label>pratica ecommerce</mat-label>
+    <mat-slide-toggle matInput formControlName="ecommerce" [(ngModel)]="seller.ecommerce"></mat-slide-toggle>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput hidden="true"  formControlName="cliente" [(ngModel)]="seller.cliente">
+    <mat-label>è un cliente</mat-label>
+    <mat-slide-toggle matInput formControlName="cliente" [(ngModel)]="seller.cliente"></mat-slide-toggle>
+  </mat-form-field>
 </form>
