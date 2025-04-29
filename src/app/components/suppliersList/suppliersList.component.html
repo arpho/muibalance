@@ -1,5 +1,7 @@
 
 <button mat-button (click)="importSuppliers2firestore()">upload Sellers</button>
+<button mat-fab extended id="createSellerr" (click)="createSupplier()">
+  <mat-icon>add</mat-icon> crea venditore</button>
 <mat-progress-bar mode="determinate" value="{{progress()}}"></mat-progress-bar>
 <table mat-table [dataSource]="sellers()" class="mat-elevation-z8">
   <ng-container matColumnDef="nome">

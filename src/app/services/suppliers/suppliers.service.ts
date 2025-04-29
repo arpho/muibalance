@@ -1,7 +1,7 @@
 import { set } from 'firebase/database';
 import { Injectable } from '@angular/core';
 import { Database, ref,get } from '@angular/fire/database';
-import { collection, doc, Firestore, setDoc, where,query, getDocs, getDoc } from '@angular/fire/firestore';
+import { collection, doc, Firestore, setDoc, where,query, getDocs, getDoc,addDoc } from '@angular/fire/firestore';
 import { MyDbService } from '../myDb/my-db.service';
 import { UsersService } from '../users/users.service';
 import { SellerModel } from '../../models/supplierModel';
@@ -12,6 +12,10 @@ import { replicateFirestore } from 'rxdb/plugins/replication-firestore';
   providedIn: 'root'
 })
 export class SellersService {
+  createSupplier(seller: SellerModel) {
+    collection(this.firestore, `sellers`);
+    return addDoc(collection(this.firestore, `sellers`), seller.serialize());
+  }
   updateSupplier(seller: SellerModel) {
     return setDoc(doc(this.firestore, `sellers/${seller.key}`), seller.serialize());
   }

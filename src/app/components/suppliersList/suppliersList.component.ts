@@ -9,6 +9,7 @@ import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, Mat
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { SellerDialogComponent } from '../sellerDialog/seller-dialog/seller-dialog.component';
 import { Subscription } from 'rxjs';
+import { MatIcon } from '@angular/material/icon';
 @Component({
   selector: 'app-suppliersList',
   templateUrl: './suppliersList.component.html',
@@ -24,10 +25,34 @@ import { Subscription } from 'rxjs';
         MatDialogActions,
         MatDialogClose,
         MatSnackBarModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        MatIcon
   ],
 })
 export class SuppliersListComponent implements OnInit,OnDestroy {
+createSupplier() {
+console.log("createSupplier")
+const newSeller = new SellerModel()
+const dialogRef = this.dialog.open(SellerDialogComponent,{
+  data:{data:newSeller,buttonText:"Crea fornitore"}
+})
+this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
+  if(res){
+    console.log("res for created supplier ",res)
+    this.service.createSupplier(res).then(res=>{
+      console.log("created",res)
+      this.snackBar.open('Supplier created successfully', 'Close', {
+        duration: 3000,
+      })
+    }).catch(err=>{
+      console.error(err)
+      this.snackBar.open('Error creating supplier', 'Close', {
+        duration: 3000,
+      })
+    })
+}
+}))
+}
   subscriptions = new Subscription()
 updateSeller(seller: SellerModel) {
 console.log("updateSeller",seller)
