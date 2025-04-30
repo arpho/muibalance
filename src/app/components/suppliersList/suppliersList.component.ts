@@ -10,6 +10,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { SellerDialogComponent } from '../sellerDialog/seller-dialog/seller-dialog.component';
 import { Subscription } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar'
 @Component({
   selector: 'app-suppliersList',
   templateUrl: './suppliersList.component.html',
@@ -26,7 +27,8 @@ import { MatIcon } from '@angular/material/icon';
         MatDialogClose,
         MatSnackBarModule,
         MatProgressBarModule,
-        MatIcon
+        MatIcon,
+        MatToolbarModule
   ],
 })
 export class SuppliersListComponent implements OnInit,OnDestroy {
@@ -34,7 +36,9 @@ createSupplier() {
 console.log("createSupplier")
 const newSeller = new SellerModel()
 const dialogRef = this.dialog.open(SellerDialogComponent,{
-  data:{data:newSeller,buttonText:"Crea fornitore"}
+  data:{data:newSeller,buttonText:"Crea fornitore"},
+  height:"80%",
+  width:"90%"
 })
 this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
   if(res){
@@ -58,7 +62,12 @@ updateSeller(seller: SellerModel) {
 console.log("updateSeller",seller)
 
 const dialogRef = this.dialog.open(SellerDialogComponent,{
-  data:{data:seller,buttonText:"Update"}})
+  data:{data:seller,buttonText:"Update"},
+height:"80%",
+width:"90%"}
+
+
+)
   this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
     if(res){
       seller.build(res)

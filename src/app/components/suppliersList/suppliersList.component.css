@@ -1,0 +1,18 @@
+body{
+  overflow: visible;
+  display: block;
+}
+
+app-suppliersList{
+  display: block;
+  overflow: visible;
+}
+div#commands{
+  display: flex;
+  justify-content: flex-end;
+  position:sticky;
+  top:0px;
+  z-index: 100;
+  background: #f2f6f8;
+  padding: 5px;
+}
