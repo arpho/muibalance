@@ -43,9 +43,30 @@ import { MyMenuComponent } from '../menu/my-menu/my-menu.component';
 export class PaymentsListComponent implements OnInit, OnDestroy {
 createPayment() {
 console.log("createPayment")
+const dialogRef = this.dialog.open(PaymentsDialogComponent, {
+  data: { data: new PaymentModel(), buttonText: 'Create' },
+
+})
+this.subscriptions.add(dialogRef.afterClosed().subscribe(res => {
+  if (res) {
+    console.log("res for created payment ", res)
+    this.service.createPayment(res).then(res => {
+      console.log("created", res)
+      this._snackBar.open('Payment created successfully', 'Close', {
+        duration: 3000,
+      })
+    }).catch(err => {
+      console.error(err)
+      this._snackBar.open('Error creating payment', 'Close', {
+        duration: 3000,
+      })
+    })
+  }
+}))
 }
   readonly dialog = inject(MatDialog);
   subscriptions = new Subscription()
+
 
 
 async uploadPayments2firestore() {

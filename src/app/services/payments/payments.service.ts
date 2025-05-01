@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Database, ref,get } from '@angular/fire/database';
-import { collection, doc, Firestore, setDoc, where,query, getDocs } from '@angular/fire/firestore';
+import { collection, doc, Firestore, setDoc, where,query, getDocs, addDoc } from '@angular/fire/firestore';
 import { MyDbService } from '../myDb/my-db.service';
 import { UsersService } from '../users/users.service';
 import { PaymentModel } from '../../models/paymentModel';
@@ -10,6 +10,9 @@ import { PaymentModel } from '../../models/paymentModel';
   providedIn: 'root'
 })
 export class PaymentsService {
+  createPayment(payment: PaymentModel) {
+   return addDoc(collection(this.firestore, `payments`), payment.serialize());
+  }
   updatePayment(res: PaymentModel) {
 const refPayment = doc(this.firestore, `payments/${res.key}`);
 

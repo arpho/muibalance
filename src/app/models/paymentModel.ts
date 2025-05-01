@@ -12,7 +12,7 @@ export class PaymentModel {
   _deleted = false
   serverTimestamp=""
 
-  constructor(arg:any) {
+  constructor(arg?:any) {
 
 
     this.build(arg);
