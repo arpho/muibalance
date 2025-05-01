@@ -1,0 +1,11 @@
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>menu</mat-icon>
+</button>
+  <mat-menu #menu="matMenu">
+@for(item of menuItems; track item){
+    <button mat-menu-item [routerLink]="item.link">
+      <mat-icon>{{item.icon}}</mat-icon>
+      {{item.title}}
+    </button>
+}
+  </mat-menu>

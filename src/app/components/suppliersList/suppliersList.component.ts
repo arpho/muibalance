@@ -11,6 +11,7 @@ import { SellerDialogComponent } from '../sellerDialog/seller-dialog/seller-dial
 import { Subscription } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar'
+import { MyMenuComponent } from "../menu/my-menu/my-menu.component";
 @Component({
   selector: 'app-suppliersList',
   templateUrl: './suppliersList.component.html',
@@ -19,17 +20,18 @@ import {MatToolbarModule} from '@angular/material/toolbar'
   imports: [
     MatTableModule,
     MatButtonModule,
-     MatTableModule,
-        MatButtonModule,
-        MatDialogTitle,
-        MatDialogContent,
-        MatDialogActions,
-        MatDialogClose,
-        MatSnackBarModule,
-        MatProgressBarModule,
-        MatIcon,
-        MatToolbarModule
-  ],
+    MatTableModule,
+    MatButtonModule,
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+    MatSnackBarModule,
+    MatProgressBarModule,
+    MatIcon,
+    MatToolbarModule,
+    MyMenuComponent
+],
 })
 export class SuppliersListComponent implements OnInit,OnDestroy {
 createSupplier() {
