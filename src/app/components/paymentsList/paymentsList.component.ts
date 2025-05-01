@@ -18,6 +18,9 @@ import {
 import { PaymentsDialogComponent } from '../paymentsDialog/paymentsDialog.component';
 import { Subscription } from 'rxjs';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIcon } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MyMenuComponent } from '../menu/my-menu/my-menu.component';
 
 @Component({
   selector: 'app-paymentsList',
@@ -32,9 +35,15 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatDialogActions,
     MatDialogClose,
     MatSnackBarModule,
+    MatIcon,
+    MatToolbarModule,
+    MyMenuComponent
   ],
 })
 export class PaymentsListComponent implements OnInit, OnDestroy {
+createPayment() {
+console.log("createPayment")
+}
   readonly dialog = inject(MatDialog);
   subscriptions = new Subscription()
 

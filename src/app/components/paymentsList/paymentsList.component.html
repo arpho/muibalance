@@ -1,6 +1,13 @@
 
 <button mat-button (click)="uploadPayments2firestore()">upload Payments</button>
-
+<mat-toolbar style=" position: fixed;top:0%;width:100%; z-index:100">
+  <div id="commands">
+ <app-my-menu></app-my-menu>
+<button mat-button (click)="uploadPayments2firestore()">upload Payments</button>
+<button mat-fab extended id="createSellerr" (click)="createPayment()">
+  <mat-icon>add</mat-icon> crea Pagamento</button>
+  </div>
+  </mat-toolbar>
 
 <table mat-table [dataSource]="payments()" class="mat-elevation-z8">
 

@@ -15,4 +15,5 @@ div#commands{
   z-index: 100;
   background: #f2f6f8;
   padding: 5px;
+  width: 100%;
 }

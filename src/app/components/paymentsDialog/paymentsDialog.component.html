@@ -10,7 +10,7 @@
     <input matInput formControlName="note" [(ngModel)]="payment().note">
   </mat-form-field>
     <mat-form-field>
-    <mat-label> fornitore origine</mat-label>
+    <mat-label> Pagamento base</mat-label>
 <mat-select matNativeControl matInput formControlName="fatherPaymentKey" [(ngModel)]="payment().fatherPaymentKey">
   <input  matInput formControlName="nome" [(ngModel)]="payment().nome" [disabled]="true">
   @for(payment of payments();track payment.key){
