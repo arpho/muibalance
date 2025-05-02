@@ -1,0 +1,12 @@
+form {
+  display: flex
+;
+  flex-direction: column;
+}
+
+app-seller-selector {
+  display: flex
+;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}

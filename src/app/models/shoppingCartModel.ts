@@ -6,6 +6,8 @@ import { ItemsModel } from "./itemsModel";
 export class ShoppingCartModel{
   key="";
   buyngDate="";
+  deliveredDate="";
+  delivered=false;
   title="";
   items:ItemsModel[]=[];
   _deleted=false;
@@ -56,11 +58,13 @@ this.build(arg);
     return {
       key: this.key,
       buyngDate: this.buyngDate,
+      deliveredDate: this.deliveredDate,
       title: this.title,
       _deleted: this._deleted,
       currency: this.currency,
       userKey: this.userKey,
       sellerKey: this.sellerKey,
+      delivered: this.delivered,
       online: this.online,
       paymentsKey: this.paymentsKey,
       serverTimestamp: serverTimestamp(),

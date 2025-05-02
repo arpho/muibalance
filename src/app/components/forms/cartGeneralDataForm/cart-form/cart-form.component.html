@@ -1,0 +1,56 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Titolo</mat-label>
+    <input matInput formControlName="title" [(ngModel)]="cart.title">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Note</mat-label>
+    <input matInput formControlName="note" [(ngModel)]="cart.note">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Totale</mat-label>
+    <input matInput formControlName="totale" [(ngModel)]="cart.totale">
+  </mat-form-field>
+  <input matInput hidden="true" formControlName="id" [(ngModel)]="cart.key">
+  <mat-label>acquisto online</mat-label>
+  <mat-slide-toggle matInput formControlName="online" [(ngModel)]="cart.online"></mat-slide-toggle>
+  @if(cart.online){
+
+
+  <mat-form-field>
+    <mat-label>Consegnato</mat-label>
+    <input matInput hidden="true" formControlName="id" [(ngModel)]="cart.key">
+      <mat-slide-toggle matInput formControlName="delivered" [(ngModel)]="cart.delivered"></mat-slide-toggle>
+  </mat-form-field>
+}
+
+<mat-form-field>
+  <mat-label>data di acquisto</mat-label>
+  <input matInput [matDatepicker]="picker0" formControlName="buyngDate" [(ngModel)]="cart.buyngDate">
+  <mat-hint>DD/MM/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker0"></mat-datepicker-toggle>
+  <mat-datepicker #picker0></mat-datepicker>
+</mat-form-field>
+
+
+<mat-form-field>
+  <mat-label>data di consegna</mat-label>
+  <input matInput [matDatepicker]="picker" formControlName="deliveredDate" [(ngModel)]="cart.deliveredDate">
+  <mat-hint>DD/MM/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<!-- <mat-form-field>
+  <mat-icon></mat-icon>
+<input  matInput  formControlName="searchSeller" >
+  <mat-label>fornitore</mat-label>
+  <mat-select matNativeControl matInput formControlName="sellerKey" [(ngModel)]="cart.sellerKey">
+
+    <input matInput formControlName="sellerKey" [(ngModel)]="cart.sellerKey" [disabled]="true">
+    @for(seller of sellers()|filterPipe:filterSeller;track seller.key){
+      <mat-option value="{{seller.key}}">{{seller.nome}}</mat-option>}
+    </mat-select>
+</mat-form-field> -->
+<mat-label>fornitore</mat-label>
+<app-seller-selector [(sellerKey)]="cart.sellerKey"></app-seller-selector>
+</form>
