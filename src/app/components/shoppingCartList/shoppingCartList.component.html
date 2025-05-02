@@ -1,5 +1,13 @@
 
 <button mat-button (click)="uploadCarts2firestore()">upload Cart</button>
+<mat-toolbar style=" position: fixed;top:0%;width:100%; z-index:100">
+  <div id="commands">
+ <app-my-menu></app-my-menu>
+<button mat-button (click)="uploadCarts2firestore()">upload Carrello</button>
+<button mat-fab extended id="createSellerr" (click)="createCart()">
+  <mat-icon>add</mat-icon> nuovo carrello</button>
+  </div>
+  </mat-toolbar>
 <mat-progress-bar mode="determinate" value="{{progress()}}"></mat-progress-bar>
 <table mat-table [dataSource]="carts()|appSorterPipe" class="mat-elevation-z8">
 

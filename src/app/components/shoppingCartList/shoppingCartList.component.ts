@@ -9,6 +9,9 @@ import { MySorterPipePipe } from "../../pipes/mySorterPipe.pipe";
 import { MatButtonModule } from '@angular/material/button';
 import { count } from 'rxjs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MyMenuComponent } from '../menu/my-menu/my-menu.component';
 
 @Component({
   selector: 'app-shopping-cart-list',
@@ -21,10 +24,16 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     SellerViewerComponent,
     MySorterPipePipe,
     MatButtonModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatToolbarModule,
+    MatIconModule,
+    MyMenuComponent
   ]
 })
 export class ShoppingCartListComponent implements OnInit {
+createCart() {
+console.log("createCart")
+}
   progress = signal(0)
   async uploadCarts2firestore() {
 console.log("uploadCarts2firestore")
