@@ -38,6 +38,9 @@ import { SellerSelectorComponent } from '../../../sellerSelector/seller-selector
   standalone: true
 })
 export class CartFormComponent implements OnInit{
+selectedSeller($event: Event) {
+console.log("selectedSeller",$event)
+}
   searchSeller: string="";
 onKey(arg0: any) {
 console.log(arg0)
@@ -67,6 +70,7 @@ console.log(arg0)
   }
   async ngOnInit() {
     const loggedUser = await this.users.getLoggedUser()
+
 
     this.form.get("searchSeller")?.valueChanges.subscribe((value:string)=>{
 

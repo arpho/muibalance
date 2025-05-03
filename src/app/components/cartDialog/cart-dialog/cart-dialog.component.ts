@@ -3,11 +3,14 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ShoppingCartModel } from '../../../models/shoppingCartModel';
 import { Subscription } from 'rxjs';
 import { CartFormComponent } from '../../forms/cartGeneralDataForm/cart-form/cart-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart-dialog',
   imports: [
-    CartFormComponent
+    CartFormComponent,
+    ReactiveFormsModule,
+    FormsModule
   ],
   templateUrl: './cart-dialog.component.html',
   styleUrl: './cart-dialog.component.css',

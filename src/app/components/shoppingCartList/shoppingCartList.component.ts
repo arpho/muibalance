@@ -85,13 +85,15 @@ this.dialog.open(CartDialogComponent, {data:
   }
   async ngOnInit(): Promise<void> {
  const carts = await  this.service.getCarts4User((await this.users.getLoggedUser()).key)
- console.log("carts",carts)
  this.carts.set(carts)
   }
 
   async fetchSeller(sellerKey: string) {
+    if (!sellerKey)
+      return ""
+    else{
     const seller = await this.Sellers.fetchSeller(sellerKey)
-    return seller.nome
+    return seller.nome}
   }
 
 }

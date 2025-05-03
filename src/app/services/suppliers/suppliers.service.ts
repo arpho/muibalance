@@ -15,7 +15,6 @@ export class SellersService {
   getSuppliers4UserOnValue(userKey: string, callback: (sellers: SellerModel[]) => void) {
     const q = query(collection(this.firestore, "sellers"), where("userKey", "==", userKey));
   onSnapshot(q, (querySnapshot) => {
-    console.log("snapshot")
     const Sellers = querySnapshot.docs.map((doc: { data: () => {} | undefined; id: string; }) => {
       const seller = new SellerModel(doc.data());
       seller.setKey(doc.id);
@@ -34,7 +33,6 @@ export class SellersService {
     return setDoc(doc(this.firestore, `sellers/${seller.key}`), seller.serialize());
   }
    async fetchSeller(sellerKey: string) {
-
 
 let seller = new SellerModel({});
 

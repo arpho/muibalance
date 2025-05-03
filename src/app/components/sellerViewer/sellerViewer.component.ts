@@ -15,8 +15,14 @@ export class SellerViewerComponent implements OnInit {
   constructor(private service:SellersService) { }
 
   async ngOnInit() {
-    const seller = await this.service.fetchSeller(this.sellerKey)
-    this.seller.set(seller)
+    if(this.sellerKey)
+    {
+      const seller = await this.service.fetchSeller(this.sellerKey)
+      this.seller.set(seller)
+  }
+  else{
+    this.seller.set(new SellerModel({}))
+  }
   }
 
 }

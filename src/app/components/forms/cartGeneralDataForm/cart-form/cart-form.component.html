@@ -52,5 +52,5 @@
     </mat-select>
 </mat-form-field> -->
 <mat-label>fornitore</mat-label>
-<app-seller-selector [(sellerKey)]="cart.sellerKey"></app-seller-selector>
+<app-seller-selector     [sellerKey]="cart.sellerKey" (sellerKey)="selectedSeller($event)"></app-seller-selector>
 </form>
