@@ -67,7 +67,7 @@ console.log(arg0)
   }
   async ngOnInit() {
     const loggedUser = await this.users.getLoggedUser()
-    this.sellersService.getSuppliers4UserOnValue(loggedUser.key,(sellers:SellerModel[])=>this.sellers.set(sellers))
+
     this.form.get("searchSeller")?.valueChanges.subscribe((value:string)=>{
 
       console.log("value",value)

@@ -21,7 +21,7 @@ export class SellersService {
       seller.setKey(doc.id);
       return seller
     })
-    console.log("Sellers",Sellers)
+
     callback(Sellers)
   })
 
