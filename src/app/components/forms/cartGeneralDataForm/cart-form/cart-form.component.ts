@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShoppingCartModel } from '../../../../models/shoppingCartModel';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
@@ -14,6 +14,8 @@ import { FilterPipe } from '../../../../pipes/filterPipe/filter-pipe.pipe';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { SellerViewerComponent } from '../../../sellerViewer/sellerViewer.component';
 import { SellerSelectorComponent } from '../../../sellerSelector/seller-selector/seller-selector.component';
+import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-cart-form',
@@ -30,16 +32,32 @@ import { SellerSelectorComponent } from '../../../sellerSelector/seller-selector
     MatSelectModule,
     FilterPipe,
     MatIconModule,
-    SellerSelectorComponent
+    SellerSelectorComponent,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
+    MatDialogTitle,
+    MatButtonModule
   ],
   providers: [ {provide: DateAdapter, useClass: NativeDateAdapter}, {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS}, ],
   templateUrl: './cart-form.component.html',
   styleUrl: './cart-form.component.css',
-  standalone: true
+  standalone: true,
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class CartFormComponent implements OnInit{
-selectedSeller($event: Event) {
-console.log("selectedSeller",$event)
+onYesClick() {
+console.log("yes",this.cart)
+}
+onNoClick() {
+console.log("cancel")
+}
+selectedSeller(sellerKey: any) {
+console.log("selectedSeller",sellerKey)
+this.cart = new ShoppingCartModel({
+  ...this.cart,
+  sellerKey
+})
 }
   searchSeller: string="";
 onKey(arg0: any) {

@@ -52,5 +52,10 @@
     </mat-select>
 </mat-form-field> -->
 <mat-label>fornitore</mat-label>
-<app-seller-selector     [sellerKey]="cart.sellerKey" (sellerKey)="selectedSeller($event)"></app-seller-selector>
+<app-seller-selector     [sellerKey]="cart.sellerKey" (selectedSeller)="selectedSeller($event)"></app-seller-selector>
 </form>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="onYesClick()" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>
+

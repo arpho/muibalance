@@ -1,6 +1,6 @@
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { Component, Input, model, OnDestroy, OnInit,  } from '@angular/core';
+import { Component, EventEmitter, Input, model, OnDestroy, OnInit, output, Output,  } from '@angular/core';
 import { SellerViewerComponent } from '../../sellerViewer/sellerViewer.component';
 import { MatButtonModule } from '@angular/material/button';
 import { Subscription } from 'rxjs';
@@ -22,6 +22,8 @@ import { SellerModel } from '../../../models/supplierModel';
 })
 export class SellerSelectorComponent  implements OnInit, OnDestroy,  ControlValueAccessor {
   subscriptions=new Subscription()
+  @Output() sellerKeyChange =""
+  selectedSeller  = output<string>( )
   sellerKey = model('')
   fnTouched = (value?: any) => {}
   fnchanged = (value?: any) => {}
@@ -59,6 +61,7 @@ this.subscriptions.add(dialogRef.afterDismissed().subscribe(res => {
     console.log("selected",res)
     this.fnTouched(this.sellerKey())
     this.fnchanged(this.sellerKey())
+    this.selectedSeller.emit(this.sellerKey())
   }
 }))
 }
