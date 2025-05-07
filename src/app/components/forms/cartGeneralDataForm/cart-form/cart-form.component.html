@@ -14,13 +14,13 @@
   <input matInput hidden="true" formControlName="id" [(ngModel)]="cart.key">
   <mat-label>acquisto online</mat-label>
   <mat-slide-toggle matInput formControlName="online" [(ngModel)]="online" id="online"></mat-slide-toggle>
-  @if(cart.online){
+  @if(online()){
 
 
   <mat-form-field>
     <mat-label>Consegnato</mat-label>
     <input matInput hidden="true" formControlName="id" [(ngModel)]="cart.key">
-      <mat-slide-toggle matInput formControlName="delivered" [(ngModel)]="cart.delivered"></mat-slide-toggle>
+      <mat-slide-toggle matInput formControlName="delivered" [(ngModel)]="delivered"></mat-slide-toggle>
   </mat-form-field>
 }
 
@@ -52,7 +52,7 @@
     </mat-select>
 </mat-form-field> -->
 <mat-label>fornitore</mat-label>
-<app-seller-selector     [sellerKey]="cart.sellerKey" (selectedSeller)="selectedSeller($event)"></app-seller-selector>
+<app-seller-selector     [sellerKey]="sellerKey()" (selectedSeller)="selectedSeller($event)"></app-seller-selector>
 </form>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { SellersService } from '../../services/suppliers/suppliers.service';
 import { SellerModel } from '../../models/supplierModel';
 
@@ -6,13 +6,22 @@ import { SellerModel } from '../../models/supplierModel';
   selector: 'app-sellerViewer',
   templateUrl: './sellerViewer.component.html',
   styleUrls: ['./sellerViewer.component.css'],
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SellerViewerComponent implements OnInit {
+export class SellerViewerComponent implements OnInit, OnChanges {
   @Input({required: true}) sellerKey: string = ''
   seller=signal<SellerModel>(new SellerModel())
 
   constructor(private service:SellersService) { }
+  async ngOnChanges(changes: SimpleChanges): Promise<void> {
+ if(changes['sellerKey'].currentValue)
+  {
+    const seller = await this.service.fetchSeller(changes['sellerKey'].currentValue)
+    this.seller.set(seller)
+
+  }
+}
 
   async ngOnInit() {
     if(this.sellerKey)

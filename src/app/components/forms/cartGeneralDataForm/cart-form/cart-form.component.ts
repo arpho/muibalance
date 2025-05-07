@@ -52,6 +52,7 @@ export class CartFormComponent implements OnInit{
   online = signal(false)
   delivered = signal(false)
   buyngDate = signal("")
+  sellerKey = signal("")
   deliveredDate = signal("")
   ngOnInit(): void {
     this.title.set(this.cart.title)
@@ -60,6 +61,7 @@ export class CartFormComponent implements OnInit{
     this.online.set(this.cart.online)
     this.delivered.set(this.cart.delivered)
     this.buyngDate.set(this.cart.buyngDate)
+    this.sellerKey.set(this.cart.sellerKey)
     this.deliveredDate.set(this.cart.deliveredDate)
 
   }
@@ -73,7 +75,7 @@ export class CartFormComponent implements OnInit{
       delivered: this.delivered(),
       buyngDate: this.buyngDate(),
       deliveredDate: this.deliveredDate(),
-      sellerKey: this.cart.sellerKey,
+      sellerKey: this.sellerKey(),
     }
   })
 
@@ -83,13 +85,14 @@ export class CartFormComponent implements OnInit{
 
   })
 onYesClick() {
-console.log("yes",this.cart)
+console.log("yes",this.formValue())
 }
 onNoClick() {
 console.log("cancel")
 }
 selectedSeller(sellerKey: any) {
 console.log("selectedSeller",sellerKey)
+this.sellerKey.set(sellerKey)
 this.cart = new ShoppingCartModel({
   ...this.cart,
   sellerKey

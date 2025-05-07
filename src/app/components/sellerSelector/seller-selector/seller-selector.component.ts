@@ -1,6 +1,6 @@
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { Component, EventEmitter, Input, model, OnDestroy, OnInit, output, Output,  } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, model, OnChanges, OnDestroy, OnInit, output, Output, SimpleChanges,  } from '@angular/core';
 import { SellerViewerComponent } from '../../sellerViewer/sellerViewer.component';
 import { MatButtonModule } from '@angular/material/button';
 import { Subscription } from 'rxjs';
@@ -18,9 +18,10 @@ import { SellerModel } from '../../../models/supplierModel';
   ],
   templateUrl: './seller-selector.component.html',
   styleUrl: './seller-selector.component.css',
-  standalone: true
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SellerSelectorComponent  implements OnInit, OnDestroy,  ControlValueAccessor {
+export class SellerSelectorComponent  implements OnInit, OnDestroy,  ControlValueAccessor,OnChanges{
   subscriptions=new Subscription()
   @Output() sellerKeyChange =""
   selectedSeller  = output<string>( )
@@ -31,6 +32,10 @@ export class SellerSelectorComponent  implements OnInit, OnDestroy,  ControlValu
     private dialog:MatDialog,
     private bottomSheet:MatBottomSheet,
   ) { }
+  ngOnChanges(changes: SimpleChanges): void {
+console.log("changes on seller viewer",changes)
+this.sellerKey.set(changes['sellerKey'].currentValue)
+  }
   writeValue(obj: any): void {
     this.sellerKey.set(obj)
   }
@@ -66,6 +71,7 @@ this.subscriptions.add(dialogRef.afterDismissed().subscribe(res => {
 }))
 }
 ngOnInit(): void {
+  console.log("sellerKey",this.sellerKey())
 }
 
 
