@@ -1,19 +1,19 @@
 <form [formGroup]="form">
   <mat-form-field>
     <mat-label>Titolo</mat-label>
-    <input matInput formControlName="title" [(ngModel)]="cart.title">
+    <input matInput formControlName="title" [(ngModel)]="title" id="title">
   </mat-form-field>
   <mat-form-field>
     <mat-label>Note</mat-label>
-    <input matInput formControlName="note" [(ngModel)]="cart.note">
+    <input matInput formControlName="note" [(ngModel)]="note" id="note">
   </mat-form-field>
   <mat-form-field>
     <mat-label>Totale</mat-label>
-    <input matInput formControlName="totale" [(ngModel)]="cart.totale">
+    <input matInput formControlName="totale" [(ngModel)]="totale" >
   </mat-form-field>
   <input matInput hidden="true" formControlName="id" [(ngModel)]="cart.key">
   <mat-label>acquisto online</mat-label>
-  <mat-slide-toggle matInput formControlName="online" [(ngModel)]="cart.online"></mat-slide-toggle>
+  <mat-slide-toggle matInput formControlName="online" [(ngModel)]="online" id="online"></mat-slide-toggle>
   @if(cart.online){
 
 
@@ -56,6 +56,8 @@
 </form>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button (click)="onYesClick()" cdkFocusInitial>Ok</button>
+  @if(formValid()){
+    <button mat-button (click)="onYesClick()" cdkFocusInitial>Ok</button>
+  }
 </mat-dialog-actions>
 

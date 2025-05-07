@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, Input, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShoppingCartModel } from '../../../../models/shoppingCartModel';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
@@ -46,6 +46,42 @@ import { MatButtonModule } from '@angular/material/button';
   changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class CartFormComponent implements OnInit{
+  public note= signal("")
+  title= signal("")
+  totale = signal(0)
+  online = signal(false)
+  delivered = signal(false)
+  buyngDate = signal("")
+  deliveredDate = signal("")
+  ngOnInit(): void {
+    this.title.set(this.cart.title)
+    this.note.set(this.cart.note)
+    this.totale.set(this.cart.totale)
+    this.online.set(this.cart.online)
+    this.delivered.set(this.cart.delivered)
+    this.buyngDate.set(this.cart.buyngDate)
+    this.deliveredDate.set(this.cart.deliveredDate)
+
+  }
+
+  public formValue = computed (() =>{
+    return {
+      note: this.note(),
+      title: this.title(),
+      totale: this.totale(),
+      online: this.online(),
+      delivered: this.delivered(),
+      buyngDate: this.buyngDate(),
+      deliveredDate: this.deliveredDate(),
+      sellerKey: this.cart.sellerKey,
+    }
+  })
+
+  public formValid = computed (() => {
+    const {note,title, sellerKey}= this.formValue()
+    return  sellerKey
+
+  })
 onYesClick() {
 console.log("yes",this.cart)
 }
@@ -86,15 +122,6 @@ console.log(arg0)
       deliveredDate:this.cart.deliveredDate
     })
   }
-  async ngOnInit() {
-    const loggedUser = await this.users.getLoggedUser()
 
-
-    this.form.get("searchSeller")?.valueChanges.subscribe((value:string)=>{
-
-      console.log("value",value)
-      this.filterSeller = (seller:SellerModel)=>seller.nome.toLowerCase().includes(value.toLowerCase())
-    })
-  }
 
 }
