@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, Input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, Input, OnInit, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShoppingCartModel } from '../../../../models/shoppingCartModel';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
@@ -46,11 +46,17 @@ import { MatButtonModule } from '@angular/material/button';
   changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class CartFormComponent implements OnInit{
+
+sellerKeyChange($event: any) {
+throw new Error('Method not implemented.');
+}
   public note= signal("")
   title= signal("")
   totale = signal(0)
   online = signal(false)
+  buttonText = input()
   delivered = signal(false)
+  updatedCart= output<{ note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string; }>( )
   buyngDate = signal("")
   sellerKey = signal("")
   deliveredDate = signal("")
@@ -82,11 +88,13 @@ export class CartFormComponent implements OnInit{
 
   public formValid = computed (() => {
     const {note,title, sellerKey}= this.formValue()
+
     return  sellerKey
 
   })
 onYesClick() {
 console.log("yes",this.formValue())
+this.updatedCart.emit(this.formValue())
 }
 onNoClick() {
 console.log("cancel")
@@ -98,8 +106,9 @@ this.cart = new ShoppingCartModel({
   ...this.cart,
   sellerKey
 })
+//this.updatedCart.emit(this.formValue())
 }
-  searchSeller: string="";
+
 onKey(arg0: any) {
 console.log(arg0)
 }
@@ -120,7 +129,6 @@ console.log(arg0)
       online: this.cart.online,
       delivered: this.cart.delivered,
       sellerKey: this.cart.sellerKey,
-      searchSeller: this.searchSeller,
       id:"",// dummy key for the slide toggles
       buyngDate:this.cart.buyngDate,
       deliveredDate:this.cart.deliveredDate

@@ -17,10 +17,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   standalone: true
 })
 export class CartDialogComponent  implements OnInit,OnDestroy{
+updatedCart(cart: { note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string; }) {
+console.log("updatedCart", cart);
+this.dialogRef.close(cart)
+
+}
   subscriptions=new Subscription()
     ngOnInit(): void {
-console.log("cart",this.cart())
-console.log("buttonText",this.buttonText())
+
     }
     ngOnDestroy(): void {
   this.subscriptions.unsubscribe()

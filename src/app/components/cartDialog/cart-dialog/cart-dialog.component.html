@@ -1,1 +1,1 @@
-<app-cart-form [cart]="cart()" ></app-cart-form>
+<app-cart-form [cart]="cart()" (updatedCart)="updatedCart($event)" [buttonText]="buttonText()"></app-cart-form>
