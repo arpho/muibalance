@@ -9,7 +9,7 @@ import { SellerModel } from '../../models/supplierModel';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SellerViewerComponent implements OnInit, OnChanges {
+export class SellerViewerComponent implements  OnChanges {
   @Input({required: true}) sellerKey: string = ''
   seller=signal<SellerModel>(new SellerModel())
 
@@ -23,7 +23,7 @@ export class SellerViewerComponent implements OnInit, OnChanges {
   }
 }
 
-  async ngOnInit() {
+/*   async ngOnInit() {
     if(this.sellerKey)
     {
       const seller = await this.service.fetchSeller(this.sellerKey)
@@ -32,6 +32,6 @@ export class SellerViewerComponent implements OnInit, OnChanges {
   else{
     this.seller.set(new SellerModel({}))
   }
-  }
+  } */
 
 }

@@ -74,6 +74,7 @@ export class CartFormComponent implements OnInit{
       online: this.online(),
       delivered: this.delivered(),
       buyngDate: this.buyngDate(),
+      key: this.cart.key,
       deliveredDate: this.deliveredDate(),
       sellerKey: this.sellerKey(),
     }
