@@ -53,6 +53,7 @@
 </mat-form-field> -->
 <mat-label>fornitore</mat-label>
 <app-seller-selector     [sellerKey]="sellerKey()" (selectedSeller)="selectedSeller($event)"></app-seller-selector>
+<app-payments-table [payments]="cart.payments" (paymentsListChanged)="paymentsListChanged($event)"></app-payments-table>
 </form>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>

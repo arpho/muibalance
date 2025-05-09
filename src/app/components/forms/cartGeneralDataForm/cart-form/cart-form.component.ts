@@ -16,6 +16,8 @@ import { SellerViewerComponent } from '../../../sellerViewer/sellerViewer.compon
 import { SellerSelectorComponent } from '../../../sellerSelector/seller-selector/seller-selector.component';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { PaymentFraction } from '../../../../models/paymentsFraction';
+import { PaymentsTableComponent } from '../../../paymentsTable/payments-table/payments-table.component';
 
 @Component({
   selector: 'app-cart-form',
@@ -37,7 +39,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogClose,
     MatDialogContent,
     MatDialogTitle,
-    MatButtonModule
+    MatButtonModule,
+    PaymentsTableComponent
   ],
   providers: [ {provide: DateAdapter, useClass: NativeDateAdapter}, {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS}, ],
   templateUrl: './cart-form.component.html',
@@ -46,6 +49,9 @@ import { MatButtonModule } from '@angular/material/button';
   changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class CartFormComponent implements OnInit{
+paymentsListChanged($event: Event) {
+console.log("paymentsListChanged", $event)
+}
 
 sellerKeyChange($event: any) {
 throw new Error('Method not implemented.');
@@ -56,10 +62,11 @@ throw new Error('Method not implemented.');
   online = signal(false)
   buttonText = input()
   delivered = signal(false)
-  updatedCart= output<{ note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string; }>( )
+  updatedCart= output<{ note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string; }|null>( )
   buyngDate = signal("")
   sellerKey = signal("")
   deliveredDate = signal("")
+  payments = signal<PaymentFraction[]>([])
   ngOnInit(): void {
     this.title.set(this.cart.title)
     this.note.set(this.cart.note)
@@ -69,6 +76,7 @@ throw new Error('Method not implemented.');
     this.buyngDate.set(this.cart.buyngDate)
     this.sellerKey.set(this.cart.sellerKey)
     this.deliveredDate.set(this.cart.deliveredDate)
+    this.payments.set(this.cart.payments)
 
   }
 
@@ -97,7 +105,7 @@ console.log("yes",this.formValue())
 this.updatedCart.emit(this.formValue())
 }
 onNoClick() {
-console.log("cancel")
+this.updatedCart.emit(null)
 }
 selectedSeller(sellerKey: any) {
 console.log("selectedSeller",sellerKey)

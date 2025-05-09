@@ -17,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   standalone: true
 })
 export class CartDialogComponent  implements OnInit,OnDestroy{
-updatedCart(cart: { note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string; }) {
+updatedCart(cart: { note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string; }|null) {
 console.log("updatedCart", cart);
 this.dialogRef.close(cart)
 
