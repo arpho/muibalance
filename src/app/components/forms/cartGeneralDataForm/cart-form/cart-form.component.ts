@@ -91,13 +91,14 @@ throw new Error('Method not implemented.');
       key: this.cart.key,
       deliveredDate: this.deliveredDate(),
       sellerKey: this.sellerKey(),
+      payments: this.payments()
     }
   })
 
   public formValid = computed (() => {
-    const {note,title, sellerKey}= this.formValue()
+    const {note,title, sellerKey,payments}= this.formValue()
 
-    return  sellerKey
+    return  sellerKey&& payments.length>0
 
   })
 onYesClick() {
