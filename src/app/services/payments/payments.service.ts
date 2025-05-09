@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Database, ref,get } from '@angular/fire/database';
-import { collection, doc, Firestore, setDoc, where,query, getDocs, addDoc } from '@angular/fire/firestore';
+import { collection, doc, Firestore, setDoc, where,query, getDocs, addDoc, getDoc } from '@angular/fire/firestore';
 import { MyDbService } from '../myDb/my-db.service';
 import { UsersService } from '../users/users.service';
 import { PaymentModel } from '../../models/paymentModel';
@@ -10,6 +10,13 @@ import { PaymentModel } from '../../models/paymentModel';
   providedIn: 'root'
 })
 export class PaymentsService {
+  async fetchPayment(key: string) {
+    const snapshot = await getDoc(doc(this.firestore, `payments/${key}`));
+    const payment = new PaymentModel(snapshot.data());
+    payment.setKey(snapshot.id);
+    return payment
+
+  }
   createPayment(payment: PaymentModel) {
    return addDoc(collection(this.firestore, `payments`), payment.serialize());
   }
