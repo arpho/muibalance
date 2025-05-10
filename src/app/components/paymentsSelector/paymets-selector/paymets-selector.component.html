@@ -1,0 +1,7 @@
+<mat-select matInput [(ngModel)]="paymentsKey">
+  @for(payment of $payments();track payment.key){
+
+    <mat-option value="{{payment.key}}">{{payment.nome}}</mat-option>
+  }
+
+</mat-select>

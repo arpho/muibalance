@@ -1,3 +1,37 @@
+
+
+<mat-expansion-panel >
+  <mat-expansion-panel-header>
+    <mat-panel-title> modifica  pagamento </mat-panel-title>
+    <mat-panel-description> aggiungi pagamento </mat-panel-description>
+  </mat-expansion-panel-header>
+ <form [formGroup]="newFraction">
+
+
+   <mat-form-field>
+     <mat-label>Importo</mat-label>
+     <input matInput formControlName="amount" [(ngModel)]="amount">
+   </mat-form-field>
+
+   <mat-form-field>
+     <mat-label>nota</mat-label>
+     <input matInput formControlName="note" [(ngModel)]="paymentNote">
+   </mat-form-field>
+   <mat-form-field>
+    <mat-label>data del pagamento</mat-label>
+    <input matInput [matDatepicker]="picker0" formControlName="paymentsDate" [(ngModel)]="paymentsDate">
+    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker0"></mat-datepicker-toggle>
+    <mat-datepicker #picker0></mat-datepicker>
+  </mat-form-field>
+    <mat-label> pagamento</mat-label>
+    <app-paymets-selector  matInput [(paymentsKey)]="paymentsKey" (paymentsKeyChanged)="selectedPayment($event)"></app-paymets-selector>
+
+   <button mat-button (click)="addPayment()" cdkFocusInitial>ins. Pagamento</button>
+ </form>
+</mat-expansion-panel>
+<mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+  </mat-expansion-panel>
 <table mat-table [dataSource]="payments()" class="mat-elevation-z8">
 
   <!--- Note that these columns can be defined in any order.

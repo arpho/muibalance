@@ -98,7 +98,7 @@ throw new Error('Method not implemented.');
   public formValid = computed (() => {
     const {note,title, sellerKey,payments}= this.formValue()
 
-    return  sellerKey&& payments.length>0
+    return  sellerKey
 
   })
 onYesClick() {

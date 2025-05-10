@@ -61,7 +61,7 @@ return setDoc(refPayment, res.serialize());
       payment.setKey(doc.id);
       return payment
     })
-    console.log("Payments",Payments)
+
     return Payments;
   }
 
