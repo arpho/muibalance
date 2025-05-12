@@ -49,8 +49,9 @@ import { PaymentsTableComponent } from '../../../paymentsTable/payments-table/pa
   changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class CartFormComponent implements OnInit{
-paymentsListChanged($event: Event) {
+paymentsListChanged($event: PaymentFraction[]) {
 console.log("paymentsListChanged", $event)
+this.payments.set($event)
 }
 
 sellerKeyChange($event: any) {
@@ -63,7 +64,7 @@ throw new Error('Method not implemented.');
   buttonText = input()
   delivered = signal(false)
   updatedCart= output<{ note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string; }|null>( )
-  buyngDate = signal("")
+  buyngDate = signal(new Date().toISOString())
   sellerKey = signal("")
   deliveredDate = signal("")
   payments = signal<PaymentFraction[]>([])

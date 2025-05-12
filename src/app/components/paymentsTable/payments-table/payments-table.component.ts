@@ -1,4 +1,4 @@
-import { Component, computed, EventEmitter, model, OnInit, signal } from '@angular/core';
+import { Component, computed, EventEmitter, model, OnInit, output, signal } from '@angular/core';
 import { PaymentFraction } from '../../../models/paymentsFraction';
 import {  MatTableModule } from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -42,6 +42,7 @@ console.log("selectedPayment from payment selector", $event)
 addPayment() {
 console.log("addPayment", this.newFractionValue())
 this.payments.set([...this.payments(), new PaymentFraction(   this.newFractionValue())])
+this.paymentsListChanged.emit(this.payments())
 this.panelOpenState.set(false)
 }
   newFraction:FormGroup = new FormGroup({})
@@ -50,7 +51,8 @@ this.panelOpenState.set(false)
   ) {}
 
   amount= signal(0)
-  paymentsDate= signal("")
+  paymentsListChanged = output<PaymentFraction[]>()
+  paymentsDate= signal(new Date().toISOString())
   paymentNote= signal("")
   paymentsKey= signal("")
   readonly panelOpenState = signal(false)
