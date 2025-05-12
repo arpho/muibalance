@@ -1,4 +1,16 @@
-<app-section-card [picture]="'categories.png'" [title]="'Categorie'" [url]="'categories-list'"></app-section-card>
-<app-section-card [picture]="'seller.png'" [title]="'fornitori'" [url]="'suppliers-list'"></app-section-card>
-<app-section-card [picture]="'seller.png'" [title]="'pagamenti'" [url]="'payments-list'"></app-section-card>
-<app-section-card [picture]="'seller.png'" [title]="'carrelli'" [url]="'shoppingCart-list'"></app-section-card>
+
+<mat-grid-list cols="3" rowHeight="2:1">
+  <mat-grid-tile>
+    <app-section-card [picture]="'categories.png'" [title]="'Categorie'" [url]="'categories-list'"></app-section-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <app-section-card [picture]="'seller.png'" [title]="'fornitori'" [url]="'suppliers-list'"></app-section-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <app-section-card [picture]="'seller.png'" [title]="'pagamenti'" [url]="'payments-list'"></app-section-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <app-section-card [picture]="'seller.png'" [title]="'carrelli'" [url]="'shoppingCart-list'"></app-section-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
