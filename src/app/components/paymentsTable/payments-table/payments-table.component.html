@@ -1,12 +1,17 @@
 
 
-<mat-expansion-panel >
+<mat-expansion-panel
+
+>
   <mat-expansion-panel-header>
     <mat-panel-title> modifica  pagamento </mat-panel-title>
     <mat-panel-description> aggiungi pagamento </mat-panel-description>
+    <mat-action-row>
+      <button mat-button (click)="addPayment()" cdkFocusInitial>ins. Pagamento</button>
+    </mat-action-row>
   </mat-expansion-panel-header>
 
-  <button mat-button (click)="addPayment()" cdkFocusInitial>ins. Pagamento</button>
+
 
   <mat-label> pagamento</mat-label>
   <app-paymets-selector  matInput [(paymentsKey)]="paymentsKey" (paymentsKeyChanged)="selectedPayment($event)"></app-paymets-selector>
@@ -34,7 +39,9 @@
  </form>
 
 </mat-expansion-panel>
-<mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+<mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)"
+[expanded]="panelOpenState()"
+>
   </mat-expansion-panel>
 <table mat-table [dataSource]="payments()" class="mat-elevation-z8">
 

@@ -34,12 +34,15 @@ import { PaymetsSelectorComponent } from "../../paymentsSelector/paymets-selecto
 export class PaymentsTableComponent  implements OnInit{
 insertPayment() {
 console.log("insertPayment from payment selector",this.newFractionValue())
+this.panelOpenState.set(false)
 }
 selectedPayment($event: Event) {
 console.log("selectedPayment from payment selector", $event)
 }
 addPayment() {
 console.log("addPayment", this.newFractionValue())
+this.payments.set([...this.payments(), new PaymentFraction(   this.newFractionValue())])
+this.panelOpenState.set(false)
 }
   newFraction:FormGroup = new FormGroup({})
   constructor(
