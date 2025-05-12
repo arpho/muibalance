@@ -5,6 +5,12 @@
     <mat-panel-title> modifica  pagamento </mat-panel-title>
     <mat-panel-description> aggiungi pagamento </mat-panel-description>
   </mat-expansion-panel-header>
+
+  <button mat-button (click)="addPayment()" cdkFocusInitial>ins. Pagamento</button>
+
+  <mat-label> pagamento</mat-label>
+  <app-paymets-selector  matInput [(paymentsKey)]="paymentsKey" (paymentsKeyChanged)="selectedPayment($event)"></app-paymets-selector>
+
  <form [formGroup]="newFraction">
 
 
@@ -24,11 +30,9 @@
     <mat-datepicker-toggle matIconSuffix [for]="picker0"></mat-datepicker-toggle>
     <mat-datepicker #picker0></mat-datepicker>
   </mat-form-field>
-    <mat-label> pagamento</mat-label>
-    <app-paymets-selector  matInput [(paymentsKey)]="paymentsKey" (paymentsKeyChanged)="selectedPayment($event)"></app-paymets-selector>
 
-   <button mat-button (click)="addPayment()" cdkFocusInitial>ins. Pagamento</button>
  </form>
+
 </mat-expansion-panel>
 <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
   </mat-expansion-panel>

@@ -32,8 +32,11 @@ import { PaymetsSelectorComponent } from "../../paymentsSelector/paymets-selecto
   standalone: true
 })
 export class PaymentsTableComponent  implements OnInit{
+insertPayment() {
+console.log("insertPayment from payment selector",this.newFractionValue())
+}
 selectedPayment($event: Event) {
-console.log("selectedPayment", $event)
+console.log("selectedPayment from payment selector", $event)
 }
 addPayment() {
 console.log("addPayment", this.newFractionValue())
@@ -56,6 +59,7 @@ console.log("addPayment", this.newFractionValue())
   note: this.paymentNote(),
   paymentsKey: this.paymentsKey()
  })
+
   }
   displayedColumns: string[] = ['amount', 'data', 'note', 'pagatoCon'];
   payments= model.required<PaymentFraction[]>();
