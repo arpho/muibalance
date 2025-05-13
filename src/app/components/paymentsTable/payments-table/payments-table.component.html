@@ -1,5 +1,7 @@
 
+<app-payment-fraction-expansion-panel>
 
+</app-payment-fraction-expansion-panel>
 <mat-expansion-panel
 
 >
@@ -43,6 +45,18 @@
 [expanded]="panelOpenState()"
 >
   </mat-expansion-panel>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Redial</span>
+    </button>
+
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu>
 <table mat-table [dataSource]="payments()" class="mat-elevation-z8">
 
   <!--- Note that these columns can be defined in any order.
@@ -75,5 +89,5 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"  [matMenuTriggerFor]="menu"></tr>
 </table>

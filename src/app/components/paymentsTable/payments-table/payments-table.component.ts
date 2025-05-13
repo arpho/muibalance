@@ -8,7 +8,10 @@ import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/fo
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatMenuModule} from '@angular/material/menu';
 import { PaymetsSelectorComponent } from "../../paymentsSelector/paymets-selector/paymets-selector.component";
+import { MatIconModule } from '@angular/material/icon';
+import { PaymentFractionExpansionPanelComponent } from '../../paymentFraction/payment-fraction-expansion-panel/payment-fraction-expansion-panel.component';
 
 @Component({
   selector: 'app-payments-table',
@@ -25,7 +28,10 @@ import { PaymetsSelectorComponent } from "../../paymentsSelector/paymets-selecto
     MatButtonModule,
     MatLabel,
     MatDatepickerModule,
-    PaymetsSelectorComponent
+    PaymetsSelectorComponent,
+    MatMenuModule,
+    MatIconModule,
+    PaymentFractionExpansionPanelComponent
 ],
   templateUrl: './payments-table.component.html',
   styleUrl: './payments-table.component.css',
