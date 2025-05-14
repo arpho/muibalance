@@ -1,1 +1,43 @@
-<p>payment-fraction-expansion-panel works!</p>
+<mat-expansion-panel
+
+>
+  <mat-expansion-panel-header>
+    <mat-panel-title> modifica  pagamento </mat-panel-title>
+    <mat-panel-description> aggiungi pagamento </mat-panel-description>
+    <mat-action-row>
+      <button mat-button (click)="addPayment()" cdkFocusInitial>ins. Pagamento</button>
+    </mat-action-row>
+  </mat-expansion-panel-header>
+
+
+
+  <mat-label> pagamento</mat-label>
+  <app-paymets-selector  matInput [(paymentsKey)]="paymentsKey" (paymentsKeyChanged)="selectedPayment($event)"></app-paymets-selector>
+
+ <form [formGroup]="newFraction">
+
+
+   <mat-form-field>
+     <mat-label>Importo</mat-label>
+     <input matInput formControlName="amount" [(ngModel)]="amount" type="number">
+   </mat-form-field>
+
+   <mat-form-field>
+     <mat-label>nota</mat-label>
+     <input matInput formControlName="note" [(ngModel)]="paymentNote">
+   </mat-form-field>
+   <mat-form-field>
+    <mat-label>data del pagamento</mat-label>
+    <input matInput [matDatepicker]="picker0" formControlName="paymentsDate" [(ngModel)]="paymentsDate">
+    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker0"></mat-datepicker-toggle>
+    <mat-datepicker #picker0></mat-datepicker>
+  </mat-form-field>
+
+ </form>
+
+</mat-expansion-panel>
+<mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)"
+[expanded]="panelOpenState()"
+>
+  </mat-expansion-panel>

@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatMenuModule} from '@angular/material/menu';
-import { PaymetsSelectorComponent } from "../../paymentsSelector/paymets-selector/paymets-selector.component";
+import { PaymentsSelectorComponent } from "../../paymentsSelector/paymets-selector/paymets-selector.component";
 import { MatIconModule } from '@angular/material/icon';
 import { PaymentFractionExpansionPanelComponent } from '../../paymentFraction/payment-fraction-expansion-panel/payment-fraction-expansion-panel.component';
 
@@ -28,7 +28,7 @@ import { PaymentFractionExpansionPanelComponent } from '../../paymentFraction/pa
     MatButtonModule,
     MatLabel,
     MatDatepickerModule,
-    PaymetsSelectorComponent,
+    PaymentsSelectorComponent,
     MatMenuModule,
     MatIconModule,
     PaymentFractionExpansionPanelComponent

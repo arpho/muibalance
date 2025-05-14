@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './paymets-selector.component.css',
   standalone: true
 })
-export class PaymetsSelectorComponent implements OnChanges,OnInit {
+export class PaymentsSelectorComponent implements OnChanges,OnInit {
 paymentsKey = model('')
 $payments = signal<PaymentModel[]>([])
   paymentsKeyChanged: EventEmitter<string> = new EventEmitter<string>();
