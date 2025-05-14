@@ -1,5 +1,5 @@
 import { Component, inject, model, OnDestroy, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { ShoppingCartModel } from '../../../models/shoppingCartModel';
 import { Subscription } from 'rxjs';
 import { CartFormComponent } from '../../forms/cartGeneralDataForm/cart-form/cart-form.component';
@@ -10,7 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CartFormComponent,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatDialogContent
   ],
   templateUrl: './cart-dialog.component.html',
   styleUrl: './cart-dialog.component.css',
