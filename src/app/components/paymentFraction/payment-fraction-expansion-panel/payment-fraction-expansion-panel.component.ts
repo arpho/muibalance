@@ -1,5 +1,5 @@
-import { Component, computed, output, signal } from '@angular/core';
-import { ReactiveFormsModule, FormsModule, FormGroup } from '@angular/forms';
+import { Component, computed, input, OnChanges, OnInit, output, signal, SimpleChanges } from '@angular/core';
+import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { _MatInternalFormField } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -28,7 +28,33 @@ import { PaymentFraction } from '../../../models/paymentsFraction';
   styleUrl: './payment-fraction-expansion-panel.component.css',
   standalone: true
 })
-export class PaymentFractionExpansionPanelComponent {
+export class PaymentFractionExpansionPanelComponent implements OnInit, OnChanges {
+  data= input<{payment:PaymentFraction,operation:string,index?:number}>()
+  updated= output<{payment:PaymentFraction,operation:string,index?:number}>()
+  constructor(private fb: FormBuilder) {}
+  ngOnChanges(changes: SimpleChanges): void {
+   console.log("changes",changes)
+   this.amount.set(changes["data"].currentValue.payment.amount)
+   this.paymentNote.set(changes["data"].currentValue.payment.note)
+   this.paymentsDate.set(changes["data"].currentValue.payment.paymentsDate)
+   this.paymentsKey.set(changes["data"].currentValue.payment.paymentsKey)
+    this.newFraction = this.fb.group({
+  amount: this.amount(),
+  paymentsDate: this.paymentsDate(),
+  note: this.paymentNote(),
+  paymentsKey: this.paymentsKey()
+ })
+  }
+
+  ngOnInit(): void {
+
+this.newFraction = this.fb.group({
+  amount: 0,
+  paymentsDate: new Date().toISOString(),
+  note: "",
+  paymentsKey: ""
+ })
+  }
     amount= signal(0)
     paymentsListChanged = output<PaymentFraction[]>()
     paymentsDate= signal(new Date().toISOString())
@@ -46,10 +72,10 @@ export class PaymentFractionExpansionPanelComponent {
         }
       })
 selectedPayment($event: Event) {
-throw new Error('Method not implemented.');
+console.log("selectedPayment from payment selector", $event)
 }
 addPayment() {
-throw new Error('Method not implemented.');
+console.log("addPayment", this.newFractionValue())
 }
 
 }
