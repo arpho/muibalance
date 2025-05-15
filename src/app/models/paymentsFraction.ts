@@ -10,6 +10,7 @@ export class PaymentFraction{
   }
   build(arg?: any) {
     Object.assign(this, arg);
+    this.paymentsDate = this.paymentsDate||new Date().toISOString()
     return this
   }
   serialize(){

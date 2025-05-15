@@ -1,17 +1,17 @@
 
-<app-payment-fraction-expansion-panel>
+<app-payment-fraction-expansion-panel [data]="fractionPayment()">
 
 </app-payment-fraction-expansion-panel>
 <mat-expansion-panel
 
 >
-  <mat-expansion-panel-header>
+<!--   <mat-expansion-panel-header>
     <mat-panel-title> modifica  pagamento </mat-panel-title>
     <mat-panel-description> aggiungi pagamento </mat-panel-description>
     <mat-action-row>
       <button mat-button (click)="addPayment()" cdkFocusInitial>ins. Pagamento</button>
     </mat-action-row>
-  </mat-expansion-panel-header>
+  </mat-expansion-panel-header> -->
 
 
 
@@ -57,7 +57,7 @@
       <span>Disable alerts</span>
     </button>
   </mat-menu>
-  <button mat-button><mat-icon>add</mat-icon>aggiungi pagamento</button>
+  <button mat-button (click)="insertNewPayment()"><mat-icon>add</mat-icon>aggiungi pagamento yfjcj</button>
 <table mat-table [dataSource]="payments()" class="mat-elevation-z8">
 
   <!--- Note that these columns can be defined in any order.

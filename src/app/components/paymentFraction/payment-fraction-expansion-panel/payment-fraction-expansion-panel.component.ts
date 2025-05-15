@@ -29,12 +29,13 @@ import { PaymentFraction } from '../../../models/paymentsFraction';
   standalone: true
 })
 export class PaymentFractionExpansionPanelComponent implements OnInit, OnChanges {
-  data= input<{payment:PaymentFraction,operation:string,index?:number}>()
+  data= input<{payment:PaymentFraction,operation:string,index?:number}|null>()
   updated= output<{payment:PaymentFraction,operation:string,index?:number}>()
   constructor(private fb: FormBuilder) {}
   ngOnChanges(changes: SimpleChanges): void {
    console.log("changes",changes)
-   this.amount.set(changes["data"].currentValue.payment.amount)
+   if(changes["data"].currentValue)
+{   this.amount.set(changes["data"].currentValue.payment.amount)
    this.paymentNote.set(changes["data"].currentValue.payment.note)
    this.paymentsDate.set(changes["data"].currentValue.payment.paymentsDate)
    this.paymentsKey.set(changes["data"].currentValue.payment.paymentsKey)
@@ -44,6 +45,7 @@ export class PaymentFractionExpansionPanelComponent implements OnInit, OnChanges
   note: this.paymentNote(),
   paymentsKey: this.paymentsKey()
  })
+ this.panelOpenState.set(true)}
   }
 
   ngOnInit(): void {

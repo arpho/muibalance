@@ -38,6 +38,13 @@ import { PaymentFractionExpansionPanelComponent } from '../../paymentFraction/pa
   standalone: true
 })
 export class PaymentsTableComponent  implements OnInit{
+insertNewPayment() {
+  const newPayment = new PaymentFraction()
+console.log("insertNewPayment from payment selector",newPayment)
+this.fractionPayment.set({payment:newPayment,operation:"add"})
+
+}
+fractionPayment= signal<{payment:PaymentFraction,operation:string,index?:number}|null>(null)
 insertPayment() {
 console.log("insertPayment from payment selector",this.newFractionValue())
 this.panelOpenState.set(false)
@@ -47,7 +54,10 @@ console.log("selectedPayment from payment selector", $event)
 }
 addPayment() {
 console.log("addPayment", this.newFractionValue())
-this.payments.set([...this.payments(), new PaymentFraction(   this.newFractionValue())])
+//this.payments.set([...this.payments(), new PaymentFraction(   this.newFractionValue())])
+const newPayment = new PaymentFraction()
+this.fractionPayment.set({payment:newPayment,operation:"add"})
+this.payments().push(newPayment)
 this.paymentsListChanged.emit(this.payments())
 this.panelOpenState.set(false)
 }
