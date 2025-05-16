@@ -62,6 +62,12 @@ if($event.operation=="add"){
   console.log("added",newPayment)
 
 }
+if($event.operation=="update"){
+  this.payments().splice($event.index??0,1,$event.payment)
+  const payments = this.payments()
+  this.payments.set([...payments])
+  console.log("updated",this.payments())
+}
 this.paymentsListChanged.emit(this.payments())
 }
 submit() {
