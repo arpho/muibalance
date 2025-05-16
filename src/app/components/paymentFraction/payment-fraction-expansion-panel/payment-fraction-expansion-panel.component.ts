@@ -31,8 +31,8 @@ import { MatIcon } from '@angular/material/icon';
   standalone: true
 })
 export class PaymentFractionExpansionPanelComponent implements OnInit, OnChanges {
-  data= input<{payment:PaymentFraction,operation:string,index?:number}|null>()
-  updated= output<{payment:PaymentFraction,operation:string,index?:number}>()
+  data= input<{payment:PaymentFraction,operation?:string,index?:number}|null>()
+  updated= output<{payment:PaymentFraction,operation?:string,index?:number}>()
   constructor(private fb: FormBuilder) {}
   ngOnChanges(changes: SimpleChanges): void {
    console.log("changes",changes)
@@ -78,8 +78,14 @@ this.newFraction = this.fb.group({
 selectedPayment($event: Event) {
 console.log("selectedPayment from payment selector", $event)
 }
-addPayment() {
+submit() {
 console.log("addPayment", this.newFractionValue())
+if( this.data()){
+  const result = {payment:new PaymentFraction(this.newFractionValue()),operation:this.data()?.operation,index:this.data()?.index}
+this.updated.emit(result)
+console.log("emitted",result)
+this.panelOpenState.set(false)
+}
 }
 
 }

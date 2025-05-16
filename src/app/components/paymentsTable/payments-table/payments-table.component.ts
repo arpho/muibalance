@@ -38,6 +38,32 @@ import { PaymentFractionExpansionPanelComponent } from '../../paymentFraction/pa
   standalone: true
 })
 export class PaymentsTableComponent  implements OnInit{
+
+  selectedFraction = signal<PaymentFraction|null>(null)
+  selectedIndex = signal<number|null>(null)
+selectPayment(_t74: any,index:number) {
+  console.log("selectPayment from payment selector", _t74,index)
+  this.selectedFraction.set(new PaymentFraction(_t74))
+  console.log("selectPayment",this.selectedFraction())
+  this.selectedIndex.set(index)
+
+}
+updatePayment(event: any) {
+console.log("updatePayment from payment selector", event)
+this.fractionPayment.set({payment:this.selectedFraction()!,operation:"update",index:this.selectedIndex()??0})
+}
+updatedPayment($event: { payment: PaymentFraction; operation?: string; index?: number; }) {
+console.log("updatedPayment from payment selector", $event)
+
+if($event.operation=="add"){
+  const newPayment = new PaymentFraction($event.payment)
+
+  this.payments.set([...this.payments(), newPayment])
+  console.log("added",newPayment)
+
+}
+this.paymentsListChanged.emit(this.payments())
+}
 submit() {
 throw new Error('Method not implemented.');
 }
