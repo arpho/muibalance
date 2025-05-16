@@ -38,6 +38,9 @@ import { PaymentFractionExpansionPanelComponent } from '../../paymentFraction/pa
   standalone: true
 })
 export class PaymentsTableComponent  implements OnInit{
+submit() {
+throw new Error('Method not implemented.');
+}
 insertNewPayment() {
   const newPayment = new PaymentFraction()
 console.log("insertNewPayment from payment selector",newPayment)

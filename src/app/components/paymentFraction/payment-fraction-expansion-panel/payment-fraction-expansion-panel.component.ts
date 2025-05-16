@@ -8,6 +8,7 @@ import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/fo
 import { MatInputModule } from '@angular/material/input';
 import { PaymentsSelectorComponent } from "../../paymentsSelector/paymets-selector/paymets-selector.component";
 import { PaymentFraction } from '../../../models/paymentsFraction';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-payment-fraction-expansion-panel',
@@ -21,7 +22,8 @@ import { PaymentFraction } from '../../../models/paymentsFraction';
         MatButtonModule,
         MatLabel,
         MatDatepickerModule,
-        PaymentsSelectorComponent
+        PaymentsSelectorComponent,
+        MatIcon
 
   ],
   templateUrl: './payment-fraction-expansion-panel.component.html',
