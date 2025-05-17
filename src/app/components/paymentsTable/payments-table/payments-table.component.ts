@@ -38,6 +38,14 @@ import { PaymentFractionExpansionPanelComponent } from '../../paymentFraction/pa
   standalone: true
 })
 export class PaymentsTableComponent  implements OnInit{
+deletePayment($event: any) {
+console.log("deletePayment from payment selector", $event,this.selectedIndex())
+this.payments().splice(this.selectedIndex()??0,1)
+const payments = this.payments()
+console.log("payments",payments);
+this.payments.set([...payments])
+console.log("deletePayment",this.payments())
+}
 
   selectedFraction = signal<PaymentFraction|null>(null)
   selectedIndex = signal<number|null>(null)
