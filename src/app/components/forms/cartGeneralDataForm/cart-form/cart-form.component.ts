@@ -18,6 +18,7 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDi
 import { MatButtonModule } from '@angular/material/button';
 import { PaymentFraction } from '../../../../models/paymentsFraction';
 import { PaymentsTableComponent } from '../../../paymentsTable/payments-table/payments-table.component';
+import { ItemsTableComponent } from '../../../items-table/items-table.component';
 
 @Component({
   selector: 'app-cart-form',
@@ -40,7 +41,8 @@ import { PaymentsTableComponent } from '../../../paymentsTable/payments-table/pa
     MatDialogContent,
     MatDialogTitle,
     MatButtonModule,
-    PaymentsTableComponent
+    PaymentsTableComponent,
+    ItemsTableComponent
   ],
   providers: [ {provide: DateAdapter, useClass: NativeDateAdapter}, {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS}, ],
   templateUrl: './cart-form.component.html',
@@ -49,6 +51,9 @@ import { PaymentsTableComponent } from '../../../paymentsTable/payments-table/pa
   changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class CartFormComponent implements OnInit{
+itemsListChanged($event: any) {
+console.log("itemsListChanged", $event)
+}
 paymentsListChanged($event: PaymentFraction[]) {
 console.log("paymentsListChanged", $event)
 this.payments.set($event)
