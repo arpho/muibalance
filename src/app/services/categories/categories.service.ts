@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InputOptionsWithoutTransform, InputOptionsWithTransform, InputSignal, InputSignalWithTransform } from '@angular/core';
 import { Database, ref,get } from '@angular/fire/database';
 import { doc, setDoc, Firestore, collection, where } from '@angular/fire/firestore';
 import {CategoryModel} from  '../../models/categoryModel'
@@ -11,6 +11,27 @@ import { replicateFirestore } from 'rxdb/plugins/replication-firestore';
   providedIn: 'root'
 })
 export class CategoriesService {
+  async fetchCategoryFromFirestore(categoryKey: string) {
+    console.log("categoryKey",categoryKey)
+       let category = new CategoryModel();
+    try{
+    const categoryRef = ref(this.fireDb, `categorie/${categoryKey}`); // Replace with your actual Firebase database ref
+    const snapshot = await  get(categoryRef);
+     category = new CategoryModel(snapshot.val());
+     category.setKey(categoryKey);
+    console.log("fetched category",category)
+
+  }
+    catch(e){
+      console.log("error",e)
+      console.error(e)
+    }
+    finally{
+      return category;
+    }
+
+
+  }
 db: RxDatabase | undefined;
 rxCategories ={
   categorie:{
