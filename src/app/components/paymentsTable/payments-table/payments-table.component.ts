@@ -12,6 +12,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { PaymentsSelectorComponent } from "../../paymentsSelector/paymets-selector/paymets-selector.component";
 import { MatIconModule } from '@angular/material/icon';
 import { PaymentFractionExpansionPanelComponent } from '../../paymentFraction/payment-fraction-expansion-panel/payment-fraction-expansion-panel.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-payments-table',
@@ -31,7 +32,8 @@ import { PaymentFractionExpansionPanelComponent } from '../../paymentFraction/pa
     PaymentsSelectorComponent,
     MatMenuModule,
     MatIconModule,
-    PaymentFractionExpansionPanelComponent
+    PaymentFractionExpansionPanelComponent,
+    MatDividerModule
 ],
   templateUrl: './payments-table.component.html',
   styleUrl: './payments-table.component.css',
