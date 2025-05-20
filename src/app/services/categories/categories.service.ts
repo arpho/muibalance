@@ -1,6 +1,6 @@
 import { Injectable, InputOptionsWithoutTransform, InputOptionsWithTransform, InputSignal, InputSignalWithTransform } from '@angular/core';
 import { Database, ref,get } from '@angular/fire/database';
-import { doc, setDoc, Firestore, collection, where } from '@angular/fire/firestore';
+import { doc, setDoc, Firestore, collection, where, getDoc } from '@angular/fire/firestore';
 import {CategoryModel} from  '../../models/categoryModel'
 import { MyDbService } from '../myDb/my-db.service';
 import { RxDatabase } from 'rxdb';
@@ -15,9 +15,10 @@ export class CategoriesService {
     console.log("categoryKey",categoryKey)
        let category = new CategoryModel();
     try{
-    const categoryRef = ref(this.fireDb, `categorie/${categoryKey}`); // Replace with your actual Firebase database ref
-    const snapshot = await  get(categoryRef);
-     category = new CategoryModel(snapshot.val());
+    const collectionRef = collection(this.firestore, 'categorie');
+    // Replace with your actual Firebase database ref
+    const snapshot = await getDoc(doc(collectionRef, categoryKey));
+     category = new CategoryModel(snapshot.data());
      category.setKey(categoryKey);
     console.log("fetched category",category)
 
