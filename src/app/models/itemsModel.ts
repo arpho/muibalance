@@ -9,7 +9,7 @@ set categorieId(value: string[]) {
 }
   note=""
   picture=""
-  constructor(arg:any) {
+  constructor(arg?:any) {
     this.build(arg);
   }
   build(arg:any) {
