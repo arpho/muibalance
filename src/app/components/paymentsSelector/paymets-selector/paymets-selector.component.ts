@@ -27,11 +27,7 @@ export class PaymentsSelectorComponent implements OnChanges,OnInit,OnDestroy {
 onKey(arg0: any) {
 console.log("filtering",arg0.target.value)
 this.searchPayment = (arg:PaymentModel)=>{
-  console.log("arg",arg)
   return arg.nome.toLowerCase().includes(arg0.target.value.toLowerCase())}
-
-
-
 }
 paymentsKey = model('')
 $payments = signal<PaymentModel[]>([])
@@ -57,9 +53,7 @@ this.searchForm = this.fb.group({
 
 })
 this.searchForm.get("search")?.valueChanges.subscribe((value:string)=>{
-  console.log("value",value, this.searchPayment)
-
-  payments.filter((payment:PaymentModel)=>payment.title.toLowerCase().includes(value.toLowerCase()))
+    payments.filter((payment:PaymentModel)=>payment.title.toLowerCase().includes(value.toLowerCase()))
 })
 this.paymentsKey.subscribe((value)=>{
   console.log("value",value)
