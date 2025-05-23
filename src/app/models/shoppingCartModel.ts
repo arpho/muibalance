@@ -49,7 +49,9 @@ this.build(arg);
 
     return this;
   }
-
+get paiedAmount(){
+  return this.payments.reduce((acc, payment) => acc + payment.amount, 0);
+}
   setKey(uid: string) {
     this.key = uid;
     return this;
