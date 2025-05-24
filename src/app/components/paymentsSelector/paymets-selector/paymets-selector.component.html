@@ -2,7 +2,7 @@
 <form [formGroup]="searchForm">
 <mat-select matInput [(ngModel)]="paymentsKey">
   <mat-icon matPrefix>search</mat-icon>
-   <input matInput (keyup)="onKey($event)">
+   <input matInput (keyup)="onKey($event)" id=searchPayment>
     <mat-option>None</mat-option>
   @for(payment of $payments()|filterPipe:searchPayment;track payment.key){
 

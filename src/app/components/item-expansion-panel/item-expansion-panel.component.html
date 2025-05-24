@@ -1,1 +1,24 @@
-<p>item-expansion-panel works!</p>
+<mat-expansion-panel (opened)="panelIsOpen.set(true)" (closed)="panelIsOpen.set(false)"
+[expanded]="panelIsOpen()">
+
+  <mat-label> acquisto</mat-label>
+  <form [formGroup]="itemForm">
+    <mat-form-field>
+      <mat-label>Descrizione</mat-label>
+      <input matInput formControlName="descrizione" [(ngModel)]="descrizione">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>note</mat-label>
+      <input matInput formControlName="note" [(ngModel)]="note">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>prezzo</mat-label>
+      <input matInput formControlName="prezzo" [(ngModel)]="prezzo">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>moneta</mat-label>
+      <input matInput formControlName="moneta" [(ngModel)]="moneta">
+    </mat-form-field>
+
+  </form>
+</mat-expansion-panel>
