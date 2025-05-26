@@ -1,1 +1,1 @@
-<mat-chip>{{category().title}}</mat-chip>
+<mat-chip (click)="selectedChip(category().key)">{{category().title}}</mat-chip>

@@ -1,6 +1,6 @@
 <mat-chip-set aria-label="Fish selection">
   @for(key of categoriesKey();track key){
-    <app-category-chip [categoryKey]="key"></app-category-chip>
+    <app-category-chip [categoryKey]="key" (clickedChip)="categoryClicked($event)"></app-category-chip>
   }
 
 </mat-chip-set>

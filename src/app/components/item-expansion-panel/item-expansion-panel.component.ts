@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { CateoriesSelectorComponent } from '../cateories-selector/cateories-selector.component';
 
 @Component({
   selector: 'app-item-expansion-panel',
@@ -15,13 +16,18 @@ import { MatInputModule } from '@angular/material/input';
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatLabel,],
+        MatLabel,
+      CateoriesSelectorComponent
+      ],
   templateUrl: './item-expansion-panel.component.html',
   styleUrl: './item-expansion-panel.component.css',
   standalone: true,
   changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class ItemExpansionPanelComponent implements OnChanges{
+selectedCategory($event: Event) {
+console.log("selectedCategory", $event)
+}
 
   data=input<{item:ItemsModel,operation:string,index?:number }|null>()
   updated=output<{item:ItemsModel,operation:string,index?:number}>()

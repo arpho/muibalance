@@ -1,4 +1,4 @@
-import { Component, model, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, model, OnChanges, output, SimpleChanges } from '@angular/core';
 import {MatChipsModule} from '@angular/material/chips';
 import { CategoryChipComponent } from '../category-chip/category-chip.component';
 
@@ -13,6 +13,12 @@ import { CategoryChipComponent } from '../category-chip/category-chip.component'
   standalone: true
 })
 export class CategoryViewerComponent implements OnChanges{
+
+  chipEvent = output<string>()
+categoryClicked($event: any) {
+console.log("categoryClicked", $event)
+this.chipEvent.emit($event)
+}
 ngOnChanges(changes: SimpleChanges): void {
   console.log("changes on category viewer",changes)
 }
