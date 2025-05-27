@@ -38,8 +38,14 @@ updateItem($event: any) {
   console.log("updateItem from item selector", this.selectedItem(),"on index",this.selectedIndex())
 this.item2edit.set({item:this.selectedItem()!,operation:"update",index:this.selectedIndex()!})
 }
-Item2beEdited($event: any) {
-this.item2edit.set({item:this.selectedItem()!,operation:"update",index:this.selectedIndex()!})
+ItemEdited(data: any) {
+console.log("ItemEdited",data)
+if(data.operation=="update"){
+  this.items().splice(data.index,1,data.item)
+  this.items.set([...this.items()])
+  this.itemsListChanged.emit(this.items())
+
+}
 }
 item2edit=signal<{item:ItemsModel,operation:string,index?:number}|null>(null)
 insertNewItem() {

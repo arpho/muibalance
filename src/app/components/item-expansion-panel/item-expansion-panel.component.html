@@ -1,5 +1,6 @@
-<mat-expansion-panel (opened)="panelIsOpen.set(true)" (closed)="panelIsOpen.set(false)"
-[expanded]="panelIsOpen()">
+<mat-expansion-panel (opened)="isPanelOpen.set(true)" (closed)="isPanelOpen.set(false)"
+[expanded]="isPanelOpen()">
+<button mat-button (click)="submitItem()"><mat-icon>check</mat-icon>modifica</button>
 
   <mat-label> acquisto</mat-label>
   <form [formGroup]="itemForm">

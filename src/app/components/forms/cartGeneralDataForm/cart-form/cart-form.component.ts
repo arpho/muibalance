@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { PaymentFraction } from '../../../../models/paymentsFraction';
 import { PaymentsTableComponent } from '../../../paymentsTable/payments-table/payments-table.component';
 import { ItemsTableComponent } from '../../../items-table/items-table.component';
+import { ItemsModel } from '../../../../models/itemsModel';
 
 @Component({
   selector: 'app-cart-form',
@@ -53,6 +54,7 @@ import { ItemsTableComponent } from '../../../items-table/items-table.component'
 export class CartFormComponent implements OnInit{
 itemsListChanged($event: any) {
 console.log("itemsListChanged", $event)
+this.items.set($event)
 }
 paymentsListChanged($event: PaymentFraction[]) {
 console.log("paymentsListChanged", $event)
@@ -73,6 +75,7 @@ throw new Error('Method not implemented.');
   sellerKey = signal("")
   deliveredDate = signal("")
   payments = signal<PaymentFraction[]>([])
+  items = signal<ItemsModel[]>([])
   ngOnInit(): void {
     this.title.set(this.cart.title)
     this.note.set(this.cart.note)
@@ -83,6 +86,7 @@ throw new Error('Method not implemented.');
     this.sellerKey.set(this.cart.sellerKey)
     this.deliveredDate.set(this.cart.deliveredDate)
     this.payments.set(this.cart.payments)
+    this.items.set(this.cart.items)
 
   }
 
@@ -97,7 +101,8 @@ throw new Error('Method not implemented.');
       key: this.cart.key,
       deliveredDate: this.deliveredDate(),
       sellerKey: this.sellerKey(),
-      payments: this.payments()
+      payments: this.payments(),
+      items: this.items()
     }
   })
 
