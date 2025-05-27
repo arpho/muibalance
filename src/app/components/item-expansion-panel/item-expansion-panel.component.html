@@ -19,7 +19,7 @@
       <mat-label>moneta</mat-label>
       <input matInput formControlName="moneta" [(ngModel)]="moneta">
     </mat-form-field>
-    <app-cateories-selector  matInput [categoriesKey]="categoriesKey()" (categoriesKeyChanged)="selectedCategory($event)"></app-cateories-selector>
+    <app-cateories-selector  matInput [categoriesKey]="categoriesKey()" (categoriesUpdated)="selectedCategory($event)"></app-cateories-selector>
 
   </form>
 </mat-expansion-panel>

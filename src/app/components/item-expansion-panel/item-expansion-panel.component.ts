@@ -25,7 +25,7 @@ import { CateoriesSelectorComponent } from '../cateories-selector/cateories-sele
   changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class ItemExpansionPanelComponent implements OnChanges{
-selectedCategory($event: Event) {
+selectedCategory($event: string[]) {
 console.log("selectedCategory", $event)
 }
 

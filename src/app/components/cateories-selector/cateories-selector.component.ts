@@ -15,11 +15,12 @@ import { MatLabel } from '@angular/material/form-field';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CateoriesSelectorComponent {
+  categoriesKey = model.required<string[]>();
+  categoriesUpdated= output<string[]>()
 selectedCategory($event: string) {
 console.log("selectedCategory", $event)
 this.categoriesKey.set(this.categoriesKey().filter(cat => cat != $event))
+this.categoriesUpdated.emit(this.categoriesKey())
 }
-  categoriesKey = model.required<string[]>();
-  categoriesUpdated= output
 
 }
