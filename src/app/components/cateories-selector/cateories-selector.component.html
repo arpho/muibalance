@@ -1,2 +1,3 @@
 <mat-label>Categorie</mat-label>
+<button mat-button (click)="assignCategories()"><mat-icon>new_label</mat-icon></button>
 <app-category-viewer [categoriesKey]="categoriesKey()" (chipEvent)="selectedCategory($event)"></app-category-viewer>

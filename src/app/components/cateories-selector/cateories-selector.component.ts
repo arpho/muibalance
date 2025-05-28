@@ -2,12 +2,24 @@ import { ChangeDetectionStrategy, Component, model, output } from '@angular/core
 import { CategoryViewerComponent } from '../category-viewer/category-viewer.component';
 import { MatLineModule } from '@angular/material/core';
 import { MatLabel } from '@angular/material/form-field';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MatBottomSheet,
+  MatBottomSheetModule,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
+import { BottomSheetCategoriesComponent } from '../bottom-sheet-categories/bottom-sheet-categories.component';
 
 @Component({
   selector: 'app-cateories-selector',
   imports: [
     CategoryViewerComponent,
-    MatLabel
+    MatLabel,
+    MatIconModule,
+    MatButtonModule,
+    MatButtonModule,
+    MatBottomSheetModule
   ],
   templateUrl: './cateories-selector.component.html',
   styleUrl: './cateories-selector.component.css',
@@ -15,6 +27,18 @@ import { MatLabel } from '@angular/material/form-field';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CateoriesSelectorComponent {
+  constructor(
+    private $bottomSheet: MatBottomSheet
+  )
+  {}
+assignCategories() {
+console.log("assign categories")
+this.$bottomSheet.open(BottomSheetCategoriesComponent,{
+  data: {categoriesKey:this.categoriesKey()}
+
+})
+}
+
   categoriesKey = model.required<string[]>();
   categoriesUpdated= output<string[]>()
 selectedCategory($event: string) {
