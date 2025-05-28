@@ -1,6 +1,6 @@
-import { Injectable, InputOptionsWithoutTransform, InputOptionsWithTransform, InputSignal, InputSignalWithTransform } from '@angular/core';
+import { Injectable, InputOptionsWithoutTransform, InputOptionsWithTransform, InputSignal, InputSignalWithTransform, signal } from '@angular/core';
 import { Database, ref,get } from '@angular/fire/database';
-import { doc, setDoc, Firestore, collection, where, getDoc } from '@angular/fire/firestore';
+import { doc, setDoc, Firestore, collection, where, getDoc, query, getDocs } from '@angular/fire/firestore';
 import {CategoryModel} from  '../../models/categoryModel'
 import { MyDbService } from '../myDb/my-db.service';
 import { RxDatabase } from 'rxdb';
@@ -11,6 +11,7 @@ import { replicateFirestore } from 'rxdb/plugins/replication-firestore';
   providedIn: 'root'
 })
 export class CategoriesService {
+  categories = signal<CategoryModel[]>([]);
   async fetchCategoryFromFirestore(categoryKey: string) {
     console.log("categoryKey",categoryKey)
        let category = new CategoryModel();
@@ -130,9 +131,18 @@ async fetchDbCategory(categoryKey:string,userKey:string){
 }
 
 
-listCategories4User(userKey:string){
-  const categoriesRef = ref(this.fireDb, `categorie/`); // Replace with your actual Firebase database ref
-  return get(categoriesRef);
+  async listCategories4User(userKey:string){
+const collectionRef = collection(this.firestore, 'categorie');
+const q = query(collection(this.firestore, "categorie"), where("userKey", "==", userKey));
+    const querySnapshot = await getDocs(q);
+    const Categories = querySnapshot.docs.map((doc) => {
+      const category = new CategoryModel(doc.data());
+      category.setKey(doc.id);
+      return category
+    })
+    this.categories.set(Categories)
+    return Categories
+
 }
 
 pushIntoCollection( collection:CategoryModel) {
