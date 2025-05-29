@@ -1,6 +1,7 @@
+import { push } from 'firebase/database';
 import { Injectable, InputOptionsWithoutTransform, InputOptionsWithTransform, InputSignal, InputSignalWithTransform, signal } from '@angular/core';
 import { Database, ref,get } from '@angular/fire/database';
-import { doc, setDoc, Firestore, collection, where, getDoc, query, getDocs } from '@angular/fire/firestore';
+import { doc, setDoc, Firestore, collection, where, getDoc, query, getDocs, addDoc } from '@angular/fire/firestore';
 import {CategoryModel} from  '../../models/categoryModel'
 import { MyDbService } from '../myDb/my-db.service';
 import { RxDatabase } from 'rxdb';
@@ -11,6 +12,15 @@ import { replicateFirestore } from 'rxdb/plugins/replication-firestore';
   providedIn: 'root'
 })
 export class CategoriesService {
+  async createCategory(cat: CategoryModel) {
+
+    const collectionRef = collection(this.firestore, 'categorie');
+     const docRef = await addDoc(collectionRef, cat.serialize());
+     const newCat = await getDoc(docRef);
+     const category = new CategoryModel(newCat.data()).setKey(newCat.id);
+     return category
+
+  }
   categories = signal<CategoryModel[]>([]);
   async fetchCategoryFromFirestore(categoryKey: string) {
     console.log("categoryKey",categoryKey)

@@ -26,6 +26,19 @@ import { FilterPipe } from "../../pipes/filterPipe/filter-pipe.pipe";
   standalone: true
 })
 export class BottomSheetCategoriesComponent implements OnInit {
+    constructor(
+    private service:CategoriesService,
+    private users:UsersService
+  ) {}
+  requestedCategory= signal<string>("")
+  async createCategory() {
+console.log("createCategory", this.requestedCategory())
+const cat = new CategoryModel({title: this.requestedCategory()})
+const loggedUder = await this.users.getLoggedUser()
+cat.userKey = loggedUder.key
+const newCat = await this.service.createCategory(cat)
+this.categoriesKey.set([...this.categoriesKey(),newCat.key])
+}
 closeDialog() {
 console.log("closeDialog")
 this.MatBottomSheetRef.dismiss(this.categoriesKey())
@@ -47,19 +60,15 @@ this.categoriesKey.set(Array.from(new Set([...this.categoriesKey(),...categories
 searchInput="";
 searchFilter =(cat:CategoryModel)=>true;
 filterCategories($event: any) {
-  console.log("filterCategories", $event.target.value)
+    this.requestedCategory.set($event.target.value)
   this.searchFilter = (cat:CategoryModel)=>{
-    console.log("filtering Categories", cat)
     return cat.title.toLowerCase().includes($event.target.value.toLowerCase().trim())}
 }
 searchText: any;
 assignCategories() {
 throw new Error('Method not implemented.');
 }
-  constructor(
-    private service:CategoriesService,
-    private users:UsersService
-  ) {}
+
   categories= signal<CategoryModel[]>([])
 selectedCategory($event: string) {
 console.log("selectedCategory tobe removed", $event)
@@ -72,7 +81,6 @@ this.categoriesKey.set(this.categoriesKey().filter(cat => cat != $event))
     this.categoriesKey.set(this.data.categoriesKey)
     const loggedUser =await  this.users.getLoggedUser()
     const categories = await this.service.listCategories4User(loggedUser.key)
-    console.log("categories",categories)
     this.categories.set(categories)
   }
      readonly data = inject<{categoriesKey:string[]}>(MAT_BOTTOM_SHEET_DATA)

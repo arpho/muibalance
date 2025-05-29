@@ -2,6 +2,11 @@
 <button mat-button (click)="assignCategories()"><mat-icon>search</mat-icon></button>
 <input matInput placeholder="search"  [(ngModel)]="searchText" (keyup)="filterCategories($event)" id=searchInput>
 <button mat-icon-button (click)="closeDialog()"><mat-icon>check</mat-icon></button>
+@if((categories()|filterPipe:searchFilter).length==0){
+  <button mat-icon-button (click)="createCategory()"><mat-icon>create</mat-icon></button>
+  <p>nessuna categoria trovata: vuoi crearla?</p>
+
+}
 <mat-list>
   @for(cat of categories()|filterPipe:searchFilter;track cat.key){
     <mat-list-item role="listitem" (click)="selectCategory(cat)">{{cat.title}} </mat-list-item>
