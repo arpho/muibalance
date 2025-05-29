@@ -26,6 +26,10 @@ import { FilterPipe } from "../../pipes/filterPipe/filter-pipe.pipe";
   standalone: true
 })
 export class BottomSheetCategoriesComponent implements OnInit {
+closeDialog() {
+console.log("closeDialog")
+this.MatBottomSheetRef.dismiss(this.categoriesKey())
+}
 
   async fetchCategoriesList(categoriesList: string[], cat: CategoryModel) {
     categoriesList.push(cat.key)

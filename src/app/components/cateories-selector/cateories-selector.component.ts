@@ -10,6 +10,7 @@ import {
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
 import { BottomSheetCategoriesComponent } from '../bottom-sheet-categories/bottom-sheet-categories.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cateories-selector',
@@ -27,22 +28,31 @@ import { BottomSheetCategoriesComponent } from '../bottom-sheet-categories/botto
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CateoriesSelectorComponent {
+  subscriptions = new Subscription()
   constructor(
     private $bottomSheet: MatBottomSheet
   )
   {}
-assignCategories() {
+  async assignCategories() {
 console.log("assign categories")
-this.$bottomSheet.open(BottomSheetCategoriesComponent,{
+const dialogRef = this.$bottomSheet.open(BottomSheetCategoriesComponent,{
   data: {categoriesKey:this.categoriesKey()}
 
 })
+this.subscriptions.add(dialogRef.afterDismissed().subscribe(res=>{
+  if(res){
+    console.log("selected",res)
+    this.categoriesKey.set(res)
+    this.categoriesUpdated.emit(this.categoriesKey())
+  }
+}))
 }
 
   categoriesKey = model.required<string[]>();
   categoriesUpdated= output<string[]>()
 selectedCategory($event: string) {
 console.log("selectedCategory", $event)
+
 this.categoriesKey.set(this.categoriesKey().filter(cat => cat != $event))
 this.categoriesUpdated.emit(this.categoriesKey())
 }
