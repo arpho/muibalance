@@ -26,8 +26,19 @@ import { FilterPipe } from "../../pipes/filterPipe/filter-pipe.pipe";
   standalone: true
 })
 export class BottomSheetCategoriesComponent implements OnInit {
-selectCategory(_t13: CategoryModel) {
+
+  async fetchCategoriesList(categoriesList: string[], cat: CategoryModel) {
+    categoriesList.push(cat.key)
+    if (cat.fatherKey) {
+  const father = await this.service.fetchCategoryFromFirestore(cat.fatherKey)
+      await this.fetchCategoriesList(categoriesList,father)
+    }
+    return categoriesList
+  }
+  async selectCategory(_t13: CategoryModel) {
 console.log("selectCategory",_t13)
+const categories2BeAdded:string[]= await this.fetchCategoriesList(this.categoriesKey(),_t13)
+this.categoriesKey.set(Array.from(new Set([...this.categoriesKey(),...categories2BeAdded])))
 }
 searchInput="";
 searchFilter =(cat:CategoryModel)=>true;
