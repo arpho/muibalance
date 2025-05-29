@@ -1,1 +1,8 @@
 <app-category-viewer [categoriesKey]="categoriesKey()" (chipEvent)="selectedCategory($event)"></app-category-viewer>
+<button mat-button (click)="assignCategories()"><mat-icon>search</mat-icon></button>
+<input matInput placeholder="search"  [(ngModel)]="searchText" (keyup)="filterCategories($event)" id=searchInput>
+<mat-list>
+  @for(cat of categories()|filterPipe:searchFilter;track cat.key){
+    <mat-list-item role="listitem" (click)="selectCategory(cat)">{{cat.title}} </mat-list-item>
+  }
+</mat-list>

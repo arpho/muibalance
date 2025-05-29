@@ -1,19 +1,46 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Form, FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { CategoryViewerComponent } from '../category-viewer/category-viewer.component';
 import { CategoryModel } from '../../models/categoryModel';
 import { CategoriesService } from '../../services/categories/categories.service';
 import { UsersService } from '../../services/users/users.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
+import { FilterPipe } from "../../pipes/filterPipe/filter-pipe.pipe";
 
 @Component({
   selector: 'app-bottom-sheet-categories',
   imports: [
-    CategoryViewerComponent
-  ],
+    CategoryViewerComponent,
+    MatIconModule,
+    MatButtonModule,
+    FormsModule,
+    MatListModule,
+    FilterPipe
+],
   templateUrl: './bottom-sheet-categories.component.html',
-  styleUrl: './bottom-sheet-categories.component.css'
+  styleUrl: './bottom-sheet-categories.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true
 })
 export class BottomSheetCategoriesComponent implements OnInit {
+selectCategory(_t13: CategoryModel) {
+console.log("selectCategory",_t13)
+}
+searchInput="";
+searchFilter =(cat:CategoryModel)=>true;
+filterCategories($event: any) {
+  console.log("filterCategories", $event.target.value)
+  this.searchFilter = (cat:CategoryModel)=>{
+    console.log("filtering Categories", cat)
+    return cat.title.toLowerCase().includes($event.target.value.toLowerCase().trim())}
+}
+searchText: any;
+assignCategories() {
+throw new Error('Method not implemented.');
+}
   constructor(
     private service:CategoriesService,
     private users:UsersService
