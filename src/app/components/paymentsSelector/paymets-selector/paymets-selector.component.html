@@ -1,6 +1,6 @@
 
 <form [formGroup]="searchForm">
-<mat-select matInput [(ngModel)]="paymentsKey">
+<mat-select matInput [(ngModel)]="paymentsKey" formControlName="paymentsKey">
   <mat-icon matPrefix>search</mat-icon>
    <input matInput (keyup)="onKey($event)" id=searchPayment>
     <mat-option>None</mat-option>

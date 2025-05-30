@@ -17,8 +17,11 @@ export class PaymentsService {
     return payment
 
   }
-  createPayment(payment: PaymentModel) {
-   return addDoc(collection(this.firestore, `payments`), payment.serialize());
+  async createPayment(payment: PaymentModel) {
+   const docRef= await addDoc(collection(this.firestore, `payments`), payment.serialize());
+   const newCat = await getDoc(docRef);
+        const createdPayment = new PaymentModel(newCat.data()).setKey(newCat.id);
+        return createdPayment
   }
   updatePayment(res: PaymentModel) {
 const refPayment = doc(this.firestore, `payments/${res.key}`);
