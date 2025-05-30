@@ -31,7 +31,6 @@ export class CategoriesService {
     const snapshot = await getDoc(doc(collectionRef, categoryKey));
      category = new CategoryModel(snapshot.data());
      category.setKey(categoryKey);
-    console.log("fetched category",category)
 
   }
     catch(e){
