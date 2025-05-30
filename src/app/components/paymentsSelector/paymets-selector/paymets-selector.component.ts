@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { Subscription } from 'rxjs';
 import { FilterPipe } from "../../../pipes/filterPipe/filter-pipe.pipe";
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-paymets-selector',
@@ -17,13 +18,17 @@ import { FilterPipe } from "../../../pipes/filterPipe/filter-pipe.pipe";
     ReactiveFormsModule,
     MatInputModule,
     MatIconModule,
-    FilterPipe
+    FilterPipe,
+    MatButtonModule
 ],
   templateUrl: './paymets-selector.component.html',
   styleUrl: './paymets-selector.component.css',
   standalone: true
 })
 export class PaymentsSelectorComponent implements OnChanges,OnInit,OnDestroy {
+createPayment() {
+console.log("createPayment")
+}
 onKey(arg0: any) {
 console.log("filtering",arg0.target.value)
 this.searchPayment = (arg:PaymentModel)=>{

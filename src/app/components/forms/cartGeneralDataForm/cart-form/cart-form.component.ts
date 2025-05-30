@@ -79,7 +79,7 @@ throw new Error('Method not implemented.');
   ngOnInit(): void {
     this.title.set(this.cart.title)
     this.note.set(this.cart.note)
-    this.totale.set(this.cart.totale)
+    this.totale.set(Math.round(this.cart.paiedAmount*100)/100)
     this.online.set(this.cart.online)
     this.delivered.set(this.cart.delivered)
     this.buyngDate.set(this.cart.buyngDate)
