@@ -75,8 +75,8 @@ this.newFraction = this.fb.group({
           note: this.paymentNote()
         }
       })
-selectedPayment($event: Event) {
-console.log("selectedPayment from payment selector", $event)
+selectedPayment(paymentsKey: any) {
+console.log("selectedPayment from payment selector", paymentsKey)
 }
 submit() {
   console.log("submit", this.paymentsKey())

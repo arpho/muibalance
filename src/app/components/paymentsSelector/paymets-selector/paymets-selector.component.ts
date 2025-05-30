@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, model, OnChanges, OnDestroy, OnInit, signal, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, model, OnChanges, OnDestroy, OnInit, Output, signal, SimpleChanges } from '@angular/core';
 import { PaymentsService } from '../../../services/payments/payments.service';
 import { PaymentModel } from '../../../models/paymentModel';
 import { UsersService } from '../../../services/users/users.service';
@@ -56,7 +56,12 @@ const loggedUser = await this.users.getLoggedUser()
   this.service.createPayment(payment).then(resPayment=>{
     console.log("created",resPayment)
   this.paymentsKey.set(resPayment.key)
+  //this.$payments.set([...this.$payments(),resPayment]) // aggiorno la lista
     this.paymentsKeyChanged.emit(resPayment.key)
+    this.searchForm.get("paymentsKey")?.setValue(resPayment.key)
+  }).catch(err=>{
+    console.error(err)
+
   })
 
 })
@@ -70,7 +75,7 @@ this.searchPayment = (arg:PaymentModel)=>{
 paymentsKey = model('')
 $payments = signal<PaymentModel[]>([])
 subscriptions = new Subscription()
-  paymentsKeyChanged: EventEmitter<string> = new EventEmitter<string>();
+  @Output() paymentsKeyChanged: EventEmitter<string> = new EventEmitter<string>();
   searchForm: FormGroup = new FormGroup({
     searchPayment: new FormControl(''),
     paymentsKey: new FormControl('')
@@ -83,6 +88,9 @@ searchPayment =(arg:any)=> true
   async ngOnInit() {
     const loggedUser = await this.users.getLoggedUser();
  const payments = await this.service.getPayments(loggedUser.key)
+ this.service.fetchPaymentsFromFirestoreOnRealTime(loggedUser.key,(payments)=>{
+  this.$payments.set(payments)
+ })
 this.$payments.set(payments)
 this.searchForm = this.fb.group({
   search: new FormControl(''),
@@ -105,6 +113,7 @@ this.paymentsKey.subscribe((value)=>{
  console.log("changes on payment viewer",changes)
  this.searchForm.valueChanges.subscribe((value)=>{
    console.log("value on form",value)
+   this.paymentsKeyChanged.emit(value.paymentsKey)
  })
   }
 }
