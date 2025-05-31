@@ -22,7 +22,7 @@ set categorieId(value: string[]) {
       prezzo: this.prezzo,
       moneta: this.moneta,
       descrizione: this.descrizione,
-      categoriesKey:this.cateoriesKey,
+      categoriesKey:this.cateoriesKey?.length>0?this.cateoriesKey:[],
       note: this.note,
       picture: this.picture
     }

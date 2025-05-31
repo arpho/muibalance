@@ -45,6 +45,7 @@ this.MatBottomSheetRef.dismiss(this.categoriesKey())
 }
 
   async fetchCategoriesList(categoriesList: string[], cat: CategoryModel) {
+    console.log("fetchCategoriesList to be added",categoriesList)
     categoriesList.push(cat.key)
     if (cat.fatherKey) {
   const father = await this.service.fetchCategoryFromFirestore(cat.fatherKey)
@@ -54,7 +55,8 @@ this.MatBottomSheetRef.dismiss(this.categoriesKey())
   }
   async selectCategory(_t13: CategoryModel) {
 console.log("selectCategory",_t13)
-const categories2BeAdded:string[]= await this.fetchCategoriesList(this.categoriesKey(),_t13)
+console.log("categoriesKey",this.categoriesKey())
+const categories2BeAdded:string[]= await this.fetchCategoriesList(this.categoriesKey()||[],_t13)
 this.categoriesKey.set(Array.from(new Set([...this.categoriesKey(),...categories2BeAdded])))
 }
 searchInput="";
@@ -78,7 +80,7 @@ this.categoriesKey.set(this.categoriesKey().filter(cat => cat != $event))
   categoriesKey = signal<string[]>([])
   async ngOnInit(): Promise<void> {
     console.log("data",this.data)
-    this.categoriesKey.set(this.data.categoriesKey)
+    this.categoriesKey.set(this.data.categoriesKey||[])
     const loggedUser =await  this.users.getLoggedUser()
     const categories = await this.service.listCategories4User(loggedUser.key)
     this.categories.set(categories)

@@ -46,6 +46,11 @@ if(data.operation=="update"){
   this.itemsListChanged.emit(this.items())
 
 }
+if(data.operation=="add"){
+  this.items().push(data.item)
+  this.items.set([...this.items()])
+  this.itemsListChanged.emit(this.items())
+}
 }
 item2edit=signal<{item:ItemsModel,operation:string,index?:number}|null>(null)
 insertNewItem() {
