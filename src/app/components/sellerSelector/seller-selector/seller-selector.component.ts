@@ -8,6 +8,9 @@ import { BottomSellerSelectorComponent } from '../../bottomSellerSelector/bottom
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ControlValueAccessor } from '@angular/forms';
 import { SellerModel } from '../../../models/supplierModel';
+import { SellerDialogComponent } from '../../sellerDialog/seller-dialog/seller-dialog.component';
+import { SellersService } from '../../../services/suppliers/suppliers.service';
+import { UsersService } from '../../../services/users/users.service';
 
 @Component({
   selector: 'app-seller-selector',
@@ -31,6 +34,8 @@ export class SellerSelectorComponent  implements OnInit, OnDestroy,  ControlValu
   constructor(
     private dialog:MatDialog,
     private bottomSheet:MatBottomSheet,
+    private service:SellersService,
+    private users:UsersService
   ) { }
   ngOnChanges(changes: SimpleChanges): void {
 console.log("changes on seller viewer",changes)
@@ -52,7 +57,25 @@ this.sellerKey.set(changes['sellerKey'].currentValue)
     this.subscriptions.unsubscribe()
   }
 createDialog() {
-throw new Error('Method  not implemented.');
+const dialogRef = this.dialog.open(SellerDialogComponent, {
+  data: { data: new SellerModel({}), buttonText: 'crea fornitore' },
+})
+this.subscriptions.add(dialogRef.afterClosed().subscribe(async res => {
+  if (res) {
+    console.log("seller to be created", res)
+    const seller = new SellerModel(res)
+    const loggedUser = await this.users.getLoggedUser()
+    seller.userKey = loggedUser.key
+    this.service.createSupplier(seller).then(createdSeller=>{
+      console.log("created",createdSeller)
+      this.sellerKey.set(createdSeller.key)
+    this.selectedSeller.emit(this.sellerKey())
+
+    })
+    this.fnTouched(this.sellerKey())
+    this.fnchanged(this.sellerKey())
+  }
+}))
 }
 openDialog() {
 const dialogRef = this.bottomSheet.open(BottomSellerSelectorComponent, {

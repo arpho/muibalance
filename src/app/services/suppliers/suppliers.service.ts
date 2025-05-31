@@ -25,9 +25,12 @@ export class SellersService {
   })
 
   }
-  createSupplier(seller: SellerModel) {
+  async createSupplier(seller: SellerModel) {
     collection(this.firestore, `sellers`);
-    return addDoc(collection(this.firestore, `sellers`), seller.serialize());
+    const docRef =await  addDoc(collection(this.firestore, `sellers`), seller.serialize());
+    const newSup = await getDoc(docRef);
+    const createdSupplier = new SellerModel(newSup.data()).setKey(newSup.id);
+    return createdSupplier
   }
   updateSupplier(seller: SellerModel) {
     return setDoc(doc(this.firestore, `sellers/${seller.key}`), seller.serialize());

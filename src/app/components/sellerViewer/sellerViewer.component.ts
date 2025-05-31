@@ -17,8 +17,12 @@ export class SellerViewerComponent implements  OnChanges {
   async ngOnChanges(changes: SimpleChanges): Promise<void> {
  if(changes['sellerKey'].currentValue)
   {
+    if (changes['sellerKey'].currentValue) {
     const seller = await this.service.fetchSeller(changes['sellerKey'].currentValue)
-    this.seller.set(seller)
+    this.seller.set(seller)}
+    else{
+      this.seller.set(new SellerModel({}))
+    }
 
   }
 }

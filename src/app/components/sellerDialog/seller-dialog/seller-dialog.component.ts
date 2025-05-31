@@ -89,14 +89,13 @@ this.sellers.set(this.sellers().filter(seller=>seller.nome.toLowerCase().include
     private fb:FormBuilder
   ) { }
 makeWindowTitle() {
-return `editing ${this.seller().nome}`
+return this.seller().nome ? `editing ${this.seller().nome}`:"nuovo fornitore"
 }
   async ngOnInit() {
  console.log("seller",this.seller())
  this.address = this.seller().address
  const loggedUser = await this.users.getLoggedUser();
  const sellers = await this.sellers_Service.getSuppliers4User(loggedUser.key)
- console.log("got sellers",sellers)
  this.sellers.set(sellers)
 console.log("address",this.seller().address.address)
 this.address = this.seller().address
@@ -113,9 +112,9 @@ this.sellerForm = this.fb.group({
   readonly seller = model<SellerModel>(this.data.data)
   readonly buttonText = model(this.data.buttonText)
 addressForm:FormGroup = new FormGroup({
-  address: new  FormControl(this.seller().address.address),
-  latitude: new  FormControl(this.seller().address.latitude),
-  longitude: new  FormControl(this.seller().address.longitude)
+  address: new  FormControl(this.seller().address.address||""),
+  latitude: new  FormControl(this.seller().address.latitude||0.00),
+  longitude: new  FormControl(this.seller().address.longitude||0.00)
 })
 
   sellerForm:FormGroup = new FormGroup({

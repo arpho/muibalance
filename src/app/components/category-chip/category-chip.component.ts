@@ -27,10 +27,8 @@ console.log("clicked ",this.categoryKey())
   category = signal(new CategoryModel({title:""}))
 
   async ngOnChanges(changes: SimpleChanges): Promise<void> {
-console.log("changes on category chip",changes)
 
     const  category = await this.service.fetchCategoryFromFirestore(this.categoryKey());
-    console.log("category",category)
     this.category.set(category);
 
   }
