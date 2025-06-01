@@ -36,7 +36,7 @@ export class CateoriesSelectorComponent {
   async assignCategories() {
 console.log("assign categories")
 const dialogRef = this.$bottomSheet.open(BottomSheetCategoriesComponent,{
-  data: {categoriesKey:this.categoriesKey()}
+  data: {categoriesKey:this.categoriesKey()},
 
 })
 this.subscriptions.add(dialogRef.afterDismissed().subscribe(res=>{
