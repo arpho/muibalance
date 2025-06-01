@@ -33,12 +33,26 @@ import { CartDialogComponent } from '../cartDialog/cart-dialog/cart-dialog.compo
   ]
 })
 export class ShoppingCartListComponent implements OnInit,OnDestroy {
+  constructor (
+    private users:UsersService,
+    private service:ShoppingCartService,
+    private Sellers:SellersService,
+    private dialog:MatDialog
+  ) { }
 fixed(arg0: number,arg1: number) {
 return Number(arg0).toFixed(arg1);
 }
   subscriptions=new Subscription()
 createCart() {
 console.log("createCart")
+   //history
+const  dialogRef =  this.dialog.open(CartDialogComponent,{data:{data:new ShoppingCartModel({}),buttonText:"Crea Carrello"}})
+
+this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
+  if(res){
+    console.log("cart to be stored",res)
+  }
+}))
 }
   progress = signal(0)
   async uploadCarts2firestore() {
@@ -74,12 +88,6 @@ this.dialog.open(CartDialogComponent, {data:
 }
   carts=signal<ShoppingCartModel[]>([])
   displayedColumns: string[] = ["title", "dataAcquisto","note", "totale","fornitore"];
-  constructor (
-    private users:UsersService,
-    private service:ShoppingCartService,
-    private Sellers:SellersService,
-    private dialog:MatDialog
-  ) { }
   ngOnDestroy(): void {
   this.subscriptions.unsubscribe();
   }
