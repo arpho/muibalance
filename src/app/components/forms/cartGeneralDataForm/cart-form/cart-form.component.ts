@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, Input, OnInit, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, EventEmitter, input, Input, OnInit, Output, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShoppingCartModel } from '../../../../models/shoppingCartModel';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
@@ -70,7 +70,7 @@ throw new Error('Method not implemented.');
   online = signal(false)
   buttonText = input()
   delivered = signal(false)
-  updatedCart= output<{ note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string; }|null>( )
+  @Output() updatedCart= new EventEmitter<{ note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string; }|null>()
   buyngDate = signal(new Date().toISOString())
   sellerKey = signal("")
   deliveredDate = signal("")

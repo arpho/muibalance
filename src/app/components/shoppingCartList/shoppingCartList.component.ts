@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MyMenuComponent } from '../menu/my-menu/my-menu.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CartDialogComponent } from '../cartDialog/cart-dialog/cart-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-shopping-cart-list',
@@ -37,7 +38,8 @@ export class ShoppingCartListComponent implements OnInit,OnDestroy {
     private users:UsersService,
     private service:ShoppingCartService,
     private Sellers:SellersService,
-    private dialog:MatDialog
+    private dialog:MatDialog,
+    private snackBar:MatSnackBar
   ) { }
 fixed(arg0: number,arg1: number) {
 return Number(arg0).toFixed(arg1);
@@ -47,6 +49,11 @@ createCart() {
 console.log("createCart")
    //history
 const  dialogRef =  this.dialog.open(CartDialogComponent,{data:{data:new ShoppingCartModel({}),buttonText:"Crea Carrello"}})
+this.subscriptions.add(dialogRef.afterClosed().subscribe(cart=>{
+  if(cart){
+    console.log("cart to be stored",cart)
+  }
+}))
 
 this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
   if(res){
@@ -81,10 +88,26 @@ console.log("data",data)
 }
 seeCart(cart: ShoppingCartModel) {
 console.log("seeCart",cart);
-this.dialog.open(CartDialogComponent, {data:
+const dialogRef = this.dialog.open(CartDialogComponent, {data:
 {  data: cart,
   buttonText:"Update"}
 });
+this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
+  if(res){
+    console.log("cart to be stored",res)
+    this.service.updateCart(res).then(res=>{
+      console.log("updated",res);
+      this.snackBar.open('Carrello aggiornato con successo', 'Close', {
+
+      })
+    }).catch(err=>{
+      console.error(err)
+      this.snackBar.open('Error updating cart', 'Close', {
+
+      })
+    })
+  }
+}))
 }
   carts=signal<ShoppingCartModel[]>([])
   displayedColumns: string[] = ["title", "dataAcquisto","note", "totale","fornitore"];

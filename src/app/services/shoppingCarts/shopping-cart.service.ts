@@ -10,6 +10,11 @@ import { ShoppingCartModel } from '../../models/shoppingCartModel';
   providedIn: 'root'
 })
 export class ShoppingCartService {
+  updateCart(cart: any) {
+    const refCart = doc(this.firestore, `carts/${cart.key}`);
+
+    return setDoc(refCart, cart.serialize());
+  }
   pushCart2firestore(cart: ShoppingCartModel) {
     return setDoc(doc(this.firestore, `carts/${cart.key}`), cart.serialize());
   }

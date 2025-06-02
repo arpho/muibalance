@@ -39,6 +39,7 @@ this.build(arg);
   }
   build(arg?: any) {
     Object.assign(this, arg);
+    this.buyngDate = this.buyngDate||new Date().toISOString()
 
     this.items = this.items.map((item)=>new ItemsModel(item))
     this.totale = this.items.reduce((acc, item) => acc + item.prezzo, 0);
