@@ -9,7 +9,8 @@
   </div>
   </mat-toolbar>
 <mat-progress-bar mode="determinate" value="{{progress()}}"></mat-progress-bar>
-<table mat-table [dataSource]="carts()|appSorterPipe" class="mat-elevation-z8">
+@if(carts().length)
+{<table mat-table [dataSource]="carts()|appSorterPipe" class="mat-elevation-z8">
 
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef> titolo </th>
@@ -37,3 +38,7 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row (click)="seeCart(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+}
+@else {
+  <mat-spinner></mat-spinner>}
+

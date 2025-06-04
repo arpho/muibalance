@@ -85,7 +85,7 @@ if( this.data()){
   const result = {payment:new PaymentFraction(this.newFractionValue()),operation:this.data()?.operation,index:this.data()?.index}
 this.updated.emit(result)
 console.log("emitted",result)
-//this.panelOpenState.set(false)
+this.panelOpenState.set(false)
 }
 }
 

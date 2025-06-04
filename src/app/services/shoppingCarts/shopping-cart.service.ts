@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Database, ref,get } from '@angular/fire/database';
-import { collection, doc, Firestore, setDoc, where,query, getDocs, onSnapshot } from '@angular/fire/firestore';
+import { collection, doc, Firestore, setDoc, where,query, getDocs, onSnapshot, addDoc, getDoc } from '@angular/fire/firestore';
 import { MyDbService } from '../myDb/my-db.service';
 import { UsersService } from '../users/users.service';
 import { ShoppingCartModel } from '../../models/shoppingCartModel';
@@ -10,6 +10,12 @@ import { ShoppingCartModel } from '../../models/shoppingCartModel';
   providedIn: 'root'
 })
 export class ShoppingCartService {
+  async createCart(cart: ShoppingCartModel) {
+ const docRef= await addDoc(collection(this.firestore, `payments`), cart.serialize());
+   const newCart = await getDoc(docRef);
+        const createdCart = new ShoppingCartModel(newCart.data()).setKey(newCart.id);
+        return createdCart
+  }
   updateCart(cart: any) {
     const refCart = doc(this.firestore, `carts/${cart.key}`);
 

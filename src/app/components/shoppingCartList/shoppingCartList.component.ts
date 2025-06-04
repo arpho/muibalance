@@ -15,6 +15,7 @@ import { MyMenuComponent } from '../menu/my-menu/my-menu.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CartDialogComponent } from '../cartDialog/cart-dialog/cart-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-shopping-cart-list',
@@ -24,6 +25,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   standalone: true,
   imports: [
     MatTableModule,
+    MatProgressSpinnerModule,
     SellerViewerComponent,
     MySorterPipePipe,
     MatButtonModule,
@@ -49,9 +51,29 @@ createCart() {
 console.log("createCart")
    //history
 const  dialogRef =  this.dialog.open(CartDialogComponent,{data:{data:new ShoppingCartModel({}),buttonText:"Crea Carrello"}})
-this.subscriptions.add(dialogRef.afterClosed().subscribe(cart=>{
+this.subscriptions.add(dialogRef.afterClosed().subscribe(async cart=>{
   if(cart){
-    console.log("cart to be stored",cart)
+    const kart = new ShoppingCartModel(cart)
+
+    const loggedUser =await  this.users.getLoggedUser()
+    kart.userKey = loggedUser.key
+    const seller = await this.Sellers.fetchSeller(kart.sellerKey)
+    kart.title = kart.title || `${seller.nome}  del ${kart.buyngDate}`
+
+
+    console.log("cart to be stored",kart)
+
+   /* this.service.createCart(cart).then(res=>{
+      console.log("created",res)
+      this.snackBar.open('Cart created successfully', 'Close', {
+        duration: 3000,
+      })
+    }).catch(err=>{
+      console.error(err)
+      this.snackBar.open('Error creating cart', 'Close', {
+        duration: 3000,
+      })
+    })*/
   }
 }))
 
