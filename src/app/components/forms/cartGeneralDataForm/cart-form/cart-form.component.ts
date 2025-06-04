@@ -54,10 +54,12 @@ import { ItemsModel } from '../../../../models/itemsModel';
 export class CartFormComponent implements OnInit{
 itemsListChanged($event: any) {
 console.log("itemsListChanged", $event)
+this.updatedCart.emit(this.formValue())
 this.items.set($event)
 }
 paymentsListChanged($event: PaymentFraction[]) {
 console.log("paymentsListChanged", $event)
+this.updatedCart.emit(this.formValue())
 this.payments.set($event)
 }
 

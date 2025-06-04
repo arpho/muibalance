@@ -22,7 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class CartDialogComponent  implements OnInit,OnDestroy{
   title = signal("")
 makeWindowTitle() {
-  const total = Math.round(this.cart().paiedAmount*100)/100;
+  const total = Math.round(this.cart().totale*100)/100;
   const paiedAmount=Math.round(this.cart().paiedAmount*100)/100
   console.log("paiedAmount",paiedAmount)
   console.log("total",total)
@@ -31,8 +31,10 @@ return `editing ${this.cart().title} ${paiedAmount}/${total}`
 updatedCart(cart: { note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string; }|null) {
 console.log("updatedCart", cart);
 this.cart.set(new ShoppingCartModel(cart))
+console.log("updated cart",this.cart())
+console.log("title",this.makeWindowTitle())
 this.title.set(this.makeWindowTitle())
-this.dialogRef.close(cart)
+//this.dialogRef.close(cart)
 
 }
   subscriptions=new Subscription()
