@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Database, ref,get } from '@angular/fire/database';
-import { collection, doc, Firestore, setDoc, where,query, getDocs } from '@angular/fire/firestore';
+import { collection, doc, Firestore, setDoc, where,query, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { MyDbService } from '../myDb/my-db.service';
 import { UsersService } from '../users/users.service';
 import { ShoppingCartModel } from '../../models/shoppingCartModel';
@@ -52,5 +52,17 @@ export class ShoppingCartService {
   getCarts4User(userKey:string) {
     //return this.getShoppingCartsFRomRealtimeDb(userKey)
     return this.getShoppingCartsFRomFirestore(userKey)
+  }
+  getCarts4UserOnValue(userKey:string, callback: (carts: ShoppingCartModel[]) => void) {
+    const q = query(collection(this.firestore, "carts"), where("userKey", "==", userKey));
+    onSnapshot(q, (querySnapshot) => {
+      const Carts = querySnapshot.docs.map((doc) => {
+        const cart = new ShoppingCartModel(doc.data());
+        cart.setKey(doc.id);
+        return cart
+      })
+      callback(Carts)
+    })
+
   }
 }

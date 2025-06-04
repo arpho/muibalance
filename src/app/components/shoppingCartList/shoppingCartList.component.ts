@@ -115,8 +115,11 @@ this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
   this.subscriptions.unsubscribe();
   }
   async ngOnInit(): Promise<void> {
- const carts = await  this.service.getCarts4User((await this.users.getLoggedUser()).key)
- this.carts.set(carts)
+
+    const user = await this.users.getLoggedUser()
+  this.service.getCarts4UserOnValue(user.key, (carts) => {
+    this.carts.set(carts)
+  })
   }
 
   async fetchSeller(sellerKey: string) {
