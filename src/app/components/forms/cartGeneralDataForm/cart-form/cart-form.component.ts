@@ -72,7 +72,7 @@ throw new Error('Method not implemented.');
   online = signal(false)
   buttonText = input()
   delivered = signal(false)
-  @Output() updatedCart= new EventEmitter<{ note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string; }|null>()
+  @Output() updatedCart= new EventEmitter<{ note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string;submitted?: boolean }|null>()
   buyngDate = signal(new Date().toISOString())
   sellerKey = signal("")
   deliveredDate = signal("")
@@ -116,7 +116,7 @@ throw new Error('Method not implemented.');
   })
 onYesClick() {
 console.log("yes",this.formValue())
-this.updatedCart.emit(this.formValue())
+this.updatedCart.emit({...this.formValue(),submitted:true})
 }
 onNoClick() {
 this.updatedCart.emit(null)

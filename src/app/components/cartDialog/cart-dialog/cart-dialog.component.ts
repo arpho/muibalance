@@ -28,18 +28,19 @@ makeWindowTitle() {
   console.log("total",total)
 return `editing ${this.cart().title} ${paiedAmount}/${total}`
 }
-updatedCart(cart: { note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string; }|null) {
+updatedCart(cart: { note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string, submitted?: boolean }|null) {
 console.log("updatedCart", cart);
 this.cart.set(new ShoppingCartModel(cart))
 console.log("updated cart",this.cart())
 console.log("title",this.makeWindowTitle())
-//this.title.set(this.makeWindowTitle())
-//this.dialogRef.close(cart)
+
+if(cart && cart['submitted']){
+this.dialogRef.close(cart)}
 
 }
   subscriptions=new Subscription()
     ngOnInit(): void {
-//this.title.set(this.makeWindowTitle())
+
     }
     ngOnDestroy(): void {
   this.subscriptions.unsubscribe()
