@@ -28,13 +28,14 @@ makeWindowTitle() {
   console.log("total",total)
 return `editing ${this.cart().title} ${paiedAmount}/${total}`
 }
-updatedCart(cart: { note: string; title: string; totale: number; online: boolean; delivered: boolean; buyngDate: string; key: string; deliveredDate: string; sellerKey: string, submitted?: boolean }|null) {
+updatedCart(data:{cart:ShoppingCartModel,submitted?:boolean,closeDialog?:boolean}) {
+const cart = data.cart
 console.log("updatedCart", cart);
 this.cart.set(new ShoppingCartModel(cart))
 console.log("updated cart",this.cart())
 console.log("title",this.makeWindowTitle())
 
-if(cart && cart['submitted']){
+if(data.closeDialog){
 this.dialogRef.close(cart)}
 
 }
