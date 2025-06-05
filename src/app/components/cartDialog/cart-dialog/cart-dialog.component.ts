@@ -1,4 +1,4 @@
-import { Component, inject, model, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, model, OnDestroy, OnInit, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { ShoppingCartModel } from '../../../models/shoppingCartModel';
 import { Subscription } from 'rxjs';
@@ -20,7 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   standalone: true
 })
 export class CartDialogComponent  implements OnInit,OnDestroy{
-  title = signal("")
+  title = computed(() => this.makeWindowTitle())
 makeWindowTitle() {
   const total = Math.round(this.cart().totale*100)/100;
   const paiedAmount=Math.round(this.cart().paiedAmount*100)/100
@@ -33,13 +33,13 @@ console.log("updatedCart", cart);
 this.cart.set(new ShoppingCartModel(cart))
 console.log("updated cart",this.cart())
 console.log("title",this.makeWindowTitle())
-this.title.set(this.makeWindowTitle())
+//this.title.set(this.makeWindowTitle())
 //this.dialogRef.close(cart)
 
 }
   subscriptions=new Subscription()
     ngOnInit(): void {
-this.title.set(this.makeWindowTitle())
+//this.title.set(this.makeWindowTitle())
     }
     ngOnDestroy(): void {
   this.subscriptions.unsubscribe()
