@@ -2,15 +2,17 @@
 <h1>Acquisti</h1>
 <app-item-expansion-panel [data]="item2edit()" (updated)="ItemEdited($event)"></app-item-expansion-panel>
 <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="updateItem($event)">
+  <ng-template matMenuContent let-item="data" let-index="index" >
+    <button mat-menu-item (click)="updateItem(item,index)">
       <mat-icon>create</mat-icon>
       <span>modifica</span>
     </button>
 
-    <button mat-menu-item (click)="deleteItem($event)">
+    <button mat-menu-item (click)="deleteItem(index)">
       <mat-icon>delete</mat-icon>
       <span>elimina</span>
     </button>
+    </ng-template>
   </mat-menu>
 
   <button mat-button (click)="insertNewItem()"><mat-icon>add</mat-icon>aggiungi acquisto </button>
@@ -37,5 +39,5 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" (click)="selectItem(row, i)" [matMenuTriggerFor]="menu" ></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" (click)="selectItem(row, i)" [matMenuTriggerFor]="menu"  [matMenuTriggerData]="{data:row, index:i}"></tr>
 </table>

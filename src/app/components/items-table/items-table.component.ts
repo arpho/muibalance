@@ -31,12 +31,15 @@ this.selectedIndex.set(index)
 }
   selectedIndex=signal<number|null>(null)
   selectedItem=signal<ItemsModel|null>(null)
-deleteItem($event: MouseEvent) {
-throw new Error('Method not implemented.');
+deleteItem(index:number) {
+console.log("deleteItem from item selector", index)
+this.items().splice(index,1)
+this.items.set([...this.items()])
+this.itemsListChanged.emit(this.items())
 }
-updateItem($event: any) {
-  console.log("updateItem from item selector", this.selectedItem(),"on index",this.selectedIndex())
-this.item2edit.set({item:this.selectedItem()!,operation:"update",index:this.selectedIndex()!})
+updateItem(item: ItemsModel, index: any) {
+  console.log("updateItem from item selector", item,"on index",index)
+this.item2edit.set({item:item,operation:"update",index:index})
 }
 ItemEdited(data: any) {
 console.log("ItemEdited",data)

@@ -17,6 +17,7 @@ import { CartDialogComponent } from '../cartDialog/cart-dialog/cart-dialog.compo
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-shopping-cart-list',
@@ -39,8 +40,18 @@ import { MatMenuModule } from '@angular/material/menu';
 })
 export class ShoppingCartListComponent implements OnInit,OnDestroy {
 [x: string]: any;
-deleteItem($event: any) {
-console.log("deleteItem", $event)
+deleteItem(cart: ShoppingCartModel) {
+const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+  data: {
+    title:"Delete Cart",
+    message:"Are you sure you want to delete this cart?"
+  }
+})
+this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
+  if(res){
+console.log("cart to be deleted",cart)
+  }
+}))
 }
 updateItem(cart: ShoppingCartModel) {
   this.seeCart(cart)
