@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CartDialogComponent } from '../cartDialog/cart-dialog/cart-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-shopping-cart-list',
@@ -32,10 +33,18 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatProgressBarModule,
     MatToolbarModule,
     MatIconModule,
-    MyMenuComponent
+    MyMenuComponent,
+    MatMenuModule
   ]
 })
 export class ShoppingCartListComponent implements OnInit,OnDestroy {
+[x: string]: any;
+deleteItem($event: any) {
+console.log("deleteItem", $event)
+}
+updateItem(cart: ShoppingCartModel) {
+  this.seeCart(cart)
+}
   constructor (
     private users:UsersService,
     private service:ShoppingCartService,

@@ -1,5 +1,6 @@
 
 <button mat-button (click)="uploadCarts2firestore()">upload Cart</button>
+
 <mat-toolbar style=" position: fixed;top:0%;width:100%; z-index:100">
   <div id="commands">
  <app-my-menu></app-my-menu>
@@ -36,8 +37,22 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row (click)="seeCart(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-row  *matRowDef="let row; columns: displayedColumns;" [matMenuTriggerFor]="menu" [matMenuTriggerData]="{data:row}"></tr>
 </table>
+
+<mat-menu #menu="matMenu">
+  <ng-template matMenuContent let-cart="data" >
+    <button mat-menu-item (click)="updateItem(cart)">
+      <mat-icon>create</mat-icon>
+      <span>modifica</span>
+    </button>
+
+    <button mat-menu-item (click)="deleteItem($event)">
+      <mat-icon>delete</mat-icon>
+      <span>elimina</span>
+    </button>
+      </ng-template>
+  </mat-menu>
 }
 @else {
   <mat-spinner></mat-spinner>}
