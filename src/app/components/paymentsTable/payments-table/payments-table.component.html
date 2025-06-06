@@ -9,15 +9,17 @@
 
 
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="updatePayment($event)">
+      <ng-template matMenuContent let-payment="data" let-index="index" >
+    <button mat-menu-item (click)="updatePayment(payment,index)">
       <mat-icon>create</mat-icon>
       <span>modifica</span>
     </button>
 
-    <button mat-menu-item (click)="deletePayment($event)">
+    <button mat-menu-item (click)="deletePayment(index)">
       <mat-icon>delete</mat-icon>
       <span>elimina</span>
     </button>
+      </ng-template>
   </mat-menu>
   <button mat-button (click)="insertNewPayment()"><mat-icon>add</mat-icon>aggiungi pagamento </button>
 <table mat-table [dataSource]="payments()" class="mat-elevation-z8">
@@ -52,5 +54,5 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;let i=index"  [matMenuTriggerFor]="menu" (click)="selectPayment(row,i)"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;let i=index"  [matMenuTriggerFor]="menu" (click)="selectPayment(row,i)"  [matMenuTriggerData]="{data:row, index:i}"></tr>
 </table>

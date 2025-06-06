@@ -40,27 +40,23 @@ import { MatDividerModule } from '@angular/material/divider';
   standalone: true
 })
 export class PaymentsTableComponent  implements OnInit{
-deletePayment($event: any) {
-console.log("deletePayment from payment selector", $event,this.selectedIndex())
-this.payments().splice(this.selectedIndex()??0,1)
+deletePayment(index: number) {
+console.log("deletePayment from payment selector", index)
+this.payments().splice(index,1)
 const payments = this.payments()
 console.log("payments",payments);
 this.payments.set([...payments])
 console.log("deletePayment",this.payments())
 }
 
-  selectedFraction = signal<PaymentFraction|null>(null)
-  selectedIndex = signal<number|null>(null)
 selectPayment(_t74: any,index:number) {
   console.log("selectPayment from payment selector", _t74,index)
-  this.selectedFraction.set(new PaymentFraction(_t74))
-  console.log("selectPayment",this.selectedFraction())
-  this.selectedIndex.set(index)
+
 
 }
-updatePayment(event: any) {
-console.log("updatePayment from payment selector", event)
-this.fractionPayment.set({payment:this.selectedFraction()!,operation:"update",index:this.selectedIndex()??0})
+updatePayment(payment: PaymentFraction,index:number) {
+console.log("updatePayment from payment selector", payment,index)
+this.fractionPayment.set({payment:payment,operation:"update",index:index})
 }
 updatedPayment($event: { payment: PaymentFraction; operation?: string; index?: number; }) {
 console.log("updatedPayment from payment selector", $event)

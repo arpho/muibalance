@@ -26,11 +26,9 @@ import { MatMenu, MatMenuModule } from '@angular/material/menu';
 export class ItemsTableComponent implements  OnInit{
 selectItem(item: any, index: any) {
 console.log("selectItem from item selector", item,index)
-this.selectedItem.set(item)
-this.selectedIndex.set(index)
+
 }
-  selectedIndex=signal<number|null>(null)
-  selectedItem=signal<ItemsModel|null>(null)
+
 deleteItem(index:number) {
 console.log("deleteItem from item selector", index)
 this.items().splice(index,1)
