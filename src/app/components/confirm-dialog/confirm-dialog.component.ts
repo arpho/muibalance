@@ -37,7 +37,7 @@ export class ConfirmDialogComponent {
 
  readonly data = inject<ConfirmDialogData>(MAT_DIALOG_DATA);
 onNoClick() {
-this.dialogRef.close({confirmation:false})
+this.dialogRef.close(false)
 
 
 }

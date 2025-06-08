@@ -1,7 +1,7 @@
 import { onValue, set } from 'firebase/database';
 import { Injectable } from '@angular/core';
 import { Database, ref,get } from '@angular/fire/database';
-import { collection, doc, Firestore, setDoc, where,query, getDocs, getDoc,addDoc, onSnapshot } from '@angular/fire/firestore';
+import { collection, doc, Firestore, setDoc, where,query, getDocs, getDoc,addDoc, onSnapshot, deleteDoc } from '@angular/fire/firestore';
 import { MyDbService } from '../myDb/my-db.service';
 import { UsersService } from '../users/users.service';
 import { SellerModel } from '../../models/supplierModel';
@@ -12,6 +12,10 @@ import { replicateFirestore } from 'rxdb/plugins/replication-firestore';
   providedIn: 'root'
 })
 export class SellersService {
+  delete(seller: SellerModel) {
+  const doRef = doc(this.firestore, `sellers/${seller.key}`);
+  return deleteDoc(doRef);
+  }
   getSuppliers4UserOnValue(userKey: string, callback: (sellers: SellerModel[]) => void) {
     const q = query(collection(this.firestore, "sellers"), where("userKey", "==", userKey));
   onSnapshot(q, (querySnapshot) => {

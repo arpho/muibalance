@@ -20,5 +20,6 @@ div#commands{
 #searchInput{
   margin-left: 10px;
   margin-right: 10px;
-  border-radious: 4rem;
+  border-radius: 4rem;
+  height: 1rem;
 }

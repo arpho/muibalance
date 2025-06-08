@@ -41,9 +41,13 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 export class SuppliersListComponent implements OnInit,OnDestroy {
 deleteSeller(seller: SellerModel) {
 console.log("deleteSeller",seller)
-this.dialog.open(ConfirmDialogComponent,{data:{title:"Delete Supplier",message:`Are you sure you want to delete ${seller.nome}?`}} )
-this.subscriptions.add(this.dialog.afterAllClosed.subscribe(res=>{
-      console.log("res",res)
+const dialogRef =this.dialog.open(ConfirmDialogComponent,{data:{title:"Delete Supplier",message:`Are you sure you want to delete ${seller.nome}?`}} )
+this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
+  if(res){
+    console.log("delete",seller)
+    this.service.delete(seller)
+
+  }
 
 }))
 }
@@ -144,13 +148,11 @@ displayedColumns: string[] = [ "nome", "indirizzo", "note"];
 
   async ngOnInit(): Promise<void> {
     const user = await this.usersService.getLoggedUser();
-    const sellers = await  this.service.getSuppliers4User(user.key)
-    console.log("got sellers",sellers)
-    this.sellers.set(sellers)
-    sellers.forEach(seller=>{
-      if(!seller.nome)
-        console.log("seller with no name",seller)
+      this.service.getSuppliers4UserOnValue(user.key,(sellers)=>{
+        this.sellers.set(sellers)
     })
+
+
 
   }
 
