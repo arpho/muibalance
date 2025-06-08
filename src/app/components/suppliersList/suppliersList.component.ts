@@ -14,6 +14,7 @@ import {MatToolbarModule} from '@angular/material/toolbar'
 import { MyMenuComponent } from "../menu/my-menu/my-menu.component";
 import { FilterPipe } from '../../pipes/filterPipe/filter-pipe.pipe';
 import { MatMenuModule } from '@angular/material/menu';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 @Component({
   selector: 'app-suppliersList',
   templateUrl: './suppliersList.component.html',
@@ -40,6 +41,11 @@ import { MatMenuModule } from '@angular/material/menu';
 export class SuppliersListComponent implements OnInit,OnDestroy {
 deleteSeller(seller: SellerModel) {
 console.log("deleteSeller",seller)
+this.dialog.open(ConfirmDialogComponent,{data:{title:"Delete Supplier",message:`Are you sure you want to delete ${seller.nome}?`}} )
+this.subscriptions.add(this.dialog.afterAllClosed.subscribe(res=>{
+      console.log("res",res)
+
+}))
 }
   filterSellers  = (arg:SellerModel)=>true
 filterSuppliers($event: any) {

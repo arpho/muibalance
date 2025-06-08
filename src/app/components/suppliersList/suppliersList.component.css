@@ -17,3 +17,8 @@ div#commands{
   padding: 5px;
   width: 100%;
 }
+#searchInput{
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radious: 4rem;
+}
