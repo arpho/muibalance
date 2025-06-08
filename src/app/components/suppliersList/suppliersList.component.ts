@@ -13,6 +13,7 @@ import { MatIcon } from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar'
 import { MyMenuComponent } from "../menu/my-menu/my-menu.component";
 import { FilterPipe } from '../../pipes/filterPipe/filter-pipe.pipe';
+import { MatMenuModule } from '@angular/material/menu';
 @Component({
   selector: 'app-suppliersList',
   templateUrl: './suppliersList.component.html',
@@ -32,10 +33,14 @@ import { FilterPipe } from '../../pipes/filterPipe/filter-pipe.pipe';
     MatIcon,
     MatToolbarModule,
     MyMenuComponent,
-    FilterPipe
+    FilterPipe,
+    MatMenuModule
 ],
 })
 export class SuppliersListComponent implements OnInit,OnDestroy {
+deleteSeller(seller: SellerModel) {
+console.log("deleteSeller",seller)
+}
   filterSellers  = (arg:SellerModel)=>true
 filterSuppliers($event: any) {
 console.log("filterSuppliers",$event.target.value)
