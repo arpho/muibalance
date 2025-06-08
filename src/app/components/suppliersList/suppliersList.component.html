@@ -1,13 +1,15 @@
 <mat-toolbar style=" position: fixed;top:0%;width:100%; z-index:100">
   <div id="commands">
  <app-my-menu></app-my-menu>
+<mat-icon>search</mat-icon>
+<input matInput placeholder="search"   (keyup)="filterSuppliers($event)" id=searchInput>
 <button mat-button (click)="importSuppliers2firestore()">upload Sellers</button>
 <button mat-fab extended id="createSellerr" (click)="createSupplier()">
   <mat-icon>add</mat-icon> crea venditore</button>
   </div>
   </mat-toolbar>
 <mat-progress-bar mode="determinate" value="{{progress()}}"></mat-progress-bar>
-<table mat-table [dataSource]="sellers()" class="mat-elevation-z8">
+<table mat-table [dataSource]="sellers()|filterPipe:filterSellers" class="mat-elevation-z8">
   <ng-container matColumnDef="nome">
     <th mat-header-cell *matHeaderCellDef> nome </th>
     <td mat-cell *matCellDef="let seller"> {{seller.nome}} </td>

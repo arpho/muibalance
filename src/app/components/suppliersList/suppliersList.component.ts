@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { MatIcon } from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar'
 import { MyMenuComponent } from "../menu/my-menu/my-menu.component";
+import { FilterPipe } from '../../pipes/filterPipe/filter-pipe.pipe';
 @Component({
   selector: 'app-suppliersList',
   templateUrl: './suppliersList.component.html',
@@ -30,10 +31,19 @@ import { MyMenuComponent } from "../menu/my-menu/my-menu.component";
     MatProgressBarModule,
     MatIcon,
     MatToolbarModule,
-    MyMenuComponent
+    MyMenuComponent,
+    FilterPipe
 ],
 })
 export class SuppliersListComponent implements OnInit,OnDestroy {
+  filterSellers  = (arg:SellerModel)=>true
+filterSuppliers($event: any) {
+console.log("filterSuppliers",$event.target.value)
+this.filterSellers = (arg:SellerModel)=>{{
+  console.log("filtering",arg)
+  return arg.nome?.toLowerCase().toLowerCase().includes($event.target.value.toLowerCase().trim())}
+}
+}
 createSupplier() {
 console.log("createSupplier")
 const newSeller = new SellerModel()
