@@ -3,13 +3,16 @@
 <mat-toolbar style=" position: fixed;top:0%;width:100%; z-index:100">
   <div id="commands">
  <app-my-menu></app-my-menu>
+ <mat-icon>search</mat-icon>
+   <input matInput placeholder="search payment"   (keyup)="filterPayments($event)" id=searchInput>
 <button mat-button (click)="uploadPayments2firestore()">upload Payments</button>
 <button mat-fab extended id="createSellerr" (click)="createPayment()">
+
   <mat-icon>add</mat-icon> crea Pagamento</button>
   </div>
   </mat-toolbar>
 
-<table mat-table [dataSource]="payments()" class="mat-elevation-z8">
+<table mat-table [dataSource]="payments()|filterPipe:filter4payments" class="mat-elevation-z8">
 
   <ng-container matColumnDef="nome">
     <th mat-header-cell *matHeaderCellDef> Nome </th>

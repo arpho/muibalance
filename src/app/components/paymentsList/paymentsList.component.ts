@@ -21,6 +21,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MyMenuComponent } from '../menu/my-menu/my-menu.component';
+import { FilterPipe } from '../../pipes/filterPipe/filter-pipe.pipe';
 
 @Component({
   selector: 'app-paymentsList',
@@ -37,10 +38,18 @@ import { MyMenuComponent } from '../menu/my-menu/my-menu.component';
     MatSnackBarModule,
     MatIcon,
     MatToolbarModule,
-    MyMenuComponent
+    MyMenuComponent,
+    FilterPipe
   ],
 })
 export class PaymentsListComponent implements OnInit, OnDestroy {
+  filter4payments = (arg:PaymentModel)=> true
+filterPayments($event: any) {
+console.log("filterPauments",$event.target.value)
+this.filter4payments = (arg:PaymentModel)=>{
+  const searchIn = arg.nome?.toLowerCase()+" "+arg.note?.toLowerCase()
+  return searchIn.toLowerCase().includes($event.target.value.toLowerCase().trim())}
+}
 createPayment() {
 console.log("createPayment")
 const dialogRef = this.dialog.open(PaymentsDialogComponent, {
