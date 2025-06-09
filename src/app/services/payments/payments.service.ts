@@ -10,6 +10,12 @@ import { PaymentModel } from '../../models/paymentModel';
   providedIn: 'root'
 })
 export class PaymentsService {
+  getPaymentsOnRealTime4User(key: string, p0: (payments: any) => void) {
+
+  }
+  getPaymentsFromFirestore(key: string) {
+    throw new Error('Method not implemented.');
+  }
   async fetchPayment(key: string) {
     const snapshot = await getDoc(doc(this.firestore, `payments/${key}`));
     const payment = new PaymentModel(snapshot.data());

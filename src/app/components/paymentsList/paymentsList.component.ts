@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 import { UsersService } from '../../services/users/users.service';
-import { serverTimestamp } from '@angular/fire/database';
+import { serverTimestamp, get } from '@angular/fire/database';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -22,6 +22,8 @@ import { MatIcon } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MyMenuComponent } from '../menu/my-menu/my-menu.component';
 import { FilterPipe } from '../../pipes/filterPipe/filter-pipe.pipe';
+import { ShoppingCartModel } from '../../models/shoppingCartModel';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-paymentsList',
@@ -39,10 +41,18 @@ import { FilterPipe } from '../../pipes/filterPipe/filter-pipe.pipe';
     MatIcon,
     MatToolbarModule,
     MyMenuComponent,
-    FilterPipe
+    FilterPipe,
+    MatMenuModule
   ],
 })
 export class PaymentsListComponent implements OnInit, OnDestroy {
+deleteItem(cart: ShoppingCartModel) {
+console.log("deleteItem",cart)
+}
+updateItem(cart: ShoppingCartModel) {
+console.log("updateItem",cart)
+this.seePayment(cart)
+}
   filter4payments = (arg:PaymentModel)=> true
 filterPayments($event: any) {
 console.log("filterPauments",$event.target.value)
@@ -138,6 +148,9 @@ displayedColumns: string[] = ['nome', 'note',];
   async ngOnInit() {
     const loggedUser = await this.usersService.getLoggedUser();
     const payments = await this.service.getPayments(loggedUser.key)
+    this.service.getPaymentsOnRealTime4User(loggedUser.key,(payments)=>{
+      this.payments.set(payments)
+    })
     console.log("payments",payments)
     this.payments.set(payments)
 
