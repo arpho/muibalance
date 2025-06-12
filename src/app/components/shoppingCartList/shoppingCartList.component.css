@@ -9,3 +9,20 @@
   text-align: center;
   min-height: 100vh;
 }
+div#mat-select-value-0 {
+    color: cornflowerblue;
+}
+
+#commands {
+    display: flex
+;
+    align-items: baseline;
+}
+
+.dropDown-seasons-panel {
+  border-radius: 10px !important;
+  border: 1px solid gray !important;
+  position: absolute !important;
+  background-color: #FAF9FD;
+
+}

@@ -18,6 +18,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { limit } from '@angular/fire/firestore';
+import { FilterPipe } from '../../pipes/filterPipe/filter-pipe.pipe';
 
 @Component({
   selector: 'app-shopping-cart-list',
@@ -35,11 +40,19 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
     MatToolbarModule,
     MatIconModule,
     MyMenuComponent,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    FilterPipe
   ]
 })
 export class ShoppingCartListComponent implements OnInit,OnDestroy {
+  timeFilterFunction: (date: ShoppingCartModel) => boolean = (date: ShoppingCartModel) => {return true}
 [x: string]: any;
+timeFilterLimit= 7
+filterForm:FormGroup = new FormGroup({})
 deleteItem(cart: ShoppingCartModel) {
 const dialogRef = this.dialog.open(ConfirmDialogComponent, {
   data: {
@@ -65,13 +78,39 @@ this.snackBar.open('Cart deleted successfully', 'Close', {
 updateItem(cart: ShoppingCartModel) {
   this.seeCart(cart)
 }
+timeFilterFactory(limit:number): (cart: ShoppingCartModel) => boolean {
+  const now = new Date()
+
+  const sec = 1000
+  const min = 60*sec
+  const hour = 60*min
+  const day = 24*hour
+  const out = (cart:ShoppingCartModel)=>{
+    const timeLimit = day*limit
+    const diff = now.getTime() - new Date( cart.buyngDate).getTime()
+    return diff < timeLimit
+  }
+  return out
+
+
+}
   constructor (
     private users:UsersService,
     private service:ShoppingCartService,
     private Sellers:SellersService,
     private dialog:MatDialog,
-    private snackBar:MatSnackBar
-  ) { }
+    private snackBar:MatSnackBar,
+    private fb:FormBuilder
+  ) {
+
+this.filterForm = new FormGroup({limit: this.fb.control(this.timeFilterLimit)})
+this.filterForm.valueChanges.subscribe(res=>{
+this.timeFilterLimit = res.limit
+console.log("timeFilterLimit",this.timeFilterLimit)
+this.timeFilterFunction = this.timeFilterFactory(this.timeFilterLimit)
+})
+this.timeFilterFunction = this.timeFilterFactory(this.timeFilterLimit)
+  }
 fixed(arg0: number,arg1: number) {
 return Number(arg0).toFixed(arg1);
 }
