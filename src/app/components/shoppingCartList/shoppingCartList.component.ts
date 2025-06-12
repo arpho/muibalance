@@ -86,13 +86,14 @@ this.subscriptions.add(dialogRef.afterClosed().subscribe(async cart=>{
 
     const loggedUser =await  this.users.getLoggedUser()
     kart.userKey = loggedUser.key
+
     const seller = await this.Sellers.fetchSeller(kart.sellerKey)
     kart.title = kart.title || `${seller.nome}  del ${kart.buyngDate}`
 
 
     console.log("cart to be stored",kart)
 
-   /* this.service.createCart(cart).then(res=>{
+    this.service.createCart(cart).then(res=>{
       console.log("created",res)
       this.snackBar.open('Cart created successfully', 'Close', {
         duration: 3000,
@@ -102,7 +103,7 @@ this.subscriptions.add(dialogRef.afterClosed().subscribe(async cart=>{
       this.snackBar.open('Error creating cart', 'Close', {
         duration: 3000,
       })
-    })*/
+    })
   }
 }))
 
