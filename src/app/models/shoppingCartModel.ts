@@ -46,6 +46,7 @@ this.build(arg);
     if(this.payments.length!=0)
       this.payments = this.payments.map((payment)=>new PaymentFraction(payment))
     else
+    if(this.totale>0)
       this.payments.push(new PaymentFraction({paymentsKey:this.paymentsKey,amount:this.totale,paymentsDate:this.buyngDate}))
 
     return this;
