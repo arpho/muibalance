@@ -50,6 +50,15 @@ const dialogRef = this.dialog.open(ConfirmDialogComponent, {
 this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
   if(res){
 console.log("cart to be deleted",cart)
+this.service.deleteCart(cart).then(res=>{
+this.snackBar.open('Cart deleted successfully', 'Close', {
+})
+
+}).catch(err=>{
+  console.error(err)
+  this.snackBar.open('Error deleting cart', 'Close', {
+  })
+})
   }
 }))
 }

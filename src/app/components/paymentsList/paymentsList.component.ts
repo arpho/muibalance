@@ -83,7 +83,7 @@ this.subscriptions.add(dialogRef.afterClosed().subscribe(res => {
   }
 }))
 }
-  readonly dialog = inject(MatDialog);
+
   subscriptions = new Subscription()
 
 
@@ -114,7 +114,8 @@ displayedColumns: string[] = ['nome', 'note',];
   constructor(
     private service: PaymentsService,
     private usersService: UsersService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) { }
 
   seePayment(_t36: any) {
