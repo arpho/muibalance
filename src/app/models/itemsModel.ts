@@ -16,6 +16,9 @@ set categorieId(value: string[]) {
     Object.assign(this, arg);
     return this
   }
+  get fullText() {
+    return `${this.prezzo} ${this.moneta} ${this.descrizione} ${this.note}`
+  }
   serialize() {
     return {
       key: this.key,

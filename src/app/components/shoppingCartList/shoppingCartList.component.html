@@ -15,15 +15,18 @@
     <mat-option [value]="14"> ultime 2 settimane</mat-option>
     <mat-option [value]="28"> ultimo mese</mat-option>
     <mat-option [value]="365"> ultimo anno</mat-option>
+    <mat-option [value]="3650"> ultimi 10 anni</mat-option>
   </mat-select>
+  </mat-form-field>
+  <mat-form-field >
+  <input matInput type="text" placeholder="search" formControlName="fullText" id="searchCart">
   </mat-form-field>
   </form>
   </div>
-   <p> Selected food: {{timeFilterLimit}} </p>
   </mat-toolbar>
 <mat-progress-bar mode="determinate" value="{{progress()}}"></mat-progress-bar>
 @if(carts().length)
-{<table mat-table [dataSource]="carts()|appSorterPipe|filterPipe:timeFilterFunction" class="mat-elevation-z8">
+{<table mat-table [dataSource]="carts()|appSorterPipe|filterPipe:filterFunction" class="mat-elevation-z8">
 
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef> titolo </th>

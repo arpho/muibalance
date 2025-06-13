@@ -26,3 +26,9 @@ div#mat-select-value-0 {
   background-color: #FAF9FD;
 
 }
+#searchCart{
+  border-radius: 10px !important;
+  border: 1px solid gray !important;
+  position: absolute !important;
+  background-color: #FAF9FD;
+}

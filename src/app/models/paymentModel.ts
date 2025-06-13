@@ -22,6 +22,9 @@ export class PaymentModel {
     this.key = uid;
     return this;
   }
+  get fullText() {
+    return `${this.nome} ${this.note}`
+  }
   serialize() {
     return {
       key: this.key,

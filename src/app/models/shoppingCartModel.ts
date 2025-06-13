@@ -51,6 +51,12 @@ this.build(arg);
 
     return this;
   }
+
+  get fullText() {
+    const itemsFullText = this.items.map((item) => item.fullText).join(' ');
+    const paymentsFullText = this.payments.map((payment) => payment.fullText).join(' ');
+    return `${this.title} ${this.note} ${itemsFullText} ${paymentsFullText}`;
+  }
 get paiedAmount(){
   return this.payments.reduce((acc, payment) => acc + payment.amount, 0);
 }

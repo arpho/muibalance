@@ -23,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { limit } from '@angular/fire/firestore';
 import { FilterPipe } from '../../pipes/filterPipe/filter-pipe.pipe';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-shopping-cart-list',
@@ -44,15 +45,19 @@ import { FilterPipe } from '../../pipes/filterPipe/filter-pipe.pipe';
     MatSelectModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatInputModule,
     FormsModule,
     FilterPipe
   ]
 })
 export class ShoppingCartListComponent implements OnInit,OnDestroy {
-  timeFilterFunction: (date: ShoppingCartModel) => boolean = (date: ShoppingCartModel) => {return true}
-[x: string]: any;
 timeFilterLimit= 7
+fullText = ''
 filterForm:FormGroup = new FormGroup({})
+  timeFilterFunction: (date: ShoppingCartModel) => boolean = (date: ShoppingCartModel) => {return true}
+  fullTextFilterFunction: (date: ShoppingCartModel) => boolean = (date: ShoppingCartModel) => {return true}
+  filterFunction : (date: ShoppingCartModel) => boolean = (cart: ShoppingCartModel) => {return this.timeFilterFunction(cart) && this.fullTextFilterFunction(cart)}
+[x: string]: any;
 deleteItem(cart: ShoppingCartModel) {
 const dialogRef = this.dialog.open(ConfirmDialogComponent, {
   data: {
@@ -78,6 +83,14 @@ this.snackBar.open('Cart deleted successfully', 'Close', {
 updateItem(cart: ShoppingCartModel) {
   this.seeCart(cart)
 }
+
+fullTextFilterFactory(text:string): (cart: ShoppingCartModel) => boolean {
+  console.log("text 2 search",text)
+  const out = (cart:ShoppingCartModel)=>{
+    return cart.fullText.toLowerCase().includes(text.toLowerCase())
+  }
+  return out
+}
 timeFilterFactory(limit:number): (cart: ShoppingCartModel) => boolean {
   const now = new Date()
 
@@ -102,12 +115,21 @@ timeFilterFactory(limit:number): (cart: ShoppingCartModel) => boolean {
     private snackBar:MatSnackBar,
     private fb:FormBuilder
   ) {
-
-this.filterForm = new FormGroup({limit: this.fb.control(this.timeFilterLimit)})
+this.fullText = ''
+this.filterForm = new FormGroup({
+  limit: this.fb.control(this.timeFilterLimit),
+  fullText: this.fb.control(this.fullText)
+})
 this.filterForm.valueChanges.subscribe(res=>{
+  const fullText = res.fullText
+  console.log("fullText",res)
 this.timeFilterLimit = res.limit
 console.log("timeFilterLimit",this.timeFilterLimit)
 this.timeFilterFunction = this.timeFilterFactory(this.timeFilterLimit)
+if(fullText){
+  this.fullTextFilterFunction = this.fullTextFilterFactory(fullText.trim())
+}
+this.filterFunction = (cart: ShoppingCartModel) => {return this.timeFilterFunction(cart) && this.fullTextFilterFunction(cart)}
 })
 this.timeFilterFunction = this.timeFilterFactory(this.timeFilterLimit)
   }

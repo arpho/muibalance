@@ -3,6 +3,9 @@ export class PaymentFraction{
   amount= 0;
   paymentsDate = '';
   note = '';
+  get fullText() {
+    return `${this.note}`
+  }
   constructor(
     arg?: any
   ) {
