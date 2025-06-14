@@ -23,7 +23,6 @@ export class CategoriesService {
   }
   categories = signal<CategoryModel[]>([]);
   async fetchCategoryFromFirestore(categoryKey: string) {
-    console.log("categoryKey",categoryKey)
        let category = new CategoryModel();
     try{
     const collectionRef = collection(this.firestore, 'categorie');

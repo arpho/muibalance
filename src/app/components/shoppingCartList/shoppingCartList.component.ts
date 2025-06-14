@@ -142,6 +142,7 @@ console.log("createCart")
    //history
 const  dialogRef =  this.dialog.open(CartDialogComponent,{data:{data:new ShoppingCartModel({}),buttonText:"Crea Carrello"}})
 this.subscriptions.add(dialogRef.afterClosed().subscribe(async cart=>{
+  console.log("cart",cart)
   if(cart){
     const kart = new ShoppingCartModel(cart)
 
@@ -168,11 +169,7 @@ this.subscriptions.add(dialogRef.afterClosed().subscribe(async cart=>{
   }
 }))
 
-this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
-  if(res){
-    console.log("cart to be stored",res)
-  }
-}))
+
 }
   progress = signal(0)
   async uploadCarts2firestore() {
@@ -189,6 +186,7 @@ this.service.pushCart2firestore(cart).then(res=>{
   console.log("pushed",cart)
   count++
 this.progress.set((count/carts.length)*100)
+console.log("progress",this.progress)
 }).catch(err=>{
   console.log("err on",cart)
   console.log(err)

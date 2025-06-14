@@ -14,9 +14,14 @@ export class ShoppingCartService {
     return deleteDoc(doc(this.firestore, `carts/${cart.key}`));
   }
   async createCart(cart: ShoppingCartModel) {
- const docRef= await addDoc(collection(this.firestore, `payments`), cart.serialize());
+let createdCart = new ShoppingCartModel({})
+    try{
+ const docRef= await addDoc(collection(this.firestore, `carts`), cart.serialize());
    const newCart = await getDoc(docRef);
-        const createdCart = new ShoppingCartModel(newCart.data()).setKey(newCart.id);
+         createdCart = new ShoppingCartModel(newCart.data()).setKey(newCart.id);
+    }catch(err){
+      console.log(err)
+    }
         return createdCart
   }
   updateCart(cart: any) {
