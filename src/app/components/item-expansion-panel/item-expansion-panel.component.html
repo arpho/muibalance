@@ -1,26 +1,34 @@
-<mat-expansion-panel (opened)="isPanelOpen.set(true)" (closed)="isPanelOpen.set(false)"
-[expanded]="isPanelOpen()">
-<button mat-button (click)="submitItem()"><mat-icon>move_down</mat-icon>inserisci</button>
+<mat-expansion-panel
+  (opened)="isPanelOpen.set(true)"
+  (closed)="isPanelOpen.set(false)"
+  [expanded]="isPanelOpen()"
+>
+  <button mat-button (click)="submitItem()">
+    <mat-icon>move_down</mat-icon>inserisci
+  </button>
 
   <mat-label> acquisto</mat-label>
   <form [formGroup]="itemForm">
     <mat-form-field>
       <mat-label>Descrizione</mat-label>
-      <input matInput formControlName="descrizione" [(ngModel)]="descrizione">
+      <input matInput formControlName="descrizione" [(ngModel)]="descrizione" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>note</mat-label>
-      <input matInput formControlName="note" [(ngModel)]="note">
+      <input matInput formControlName="note" [(ngModel)]="note" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>prezzo</mat-label>
-      <input matInput formControlName="prezzo" [(ngModel)]="prezzo">
+      <input matInput formControlName="prezzo" [(ngModel)]="prezzo" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>moneta</mat-label>
-      <input matInput formControlName="moneta" [(ngModel)]="moneta">
+      <input matInput formControlName="moneta" [(ngModel)]="moneta" />
     </mat-form-field>
-    <app-cateories-selector  matInput [categoriesKey]="categoriesKey()" (categoriesUpdated)="selectedCategory($event)"></app-cateories-selector>
-
+    <app-cateories-selector
+      matInput
+      [categoriesKey]="categoriesKey()"
+      (categoriesUpdated)="selectedCategory($event)"
+    ></app-cateories-selector>
   </form>
 </mat-expansion-panel>
