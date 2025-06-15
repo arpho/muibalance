@@ -16,11 +16,9 @@ export class CategoryViewerComponent implements OnChanges{
 
   chipEvent = output<string>()
 categoryClicked($event: any) {
-console.log("categoryClicked", $event)
 this.chipEvent.emit($event)
 }
 ngOnChanges(changes: SimpleChanges): void {
-  console.log("changes on category viewer",changes)
 }
 categoriesKey = model.required<string[]>();
 

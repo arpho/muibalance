@@ -24,16 +24,11 @@ export class CartDialogComponent  implements OnInit,OnDestroy{
 makeWindowTitle() {
   const total = Math.round(this.cart().totale*100)/100;
   const paiedAmount=Math.round(this.cart().paiedAmount*100)/100
-  console.log("paiedAmount",paiedAmount)
-  console.log("total",total)
 return `editing ${this.cart().title} ${paiedAmount}/${total}`
 }
 updatedCart(data:{cart:ShoppingCartModel,submitted?:boolean,closeDialog?:boolean}) {
 const cart = data.cart
-console.log("updatedCart", cart);
 this.cart.set(new ShoppingCartModel(cart))
-console.log("updated cart",this.cart())
-console.log("title",this.makeWindowTitle())
 
 if(data.closeDialog){
 this.dialogRef.close(cart)}

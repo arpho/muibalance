@@ -40,7 +40,6 @@ updateItem(item: ItemsModel, index: any) {
 this.item2edit.set({item:item,operation:"update",index:index})
 }
 ItemEdited(data: any) {
-console.log("ItemEdited",data)
 if(data.operation=="update"){
   this.items().splice(data.index,1,data.item)
   this.items.set([...this.items()])
@@ -50,7 +49,7 @@ if(data.operation=="update"){
 if(data.operation=="add"){
   const newList = [...this.items(),data.item]
   this.items.set(newList)
-  console.log(" addwd item to newList",this.items())
+
   this.itemsListChanged.emit(this.items())
 }
 }
@@ -61,7 +60,6 @@ this.item2edit.set({item:new ItemsModel(),operation:"add"})
 }
     displayedColumns: string[] = ['descrizione',  'note','prezzo','categorie'];
   ngOnInit(): void {
-console.log("items table",this.items())
   }
   items = model<ItemsModel[]>([])
   itemsListChanged=output<ItemsModel[]>()
