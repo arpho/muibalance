@@ -49,6 +49,12 @@ this.payments.set([...payments])
 console.log("deletePayment",this.payments())
 }
 
+  total = computed(() => {
+
+    const sum = this.payments().reduce((acc, item) => acc + Number(item.amount), 0);
+    return Math.round(sum * 100) / 100 || sum;
+  })
+
 selectPayment(_t74: any,index:number) {
   console.log("selectPayment from payment selector", _t74,index)
 

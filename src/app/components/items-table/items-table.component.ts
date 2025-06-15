@@ -1,4 +1,4 @@
-import { Component, model, OnInit, output, signal } from '@angular/core';
+import { Component, computed, model, OnInit, output, signal } from '@angular/core';
 import { ItemsModel } from '../../models/itemsModel';
 import { MatTableModule } from '@angular/material/table';
 import { CategoryViewerComponent } from '../category-viewer/category-viewer.component';
@@ -24,10 +24,16 @@ import { MatMenu, MatMenuModule } from '@angular/material/menu';
   standalone: true,
 })
 export class ItemsTableComponent implements OnInit {
+
   selectItem(item: any, index: any) {
     console.log('selectItem from item selector', item, index);
   }
 
+  total = computed(() => {
+
+    const sum = this.items().reduce((acc, item) => acc + Number(item.prezzo), 0);
+    return Math.round(sum * 100) / 100 || sum;
+  })
   deleteItem(index: number) {
     console.log('deleteItem from item selector', index);
     this.items().splice(index, 1);

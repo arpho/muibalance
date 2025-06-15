@@ -155,7 +155,7 @@ this.subscriptions.add(dialogRef.afterClosed().subscribe(async cart=>{
 
     console.log("cart to be stored",kart)
 
-    this.service.createCart(cart).then(res=>{
+    this.service.createCart(kart).then(res=>{
       console.log("created",res)
       this.snackBar.open('Cart created successfully', 'Close', {
         duration: 3000,
