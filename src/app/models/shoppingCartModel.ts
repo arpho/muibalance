@@ -42,12 +42,12 @@ this.build(arg);
     this.buyngDate = this.buyngDate||new Date().toISOString()
 
     this.items = this.items.map((item)=>new ItemsModel(item))
-    this.totale = this.items.reduce((acc, item) => acc + item.prezzo, 0);
     if(this.payments.length!=0)
       this.payments = this.payments.map((payment)=>new PaymentFraction(payment))
-    else
+    else{
     if(this.totale>0)
-      this.payments.push(new PaymentFraction({paymentsKey:this.paymentsKey,amount:this.totale,paymentsDate:this.buyngDate}))
+      this.payments.push(new PaymentFraction({paymentsKey:this.paymentsKey,amount:this.totale,paymentsDate:this.buyngDate}))}
+    this.totale = this.items.reduce((acc, item) => acc + item.prezzo, 0);
 
     return this;
   }

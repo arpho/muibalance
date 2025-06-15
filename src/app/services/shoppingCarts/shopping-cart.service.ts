@@ -16,9 +16,11 @@ export class ShoppingCartService {
   async createCart(cart: ShoppingCartModel) {
 let createdCart = new ShoppingCartModel({})
     try{
+      console.log("cart to be stored",cart)
  const docRef= await addDoc(collection(this.firestore, `carts`), cart.serialize());
    const newCart = await getDoc(docRef);
-         createdCart = new ShoppingCartModel(newCart.data()).setKey(newCart.id);
+
+         createdCart = new ShoppingCartModel(newCart.data()).setKey(docRef.id);
     }catch(err){
       console.log(err)
     }

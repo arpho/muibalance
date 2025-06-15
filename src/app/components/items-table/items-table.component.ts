@@ -48,8 +48,9 @@ if(data.operation=="update"){
 
 }
 if(data.operation=="add"){
-  this.items().push(data.item)
-  this.items.set([...this.items()])
+  const newList = [...this.items(),data.item]
+  this.items.set(newList)
+  console.log(" addwd item to newList",this.items())
   this.itemsListChanged.emit(this.items())
 }
 }

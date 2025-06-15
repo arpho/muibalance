@@ -52,15 +52,15 @@ import { ItemsModel } from '../../../../models/itemsModel';
   changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class CartFormComponent implements OnInit{
-itemsListChanged($event: any) {
+itemsListChanged($event: ItemsModel[]) {
 console.log("itemsListChanged", $event)
-this.updatedCart.emit({cart: new ShoppingCartModel(this.formValue()), submitted: false,closeDialog:false})//{cart:  this.formValue(), submitted: false,closeDialog:false})
 this.items.set($event)
+this.updatedCart.emit({cart: new ShoppingCartModel(this.formValue()), submitted: false,closeDialog:false})//{cart:  this.formValue(), submitted: false,closeDialog:false})
 }
 paymentsListChanged($event: PaymentFraction[]) {
 console.log("paymentsListChanged", $event)
-this.updatedCart.emit({cart:new ShoppingCartModel(this.formValue()), submitted: false,closeDialog:false})//{cart: this.formValue(), submitted: false,closeDialog:false})
 this.payments.set($event)
+this.updatedCart.emit({cart:new ShoppingCartModel(this.formValue()), submitted: false,closeDialog:false})//{cart: this.formValue(), submitted: false,closeDialog:false})
 }
 
 sellerKeyChange($event: any) {

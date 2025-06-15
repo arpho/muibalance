@@ -162,6 +162,7 @@ this.subscriptions.add(dialogRef.afterClosed().subscribe(async cart=>{
       })
     }).catch(err=>{
       console.error(err)
+      console.log("err",err)
       this.snackBar.open('Error creating cart', 'Close', {
         duration: 3000,
       })
