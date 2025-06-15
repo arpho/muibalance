@@ -48,6 +48,7 @@ import { PaymentFraction } from '../../../../models/paymentsFraction';
 import { PaymentsTableComponent } from '../../../paymentsTable/payments-table/payments-table.component';
 import { ItemsTableComponent } from '../../../items-table/items-table.component';
 import { ItemsModel } from '../../../../models/itemsModel';
+import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-cart-form',
@@ -143,6 +144,7 @@ export class CartFormComponent implements OnInit {
       delivered: this.delivered(),
       buyngDate: this.buyngDate(),
       key: this.cart.key,
+      userKey: this.cart.userKey,
       deliveredDate: this.deliveredDate(),
       sellerKey: this.sellerKey(),
       payments: this.payments(),

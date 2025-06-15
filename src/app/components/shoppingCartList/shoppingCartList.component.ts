@@ -206,7 +206,7 @@ const dialogRef = this.dialog.open(CartDialogComponent, {data:
 });
 this.subscriptions.add(dialogRef.afterClosed().subscribe(res=>{
   if(res){
-    console.log("cart to be stored",res)
+    console.log("cart  updated",res)
     this.service.updateCart(res).then(res=>{
       console.log("updated",res);
       this.snackBar.open('Carrello aggiornato con successo', 'Close', {
