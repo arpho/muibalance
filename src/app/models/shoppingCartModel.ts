@@ -96,7 +96,7 @@ export class ShoppingCartModel {
       totale: this.totale,
       note: this.note,
       items: this.items.map((item) => item.serialize()),
-      payments: this.payments.map((payment) => payment.serialize()),
+      payments: this.payments.filter((payment) => payment.paymentsKey).map((payment) => payment.serialize()),
     };
   }
 }

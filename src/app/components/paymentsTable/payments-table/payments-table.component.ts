@@ -40,6 +40,17 @@ import { MatDividerModule } from '@angular/material/divider';
   standalone: true
 })
 export class PaymentsTableComponent  implements OnInit{
+formatDate(arg0: any) {
+  let date = new Date()
+  console.log("formatDate",arg0)
+  if(arg0.seconds){
+    date = new Date(arg0.seconds*1000)
+  }
+  else{
+    date = new Date(arg0)
+  }
+return date.toLocaleDateString().slice(0, 10)
+}
 deletePayment(index: number) {
 console.log("deletePayment from payment selector", index)
 this.payments().splice(index,1)
