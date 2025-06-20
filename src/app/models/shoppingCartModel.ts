@@ -1,4 +1,4 @@
-import { serverTimestamp } from '@angular/fire/database';
+import { serverTimestamp, get } from '@angular/fire/database';
 import { PaymentFraction } from './paymentsFraction';
 import { _isTestEnvironment } from '@angular/cdk/platform';
 import { ItemsModel } from './itemsModel';
@@ -12,6 +12,10 @@ export class ShoppingCartModel {
   items: ItemsModel[] = [];
   _deleted = false;
   currency = '€';
+  _totale: number=0;
+  set totale (value: number) {
+    this._totale = value
+  }
   set moneta(currency: string) {
     this.currency = currency;
   }
@@ -29,7 +33,9 @@ export class ShoppingCartModel {
   set pagamentoId(value: string) {
     this.paymentsKey = value;
   }
-  totale = 0;
+   get totale() {
+    return this.items.length > 0?this.items.reduce((acc, item) => Number(acc) + Number(item.prezzo), 0):0;
+  };
   note = '';
   payments: PaymentFraction[] = [];
   constructor(arg?: any) {
@@ -54,7 +60,7 @@ export class ShoppingCartModel {
           })
         );
     }
-    this.totale = this.items.reduce((acc, item) => acc + item.prezzo, 0);
+
 
     return this;
   }
@@ -67,7 +73,7 @@ export class ShoppingCartModel {
     return `${this.title} ${this.note} ${itemsFullText} ${paymentsFullText}`;
   }
   get paiedAmount() {
-    return this.payments.reduce((acc, payment) => acc + payment.amount, 0);
+    return this.payments.reduce((acc, payment) => Number(acc) + Number(payment.amount), 0);
   }
   setKey(uid: string) {
     this.key = uid;
