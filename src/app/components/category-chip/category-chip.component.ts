@@ -6,7 +6,6 @@ import {MatChipsModule} from '@angular/material/chips';
 @Component({
   selector: 'app-category-chip',
   imports: [
-    CategoryChipComponent,
     MatChipsModule
   ],
   templateUrl: './category-chip.component.html',

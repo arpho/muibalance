@@ -16,7 +16,7 @@
   </mat-menu>
 
   <button mat-button (click)="insertNewItem()"><mat-icon>add</mat-icon>aggiungi acquisto </button>
-  <p> totale: {{total()}}</p>
+  <p> totale acquisto: {{total()}}</p>
 <table mat-table [dataSource]="items()" class="mat-elevation-z8">
 
    <ng-container matColumnDef="descrizione">

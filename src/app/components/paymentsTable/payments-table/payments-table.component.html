@@ -22,7 +22,7 @@
       </ng-template>
   </mat-menu>
   <button mat-button (click)="insertNewPayment()"><mat-icon>add</mat-icon>aggiungi pagamento </button>
-  <p> totale: {{total()}}</p>
+  <p> totale pagato: {{total()}}</p>
 <table mat-table [dataSource]="payments()" class="mat-elevation-z8">
 
   <!--- Note that these columns can be defined in any order.

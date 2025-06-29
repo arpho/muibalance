@@ -33,10 +33,6 @@ import { MatMenuModule } from '@angular/material/menu';
   imports: [
     MatTableModule,
     MatButtonModule,
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatDialogClose,
     MatSnackBarModule,
     MatIcon,
     MatToolbarModule,
