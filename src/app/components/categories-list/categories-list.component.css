@@ -1,0 +1,10 @@
+div#nameFilter {
+    border-radius: 12px !important;
+    border: 5px solid !important;
+    position: absolute !important;
+    /* padding: 5px; */
+    background-color: gray;
+}
+table{
+    padding: 1rem ;
+}

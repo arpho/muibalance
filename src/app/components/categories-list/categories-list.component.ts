@@ -72,6 +72,10 @@ this.filterForm.valueChanges.subscribe((value)=>{
     this.user =  await this.users.getLoggedUser();
 
   const categories = await this.service.getDbCategories(this.user.key);
+  this.service.getCategories4UserFromFirestoreOnRealTime(this.user.key,(categories: CategoryModel[])=>{
+    this.Categories.set(categories)
+  })
+
 
   this.Categories.set(categories);
   const rxCategories = await this.service.getCategoriesFromRxDb();

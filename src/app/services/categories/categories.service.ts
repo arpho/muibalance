@@ -1,12 +1,13 @@
 import { push } from 'firebase/database';
 import { Injectable, InputOptionsWithoutTransform, InputOptionsWithTransform, InputSignal, InputSignalWithTransform, signal } from '@angular/core';
-import { Database, ref,get } from '@angular/fire/database';
+import { Database, ref,get, onValue } from '@angular/fire/database';
 import { doc, setDoc, Firestore, collection, where, getDoc, query, getDocs, addDoc } from '@angular/fire/firestore';
 import {CategoryModel} from  '../../models/categoryModel'
 import { MyDbService } from '../myDb/my-db.service';
 import { RxDatabase } from 'rxdb';
 import { UsersService } from '../users/users.service';
 import { replicateFirestore } from 'rxdb/plugins/replication-firestore';
+import { onSnapshot } from '@firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -114,6 +115,21 @@ async init(){
    replicateFirestore(p0);
   }
 
+
+  async getCategories4UserFromFirestoreOnRealTime(userKey:string,callback:Function){
+    const collectionRef = collection(this.firestore, 'categorie');
+    const q = query(collection(this.firestore, "categorie"), where("userKey", "==", userKey));
+    const querySnapshot = await getDocs(q);
+    onSnapshot(q,(snapshot)=>{
+      const Categories = snapshot.docs.map((doc) => {
+        const category = new CategoryModel(doc.data());
+        category.setKey(doc.id);
+        return category
+      })
+      this.categories.set(Categories)
+      callback(Categories)
+    })
+  }
 async getDbCategories(userKey:string){
    const categoriesRef = ref(this.fireDb, `categorie/${userKey}`); // Replace with your actual Firebase database ref
    const categoriesSnapshot = await get(categoriesRef);

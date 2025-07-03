@@ -1,9 +1,9 @@
 
 
-<button mat-button (click)="importCategories2firestore()">carica categorie</button>
+<div id="nameFilter">
 <form [formGroup]="filterForm">
-<input matInput formControlName="name" placeholder="name">
-</form>
+  <input matInput formControlName="name" placeholder="name">
+</form></div>
 <table mat-table [dataSource]="categories2Shown()" class="mat-elevation-z8">
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> Categoria </th>
