@@ -40,8 +40,9 @@ selectedCategory($event: string[]) {
 console.log("selectedCategory", $event)
 
 this.categoriesKey.set($event)
-//const item = new ItemsModel(this.itemValue())
-//this.updated.emit({item:item,operation:this.data()?.operation!,index:this.data()?.index})
+const item = new ItemsModel(this.itemValue())
+console.log("updated item",item)
+this.updated.emit({item:item,operation:this.data()?.operation!,index:this.data()?.index})
 }
 
   data=input<{item:ItemsModel,operation:string,index?:number }|null>()

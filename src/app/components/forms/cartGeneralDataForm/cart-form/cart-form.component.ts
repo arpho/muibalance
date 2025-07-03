@@ -7,7 +7,6 @@ import {
   Input,
   OnInit,
   Output,
-  output,
   signal,
 } from '@angular/core';
 import {
@@ -83,6 +82,7 @@ export class CartFormComponent implements OnInit {
   itemsListChanged($event: ItemsModel[]) {
     console.log('itemsListChanged', $event);
     this.items.set($event);
+    console.log("updated cart",this.formValue())
     this.updatedCart.emit({
       cart: new ShoppingCartModel(this.formValue()),
       submitted: false,

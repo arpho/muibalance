@@ -3,9 +3,9 @@ export class ItemsModel {
   prezzo = 0
   moneta= "€"
   descrizione = ""
-cateoriesKey:string[]=[]
+categoriesKey:string[]=[]
 set categorieId(value: string[]) {
-  this.cateoriesKey = value;
+  this.categoriesKey = value;
 }
   note=""
   picture=""
@@ -25,7 +25,7 @@ set categorieId(value: string[]) {
       prezzo: this.prezzo,
       moneta: this.moneta,
       descrizione: this.descrizione,
-      categoriesKey:this.cateoriesKey?.length>0?this.cateoriesKey:[],
+      categoriesKey:this.categoriesKey?.length>0?this.categoriesKey:[],
       note: this.note,
       picture: this.picture
     }

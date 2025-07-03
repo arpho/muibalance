@@ -46,7 +46,10 @@ export class CartDialogComponent implements OnInit, OnDestroy {
     closeDialog?: boolean;
   }) {
     const cart = data.cart;
-    this.cart.set(new ShoppingCartModel(cart));
+    console.log("updated cart to be stored",cart)
+    const kart = new ShoppingCartModel(cart)
+    console.log("updated kart stored",kart)
+    this.cart.set(kart);
 
     if (data.closeDialog) {
       this.dialogRef.close(cart);

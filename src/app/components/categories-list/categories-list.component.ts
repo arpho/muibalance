@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { CategoriesService } from '../../services/categories/categories.service';
 import { UsersService } from '../../services/users/users.service';
 import { CategoryModel } from '../../models/categoryModel';
@@ -6,9 +6,14 @@ import {MatTableModule} from '@angular/material/table';
 import { CategoryNameViewerComponent } from "../category-name-viewer/category-name-viewer.component";
 import { UserModel } from '../../models/userModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-categories-list',
-  imports: [MatTableModule, CategoryNameViewerComponent],
+  imports: [MatTableModule,
+     CategoryNameViewerComponent,
+    FormsModule,
+  ReactiveFormsModule
+],
   templateUrl: './categories-list.component.html',
   styleUrl: './categories-list.component.css',
   standalone: true
@@ -39,19 +44,36 @@ this.Categories().forEach(async (category) => {
 
 })
 }
+
 Categories = signal<CategoryModel[]>([]);
+filterForm:FormGroup= new FormGroup({})
+filterFunction = signal<(category: CategoryModel) => boolean>(() => true)
+categories2Shown = computed(() => this.Categories().filter(this.filterFunction()))
 displayedColumns: string[] = ['name','fatherName'];
 user= new UserModel();
   constructor(
     private service: CategoriesService,
     private users: UsersService,
-    private $snackBar: MatSnackBar
-  ) { }
+    private $snackBar: MatSnackBar,
+    private fb:FormBuilder
+  ) { this.filterForm=this.fb.group({
+    name:[""],
+    fatherName:[""],
+  })
+this.filterForm.valueChanges.subscribe((value)=>{
+  console.log("value",value,this.filterFunction())
+  this.filterFunction.set((category: CategoryModel) => {
+
+    return category.name.toLowerCase().includes(value.name.toLowerCase())
+  })
+})
+}
   async ngOnInit() {
     this.user =  await this.users.getLoggedUser();
 
   const categories = await this.service.getDbCategories(this.user.key);
-  console.log("categories",categories)
+
+  this.Categories.set(categories);
   const rxCategories = await this.service.getCategoriesFromRxDb();
 console.log("rxCategories",rxCategories)
   }
