@@ -2,7 +2,7 @@ import {
   VERSION as VERSION2,
   ɵAngularFireSchedulers,
   ɵzoneWrap
-} from "./chunk-DJTCEABT.js";
+} from "./chunk-4O3CXPJS.js";
 import {
   deleteApp,
   getApp,
@@ -12,7 +12,7 @@ import {
   onLog,
   registerVersion,
   setLogLevel
-} from "./chunk-JT2VWW6M.js";
+} from "./chunk-MOF5B2ZE.js";
 import {
   Inject,
   InjectionToken,
@@ -136,4 +136,4 @@ export {
   registerVersion2 as registerVersion,
   setLogLevel2 as setLogLevel
 };
-//# sourceMappingURL=chunk-BKSTVZ2X.js.map
+//# sourceMappingURL=chunk-ILFJ5CVR.js.map

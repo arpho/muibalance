@@ -1,9 +1,9 @@
 import {
   firebase
-} from "./chunk-EINWKKTS.js";
+} from "./chunk-BSUILZDG.js";
 import {
   VERSION as VERSION2
-} from "./chunk-DJTCEABT.js";
+} from "./chunk-4O3CXPJS.js";
 import {
   Inject,
   InjectionToken,
@@ -206,4 +206,4 @@ firebase/compat/app/dist/esm/index.esm.js:
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-NQ654NI3.js.map
+//# sourceMappingURL=chunk-TQKXCP7E.js.map

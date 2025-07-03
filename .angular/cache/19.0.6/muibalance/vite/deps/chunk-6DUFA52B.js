@@ -53,11 +53,11 @@ import {
   validatePassword,
   verifyBeforeUpdateEmail,
   verifyPasswordResetCode
-} from "./chunk-AG3DFXLP.js";
+} from "./chunk-JVLPW4LQ.js";
 import {
   FirebaseApp,
   FirebaseApps
-} from "./chunk-BKSTVZ2X.js";
+} from "./chunk-ILFJ5CVR.js";
 import {
   VERSION,
   ɵAngularFireSchedulers,
@@ -65,10 +65,10 @@ import {
   ɵgetAllInstancesOf,
   ɵgetDefaultInstanceOf,
   ɵzoneWrap
-} from "./chunk-DJTCEABT.js";
+} from "./chunk-4O3CXPJS.js";
 import {
   registerVersion
-} from "./chunk-JT2VWW6M.js";
+} from "./chunk-MOF5B2ZE.js";
 import {
   InjectionToken,
   Injector,
@@ -319,4 +319,4 @@ rxfire/auth/index.esm.js:
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-47UGEBY2.js.map
+//# sourceMappingURL=chunk-6DUFA52B.js.map

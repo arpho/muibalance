@@ -1,6 +1,6 @@
 import {
   firebase
-} from "./chunk-EINWKKTS.js";
+} from "./chunk-BSUILZDG.js";
 import {
   ActionCodeOperation,
   AuthCredential,
@@ -77,7 +77,7 @@ import {
   updateProfile,
   verifyBeforeUpdateEmail,
   verifyPasswordResetCode
-} from "./chunk-AG3DFXLP.js";
+} from "./chunk-JVLPW4LQ.js";
 import {
   Component,
   FirebaseError,
@@ -88,7 +88,7 @@ import {
   isNode,
   isReactNative,
   querystringDecode
-} from "./chunk-JT2VWW6M.js";
+} from "./chunk-MOF5B2ZE.js";
 import {
   __async
 } from "./chunk-T6SYERLG.js";
@@ -1386,4 +1386,4 @@ registerAuthCompat(firebase);
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-EJXBLAR3.js.map
+//# sourceMappingURL=chunk-L6SPJR7T.js.map

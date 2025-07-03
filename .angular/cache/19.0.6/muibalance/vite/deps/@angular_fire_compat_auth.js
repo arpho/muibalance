@@ -1,4 +1,4 @@
-import "./chunk-EJXBLAR3.js";
+import "./chunk-L6SPJR7T.js";
 import {
   isPlatformServer
 } from "./chunk-CHBY22UR.js";
@@ -9,14 +9,14 @@ import {
   ɵcacheInstance,
   ɵfirebaseAppFactory,
   ɵlazySDKProxy
-} from "./chunk-NQ654NI3.js";
+} from "./chunk-TQKXCP7E.js";
 import {
   firebase
-} from "./chunk-EINWKKTS.js";
-import "./chunk-AG3DFXLP.js";
+} from "./chunk-BSUILZDG.js";
+import "./chunk-JVLPW4LQ.js";
 import {
   FirebaseApp
-} from "./chunk-BKSTVZ2X.js";
+} from "./chunk-ILFJ5CVR.js";
 import {
   VERSION,
   keepUnstableUntilFirst,
@@ -26,7 +26,7 @@ import {
   ɵgetAllInstancesOf,
   ɵgetDefaultInstanceOf,
   ɵzoneWrap
-} from "./chunk-DJTCEABT.js";
+} from "./chunk-4O3CXPJS.js";
 import {
   Component,
   Deferred,
@@ -41,7 +41,7 @@ import {
   isIndexedDBAvailable,
   registerVersion,
   uuidv4
-} from "./chunk-JT2VWW6M.js";
+} from "./chunk-MOF5B2ZE.js";
 import "./chunk-52RXPORM.js";
 import {
   Inject,

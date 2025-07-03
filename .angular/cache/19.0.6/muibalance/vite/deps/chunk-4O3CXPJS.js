@@ -1,7 +1,7 @@
 import {
   getApps,
   registerVersion
-} from "./chunk-JT2VWW6M.js";
+} from "./chunk-MOF5B2ZE.js";
 import {
   Injectable,
   NgZone,
@@ -251,4 +251,4 @@ firebase/app/dist/esm/index.esm.js:
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-DJTCEABT.js.map
+//# sourceMappingURL=chunk-4O3CXPJS.js.map

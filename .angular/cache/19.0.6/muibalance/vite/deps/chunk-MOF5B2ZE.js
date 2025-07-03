@@ -1058,33 +1058,6 @@ function getModularInstance(service) {
   }
 }
 
-// node_modules/@firebase/app/dist/esm/index.esm2017.js
-var index_esm2017_exports = {};
-__export(index_esm2017_exports, {
-  FirebaseError: () => FirebaseError,
-  SDK_VERSION: () => SDK_VERSION,
-  _DEFAULT_ENTRY_NAME: () => DEFAULT_ENTRY_NAME2,
-  _addComponent: () => _addComponent,
-  _addOrOverwriteComponent: () => _addOrOverwriteComponent,
-  _apps: () => _apps,
-  _clearComponents: () => _clearComponents,
-  _components: () => _components,
-  _getProvider: () => _getProvider,
-  _isFirebaseApp: () => _isFirebaseApp,
-  _isFirebaseServerApp: () => _isFirebaseServerApp,
-  _registerComponent: () => _registerComponent,
-  _removeServiceInstance: () => _removeServiceInstance,
-  _serverApps: () => _serverApps,
-  deleteApp: () => deleteApp,
-  getApp: () => getApp,
-  getApps: () => getApps,
-  initializeApp: () => initializeApp,
-  initializeServerApp: () => initializeServerApp,
-  onLog: () => onLog,
-  registerVersion: () => registerVersion,
-  setLogLevel: () => setLogLevel2
-});
-
 // node_modules/@firebase/component/dist/esm/index.esm2017.js
 var Component = class {
   /**
@@ -1531,6 +1504,31 @@ function setUserLogHandler(logCallback, options) {
 }
 
 // node_modules/@firebase/app/dist/esm/index.esm2017.js
+var index_esm2017_exports = {};
+__export(index_esm2017_exports, {
+  FirebaseError: () => FirebaseError,
+  SDK_VERSION: () => SDK_VERSION,
+  _DEFAULT_ENTRY_NAME: () => DEFAULT_ENTRY_NAME2,
+  _addComponent: () => _addComponent,
+  _addOrOverwriteComponent: () => _addOrOverwriteComponent,
+  _apps: () => _apps,
+  _clearComponents: () => _clearComponents,
+  _components: () => _components,
+  _getProvider: () => _getProvider,
+  _isFirebaseApp: () => _isFirebaseApp,
+  _isFirebaseServerApp: () => _isFirebaseServerApp,
+  _registerComponent: () => _registerComponent,
+  _removeServiceInstance: () => _removeServiceInstance,
+  _serverApps: () => _serverApps,
+  deleteApp: () => deleteApp,
+  getApp: () => getApp,
+  getApps: () => getApps,
+  initializeApp: () => initializeApp,
+  initializeServerApp: () => initializeServerApp,
+  onLog: () => onLog,
+  registerVersion: () => registerVersion,
+  setLogLevel: () => setLogLevel2
+});
 var PlatformLoggerServiceImpl = class {
   constructor(container) {
     this.container = container;
@@ -2694,4 +2692,4 @@ export {
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-JT2VWW6M.js.map
+//# sourceMappingURL=chunk-MOF5B2ZE.js.map

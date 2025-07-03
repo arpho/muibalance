@@ -1,4 +1,3 @@
-import "./chunk-H4VKPN7N.js";
 import {
   AbstractUserDataWriter,
   AggregateField,
@@ -238,4 +237,4 @@ export {
   where,
   writeBatch
 };
-//# sourceMappingURL=firebase_firestore.js.map
+//# sourceMappingURL=@firebase_firestore.js.map
